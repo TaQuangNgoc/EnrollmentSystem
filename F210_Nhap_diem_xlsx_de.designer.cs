@@ -137,14 +137,14 @@
             // 
             // m_txt_file_nguyen_vong_xet_tuyen
             // 
-            this.m_txt_file_nguyen_vong_xet_tuyen.Location = new System.Drawing.Point(130, 96);
+            this.m_txt_file_nguyen_vong_xet_tuyen.Location = new System.Drawing.Point(130, 97);
             this.m_txt_file_nguyen_vong_xet_tuyen.Name = "m_txt_file_nguyen_vong_xet_tuyen";
             this.m_txt_file_nguyen_vong_xet_tuyen.Size = new System.Drawing.Size(339, 20);
             this.m_txt_file_nguyen_vong_xet_tuyen.TabIndex = 24;
             // 
             // m_txt_path_chi_tieu
             // 
-            this.m_txt_path_chi_tieu.Location = new System.Drawing.Point(130, 147);
+            this.m_txt_path_chi_tieu.Location = new System.Drawing.Point(130, 142);
             this.m_txt_path_chi_tieu.Name = "m_txt_path_chi_tieu";
             this.m_txt_path_chi_tieu.Size = new System.Drawing.Size(339, 20);
             this.m_txt_path_chi_tieu.TabIndex = 25;

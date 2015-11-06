@@ -61,7 +61,10 @@
     <Reference Include="UIAutomationClient" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS.cs" />
     <Compile Include="Class_dung_chung.cs" />
+    <Compile Include="DAO.cs" />
+    <Compile Include="DBConnection.cs" />
     <Compile Include="F100_CHI_TIET_NGUYEN_VONG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,14 +95,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="NhomNganh.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThiSinh.cs" />
+    <Compile Include="ThongTinTS.cs" />
     <Compile Include="TSBK.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TSBK.Designer.cs">
       <DependentUpon>TSBK.cs</DependentUpon>
     </Compile>
+    <Compile Include="XetTuyen.cs" />
     <EmbeddedResource Include="F100_CHI_TIET_NGUYEN_VONG.resx">
       <DependentUpon>F100_CHI_TIET_NGUYEN_VONG.cs</DependentUpon>
     </EmbeddedResource>
