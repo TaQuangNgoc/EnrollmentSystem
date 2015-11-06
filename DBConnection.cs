@@ -9,15 +9,15 @@ using System.Data.SqlClient;
 
 namespace EnrollmentSystem
 {
-    class DBConnection
+    class DatabaseConnection
     {
         private SqlDataAdapter myAdapter;
         private SqlConnection conn;
 
-        public DBConnection()
+        public DatabaseConnection()
         {
             myAdapter = new SqlDataAdapter();
-            conn = new SqlConnection("Data Source=anhpt-pc\\sqlexpressr2;" + "Initial Catalog=KSTN_TSBK;" + "User id=sa;" + "Password=sa123456;");
+            conn = new SqlConnection("Data Source=27.118.16.97;" + "Initial Catalog=EnrollmentSystem;" + "User id=EnrollmentSystemAdmin;" + "Password=do6KEIaiE4VhWl2IREVx;");
         }
 
         private SqlConnection OpenConnection()

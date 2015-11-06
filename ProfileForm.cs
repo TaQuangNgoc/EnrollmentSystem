@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace EnrollmentSystem
 {
-    public partial class F140_HO_SO_THI_SINH : Form
+    public partial class ProfileForm : Form
     {
-        public F140_HO_SO_THI_SINH()
+        public ProfileForm()
         {
             InitializeComponent();
         }

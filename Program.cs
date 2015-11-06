@@ -15,7 +15,7 @@ namespace EnrollmentSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TSBK());
+            Application.Run(new MainForm());
         }
     }
 }

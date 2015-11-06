@@ -1,6 +1,6 @@
 ﻿namespace EnrollmentSystem
 {
-    partial class F130_BAO_CAO
+    partial class ReportForm
     {
         /// <summary>
         /// Required designer variable.

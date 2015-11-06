@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace EnrollmentSystem
 {
-    public partial class F130_BAO_CAO : Form
+    public partial class ReportForm : Form
     {
-        public F130_BAO_CAO()
+        public ReportForm()
         {
             InitializeComponent();
         }
@@ -24,7 +24,7 @@ namespace EnrollmentSystem
 
         private void pivotGridControl1_CellDoubleClick(object sender, DevExpress.XtraPivotGrid.PivotCellEventArgs e)
         {
-            F130_BAO_CAO_DE v_f = new F130_BAO_CAO_DE();
+            ReportDetailsForm v_f = new ReportDetailsForm();
             v_f.Display_for_bao_cao_de(e.CreateDrillDownDataSource());
         }
     }

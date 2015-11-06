@@ -13,7 +13,7 @@ namespace EnrollmentSystem
         {
             var ds = new DataSet();
             SqlConnection sqlConnection1 = new SqlConnection();
-            sqlConnection1.ConnectionString = "Data Source=anhpt-pc\\sqlexpressr2;" + "Initial Catalog=KSTN_TSBK;" + "User id=sa;" + "Password=sa123456;";
+            sqlConnection1.ConnectionString = "Data Source=27.118.16.97;" + "Initial Catalog=EnrollmentSystem;" + "User id=EnrollmentSystemAdmin;" + "Password=do6KEIaiE4VhWl2IREVx;";
             SqlCommand cmd = new SqlCommand();
             // SqlDataReader reader;
 

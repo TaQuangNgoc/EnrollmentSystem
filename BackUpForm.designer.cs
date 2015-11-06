@@ -1,6 +1,6 @@
 ﻿namespace EnrollmentSystem
 {
-    partial class F210_Nhap_diem_xlsx_de
+    partial class BackUpForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F210_Nhap_diem_xlsx_de));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BackUpForm));
             this.ImageList = new System.Windows.Forms.ImageList(this.components);
             this.m_pnl_out_place_dm = new System.Windows.Forms.Panel();
             this.m_cmd_update = new DevExpress.XtraEditors.SimpleButton();

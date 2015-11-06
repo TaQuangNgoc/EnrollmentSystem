@@ -13,7 +13,7 @@ using System.Security.Cryptography;
 
 namespace EnrollmentSystem
 {
-    public partial class F210_Nhap_diem_xlsx_de : Form
+    public partial class BackUpForm : Form
     {
         DataTable m_dt_ho_so_thi_sinh;
         DataTable m_dt_nguyen_vong;
@@ -22,7 +22,7 @@ namespace EnrollmentSystem
         private BUS bus;
         private SHA256 mySHA256;
 
-        public F210_Nhap_diem_xlsx_de()
+        public BackUpForm()
         {
             InitializeComponent();
 
@@ -58,7 +58,7 @@ namespace EnrollmentSystem
             //     ImportFile();
             DataTable v_dt = new DataTable();
             v_dt = GetDataTabletFromCSVFile(m_txt_path_ho_so.Text);
-            F130_BAO_CAO v_f = new F130_BAO_CAO();
+            ReportForm v_f = new ReportForm();
             v_f.display_for_bao_cao(v_dt);
             m_dt_ho_so_thi_sinh = GetDataTabletFromCSVFile(m_txt_path_ho_so.Text);
             xu_ly_ho_so();

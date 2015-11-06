@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace EnrollmentSystem
 {
-    public partial class F130_BAO_CAO_DE : Form
+    public partial class ReportDetailsForm : Form
     {
-        public F130_BAO_CAO_DE()
+        public ReportDetailsForm()
         {
             InitializeComponent();
         }

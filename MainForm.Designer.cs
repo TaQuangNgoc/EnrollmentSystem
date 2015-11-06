@@ -1,6 +1,6 @@
 ﻿namespace EnrollmentSystem
 {
-    partial class TSBK
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TSBK));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.m_cmd_thong_tin = new DevExpress.XtraBars.BarButtonItem();
             this.m_cmd_nguyen_vong = new DevExpress.XtraBars.BarButtonItem();

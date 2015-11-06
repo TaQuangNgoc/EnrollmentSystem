@@ -10,11 +10,11 @@ namespace EnrollmentSystem
 {
     class DAO
     {
-        private DBConnection conn;
+        private DatabaseConnection conn;
 
         public DAO()
         {
-            conn = new DBConnection();
+            conn = new DatabaseConnection();
         }
         
         //

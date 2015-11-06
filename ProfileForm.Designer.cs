@@ -1,6 +1,6 @@
 ﻿namespace EnrollmentSystem
 {
-    partial class F140_HO_SO_THI_SINH
+    partial class ProfileForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F140_HO_SO_THI_SINH));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileForm));
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.m_sle_uu_tien = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
