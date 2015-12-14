@@ -70,7 +70,7 @@ namespace EnrollmentSystem
                 cmd.Parameters.Add(new SqlParameter("@UU_TIEN", m_sle_uu_tien.EditValue));
                 cmd.ExecuteReader();
                 MessageBox.Show("Nhập dữ liệu thành công!");
-                F100_CHI_TIET_NGUYEN_VONG v_f = new F100_CHI_TIET_NGUYEN_VONG();
+                PreferencesForm v_f = new PreferencesForm();
                 v_f.display_for_chi_tiet(m_txt_so_bao_danh.Text, m_txt_ho_ten.Text);
             }
             catch (Exception)

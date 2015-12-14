@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace EnrollmentSystem
 {
-    public partial class F100_CHI_TIET_NGUYEN_VONG : Form
+    public partial class PreferencesForm : Form
     {
         DataSet m_ds_nganh;
         DataSet m_ds_to_hop;
-        public F100_CHI_TIET_NGUYEN_VONG()
+        public PreferencesForm()
         {
             InitializeComponent();
            
