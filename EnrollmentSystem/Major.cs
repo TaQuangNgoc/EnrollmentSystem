@@ -17,7 +17,7 @@ namespace EnrollmentSystem
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Major()
         {
-            this.MajorCombinations = new HashSet<MajorCombination>();
+            this.MajorSubjectCombinations = new HashSet<MajorSubjectCombination>();
         }
     
         public int ID { get; set; }
@@ -26,6 +26,6 @@ namespace EnrollmentSystem
         public Nullable<decimal> CutOff { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorCombination> MajorCombinations { get; set; }
+        public virtual ICollection<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
     }
 }

@@ -262,9 +262,6 @@
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Class_dung_chung.cs" />
-    <Compile Include="Combination.cs">
-      <DependentUpon>EnrollmentModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAO.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="EnrollmentModel.Context.cs">
@@ -291,7 +288,7 @@
     <Compile Include="Major.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="MajorCombination.cs">
+    <Compile Include="MajorSubjectCombination.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Mark.cs">
@@ -326,6 +323,9 @@
     </Compile>
     <Compile Include="ReportForm.Designer.cs" />
     <Compile Include="Subject.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectCombination.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ThiSinh.cs" />

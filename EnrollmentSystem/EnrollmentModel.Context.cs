@@ -27,13 +27,13 @@ namespace EnrollmentSystem
     
         public virtual DbSet<Beneficiary> Beneficiaries { get; set; }
         public virtual DbSet<Candidate> Candidates { get; set; }
-        public virtual DbSet<Combination> Combinations { get; set; }
-        public virtual DbSet<MajorCombination> MajorCombinations { get; set; }
         public virtual DbSet<Major> Majors { get; set; }
+        public virtual DbSet<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
         public virtual DbSet<Mark> Marks { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Privilege> Privileges { get; set; }
         public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<SubjectCombination> SubjectCombinations { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
     }
 }

@@ -12,10 +12,10 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class MajorCombination
+    public partial class MajorSubjectCombination
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MajorCombination()
+        public MajorSubjectCombination()
         {
             this.Options = new HashSet<Option>();
             this.Options1 = new HashSet<Option>();
@@ -25,10 +25,10 @@ namespace EnrollmentSystem
     
         public int ID { get; set; }
         public int MajorID { get; set; }
-        public int CombinationID { get; set; }
+        public int SubjectCombinationID { get; set; }
     
-        public virtual Combination Combination { get; set; }
         public virtual Major Major { get; set; }
+        public virtual SubjectCombination SubjectCombination { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Option> Options { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
