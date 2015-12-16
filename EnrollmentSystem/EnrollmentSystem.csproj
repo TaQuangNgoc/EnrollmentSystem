@@ -11,6 +11,7 @@
     <AssemblyName>EnrollmentSystem</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -253,59 +254,59 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BackUpForm.designer.cs" />
-    <Compile Include="Beneficiaries.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Beneficiary.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BUS.cs" />
-    <Compile Include="Candidates.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Candidate.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Class_dung_chung.cs" />
-    <Compile Include="Combinations.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Combination.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO.cs" />
     <Compile Include="DBConnection.cs" />
+    <Compile Include="EnrollmentModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnrollmentModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnrollmentModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnrollmentModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MajorCombinations.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Major.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Majors.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="MajorCombination.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Marks.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelES.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelES.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelES.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelES.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelES.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelES.edmx</DependentUpon>
+    <Compile Include="Mark.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NhomNganh.cs" />
-    <Compile Include="Options.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Option.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Preference.Designer.cs" />
     <Compile Include="PreferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Privileges.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Privilege.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProfileForm.cs">
       <SubType>Form</SubType>
@@ -313,8 +314,8 @@
     <Compile Include="ProfileForm.Designer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Regions.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Region.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReportDetailsForm.cs">
       <SubType>Form</SubType>
@@ -324,17 +325,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportForm.Designer.cs" />
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Subjects.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>ModelES.tt</DependentUpon>
+    <Compile Include="Subject.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ThiSinh.cs" />
     <Compile Include="ThongTinTS.cs" />
@@ -356,22 +348,12 @@
     </Compile>
     <EmbeddedResource Include="ReportDetailsForm.resx" />
     <EmbeddedResource Include="ReportForm.resx" />
-    <EntityDeploy Include="ModelES.edmx">
+    <EntityDeploy Include="EnrollmentModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelES.Designer.cs</LastGenOutput>
+      <LastGenOutput>EnrollmentModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ModelES.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelES.edmx</DependentUpon>
-      <LastGenOutput>ModelES.Context.cs</LastGenOutput>
-    </None>
-    <None Include="ModelES.edmx.diagram">
-      <DependentUpon>ModelES.edmx</DependentUpon>
-    </None>
-    <None Include="ModelES.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelES.edmx</DependentUpon>
-      <LastGenOutput>ModelES.cs</LastGenOutput>
+    <None Include="EnrollmentModel.edmx.diagram">
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -389,6 +371,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EnrollmentModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
+      <LastGenOutput>EnrollmentModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EnrollmentModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EnrollmentModel.edmx</DependentUpon>
+      <LastGenOutput>EnrollmentModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

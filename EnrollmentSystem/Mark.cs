@@ -12,14 +12,14 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Marks
+    public partial class Mark
     {
         public int ID { get; set; }
         public int CandidateID { get; set; }
         public int SubjectID { get; set; }
-        public Nullable<decimal> Mark { get; set; }
+        public Nullable<decimal> Mark1 { get; set; }
     
-        public virtual Candidates Candidates { get; set; }
-        public virtual Subjects Subjects { get; set; }
+        public virtual Candidate Candidate { get; set; }
+        public virtual Subject Subject { get; set; }
     }
 }

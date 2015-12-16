@@ -12,13 +12,13 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Candidates
+    public partial class Candidate
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Candidates()
+        public Candidate()
         {
-            this.Marks = new HashSet<Marks>();
-            this.Options = new HashSet<Options>();
+            this.Marks = new HashSet<Mark>();
+            this.Options = new HashSet<Option>();
         }
     
         public int ID { get; set; }
@@ -28,15 +28,15 @@ namespace EnrollmentSystem
         public Nullable<int> RegionID { get; set; }
         public Nullable<int> BeneficiaryID { get; set; }
         public Nullable<int> PrivilegeID { get; set; }
-        public byte[] PASSWORD { get; set; }
+        public byte[] Pasword { get; set; }
         public string MajorPass { get; set; }
     
-        public virtual Beneficiaries Beneficiaries { get; set; }
-        public virtual Privileges Privileges { get; set; }
-        public virtual Regions Regions { get; set; }
+        public virtual Beneficiary Beneficiary { get; set; }
+        public virtual Privilege Privilege { get; set; }
+        public virtual Region Region { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Marks> Marks { get; set; }
+        public virtual ICollection<Mark> Marks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options { get; set; }
+        public virtual ICollection<Option> Options { get; set; }
     }
 }

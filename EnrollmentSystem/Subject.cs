@@ -12,30 +12,27 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class MajorCombinations
+    public partial class Subject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MajorCombinations()
+        public Subject()
         {
-            this.Options = new HashSet<Options>();
-            this.Options1 = new HashSet<Options>();
-            this.Options2 = new HashSet<Options>();
-            this.Options3 = new HashSet<Options>();
+            this.Combinations = new HashSet<Combination>();
+            this.Combinations1 = new HashSet<Combination>();
+            this.Combinations2 = new HashSet<Combination>();
+            this.Marks = new HashSet<Mark>();
         }
     
         public int ID { get; set; }
-        public int MajorID { get; set; }
-        public int CombinationID { get; set; }
+        public string SubjectName { get; set; }
     
-        public virtual Combinations Combinations { get; set; }
-        public virtual Majors Majors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options { get; set; }
+        public virtual ICollection<Combination> Combinations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options1 { get; set; }
+        public virtual ICollection<Combination> Combinations1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options2 { get; set; }
+        public virtual ICollection<Combination> Combinations2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options3 { get; set; }
+        public virtual ICollection<Mark> Marks { get; set; }
     }
 }

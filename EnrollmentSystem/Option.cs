@@ -12,7 +12,7 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Options
+    public partial class Option
     {
         public int ID { get; set; }
         public int CandidateID { get; set; }
@@ -21,10 +21,10 @@ namespace EnrollmentSystem
         public int MajorCombinationID3 { get; set; }
         public int MajorCombinationID4 { get; set; }
     
-        public virtual Candidates Candidates { get; set; }
-        public virtual MajorCombinations MajorCombinations { get; set; }
-        public virtual MajorCombinations MajorCombinations1 { get; set; }
-        public virtual MajorCombinations MajorCombinations2 { get; set; }
-        public virtual MajorCombinations MajorCombinations3 { get; set; }
+        public virtual Candidate Candidate { get; set; }
+        public virtual MajorCombination MajorCombination { get; set; }
+        public virtual MajorCombination MajorCombination1 { get; set; }
+        public virtual MajorCombination MajorCombination2 { get; set; }
+        public virtual MajorCombination MajorCombination3 { get; set; }
     }
 }
