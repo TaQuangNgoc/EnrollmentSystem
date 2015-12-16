@@ -16,37 +16,76 @@ namespace EnrollmentSystem
 
         }
 
-        public void ImportCSV(string csvFilePath)
+        public void ImportCSV(string folderPath, string candidatesFileName, string optionsFileName)
         {
-            DataTable csvData = new DataTable();
-            using (TextFieldParser csvReader = new TextFieldParser(csvFilePath))
+            var candidatesData = DataTableFromCSV(folderPath + candidatesFileName);
+            ImportCandidatesData(candidatesData);
+
+            var optionsData = DataTableFromCSV(folderPath + candidatesFileName);
+            ImportCandidatesData(optionsData);
+        }
+
+        private DataTable DataTableFromCSV(string path)
+        {
+            var data = new DataTable();
+            using (var parser = new TextFieldParser(path))
             {
-                csvReader.SetDelimiters(new string[] { "," });
-                csvReader.HasFieldsEnclosedInQuotes = true;
-                string[] colFields = csvReader.ReadFields();
-                foreach (string column in colFields)
+                parser.SetDelimiters(new[] { "," });
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                var columns = parser.ReadFields();
+                foreach (string column in columns)
                 {
-                    DataColumn datecolumn = new DataColumn(column);
-                    datecolumn.AllowDBNull = true;
-                    csvData.Columns.Add(datecolumn);
+                    var dataColumn = new DataColumn(column);
+                    dataColumn.AllowDBNull = true;
+                    data.Columns.Add(dataColumn);
                 }
-                while (!csvReader.EndOfData)
+
+                while (!parser.EndOfData)
                 {
-                    string[] fieldData = csvReader.ReadFields();
-                    //Making empty value as null
-                    for (int i = 0; i < fieldData.Length; i++)
-                    {
-                        if (fieldData[i] == "")
-                        {
-                            fieldData[i] = null;
-                        }
-                    }
-                    csvData.Rows.Add(fieldData);
+                    var row = parser.ReadFields();
+                    var replaced = from cell in row
+                                   select (cell == "") ? null : cell;
+                    data.Rows.Add(replaced);
                 }
             }
 
-            //return csvData;
-            // server stuffs
+            return data;
+        }
+
+        private void ImportCandidatesData(DataTable candidatesData)
+        {
+            var validColumnNames = new[] { "SBD", "HoTen", "NgaySinh", "KV", "DT", "UT",
+                "Toan", "Van", "Ly", "Hoa", "Sinh", "Su", "Dia", "Anh", "Nga", "Phap", "Trung", "Duc", "Nhat" };
+
+            bool dataIsvalid = DataIsValid(candidatesData, validColumnNames);
+            if (!dataIsvalid)
+                throw new FormatException("Data file is not of correct format.");
+
+            foreach (DataRow dataRow in candidatesData.Rows)
+            {
+                string candidateID = (string)dataRow[0];
+                string name = (string)dataRow[1];
+                DateTime dateOfBirth = (DateTime)dataRow[2];
+            }
+        }
+
+        private bool DataIsValid(DataTable data, string[] validColumnNames)
+        {
+            var dataColumns = data.Columns;
+            if (dataColumns.Count != validColumnNames.Length)
+                return false;
+
+            for (int i = 0; i < validColumnNames.Length; i++)
+                if (dataColumns[i].ColumnName != validColumnNames[i])
+                    return false;
+
+            return true;
+        }
+
+        private void ImportOptionsData(DataTable optionsData)
+        {
+
         }
     }
 }

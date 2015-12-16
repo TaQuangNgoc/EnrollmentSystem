@@ -9,38 +9,38 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Bounus" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Bonus" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Candidates">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="CandidateID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
           <Property Name="RegionID" Type="int" />
           <Property Name="BeneficiaryID" Type="int" />
-          <Property Name="PrivilegeID" Type="int" />
-          <Property Name="Pasword" Type="binary" MaxLength="32" />
-          <Property Name="MajorPass" Type="nvarchar" MaxLength="20" />
+          <Property Name="HasPrivilege" Type="bit" Nullable="false" />
+          <Property Name="Pasword" Type="binary" MaxLength="32" Nullable="false" />
+          <Property Name="AdmittedMajorID" Type="int" />
         </EntityType>
         <EntityType Name="Majors">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Majorname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Limit" Type="int" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MajorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Limit" Type="int" Nullable="false" />
           <Property Name="CutOff" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="MajorSubjectCombinations">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MajorID" Type="int" Nullable="false" />
           <Property Name="SubjectCombinationID" Type="int" Nullable="false" />
         </EntityType>
@@ -48,56 +48,48 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CandidateID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
-          <Property Name="Mark" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Mark" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Options">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CandidateID" Type="int" Nullable="false" />
           <Property Name="MajorCombinationID1" Type="int" Nullable="false" />
           <Property Name="MajorCombinationID2" Type="int" Nullable="false" />
           <Property Name="MajorCombinationID3" Type="int" Nullable="false" />
           <Property Name="MajorCombinationID4" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Privileges">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" />
-          <Property Name="Bounus" Type="numeric" Precision="18" Scale="2" Nullable="false" />
-        </EntityType>
         <EntityType Name="Regions">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RegionName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Bounus" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Bonus" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="SubjectCombinations">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="SubjectID1" Type="int" />
-          <Property Name="SubjectID2" Type="int" />
-          <Property Name="SubjectID3" Type="int" />
-          <Property Name="HasMainSubject" Type="bit" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectID1" Type="int" Nullable="false" />
+          <Property Name="SubjectID2" Type="int" Nullable="false" />
+          <Property Name="SubjectID3" Type="int" Nullable="false" />
+          <Property Name="HasMainSubject" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Subjects">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Candidates_dm_doi_tuong">
+        <Association Name="FK_Candidates_Beneficiaries">
           <End Role="Beneficiaries" Type="Self.Beneficiaries" Multiplicity="0..1" />
           <End Role="Candidates" Type="Self.Candidates" Multiplicity="*" />
           <ReferentialConstraint>
@@ -106,18 +98,6 @@
             </Principal>
             <Dependent Role="Candidates">
               <PropertyRef Name="BeneficiaryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Candidates_DM_UU_TIEN">
-          <End Role="Privileges" Type="Self.Privileges" Multiplicity="0..1" />
-          <End Role="Candidates" Type="Self.Candidates" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Privileges">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Candidates">
-              <PropertyRef Name="PrivilegeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -133,55 +113,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Combinations_Subjects">
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
-          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SubjectCombinations">
-              <PropertyRef Name="SubjectID1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Combinations_Subjects1">
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
-          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SubjectCombinations">
-              <PropertyRef Name="SubjectID2" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Combinations_Subjects2">
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
-          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="SubjectCombinations">
-              <PropertyRef Name="SubjectID3" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MajorCombinations_Combinations">
-          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="1" />
-          <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubjectCombinations">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MajorSubjectCombinations">
-              <PropertyRef Name="SubjectCombinationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MajorCombinations_Majors">
+        <Association Name="FK_MajorSubjectCombinations_Majors">
           <End Role="Majors" Type="Self.Majors" Multiplicity="1" />
           <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -190,6 +122,18 @@
             </Principal>
             <Dependent Role="MajorSubjectCombinations">
               <PropertyRef Name="MajorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MajorSubjectCombinations_SubjectCombinations">
+          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="1" />
+          <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectCombinations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MajorSubjectCombinations">
+              <PropertyRef Name="SubjectCombinationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -229,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations">
+        <Association Name="FK_Options_MajorSubjectCombinations1">
           <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="1" />
           <End Role="Options" Type="Self.Options" Multiplicity="*" />
           <ReferentialConstraint>
@@ -241,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations1">
+        <Association Name="FK_Options_MajorSubjectCombinations2">
           <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="1" />
           <End Role="Options" Type="Self.Options" Multiplicity="*" />
           <ReferentialConstraint>
@@ -253,7 +197,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations2">
+        <Association Name="FK_Options_MajorSubjectCombinations3">
           <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="1" />
           <End Role="Options" Type="Self.Options" Multiplicity="*" />
           <ReferentialConstraint>
@@ -265,7 +209,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations3">
+        <Association Name="FK_Options_MajorSubjectCombinations4">
           <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="1" />
           <End Role="Options" Type="Self.Options" Multiplicity="*" />
           <ReferentialConstraint>
@@ -277,6 +221,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubjectCombinations_Subjects1">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubjectCombinations">
+              <PropertyRef Name="SubjectID1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubjectCombinations_Subjects2">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubjectCombinations">
+              <PropertyRef Name="SubjectID2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubjectCombinations_Subjects3">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="SubjectCombinations" Type="Self.SubjectCombinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubjectCombinations">
+              <PropertyRef Name="SubjectID3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="EnrollmentModelStoreContainer">
           <EntitySet Name="Beneficiaries" EntityType="Self.Beneficiaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Candidates" EntityType="Self.Candidates" Schema="dbo" store:Type="Tables" />
@@ -284,40 +264,23 @@
           <EntitySet Name="MajorSubjectCombinations" EntityType="Self.MajorSubjectCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Privileges" EntityType="Self.Privileges" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubjectCombinations" EntityType="Self.SubjectCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Candidates_dm_doi_tuong" Association="Self.FK_Candidates_dm_doi_tuong">
+          <AssociationSet Name="FK_Candidates_Beneficiaries" Association="Self.FK_Candidates_Beneficiaries">
             <End Role="Beneficiaries" EntitySet="Beneficiaries" />
-            <End Role="Candidates" EntitySet="Candidates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Candidates_DM_UU_TIEN" Association="Self.FK_Candidates_DM_UU_TIEN">
-            <End Role="Privileges" EntitySet="Privileges" />
             <End Role="Candidates" EntitySet="Candidates" />
           </AssociationSet>
           <AssociationSet Name="FK_Candidates_Regions" Association="Self.FK_Candidates_Regions">
             <End Role="Regions" EntitySet="Regions" />
             <End Role="Candidates" EntitySet="Candidates" />
           </AssociationSet>
-          <AssociationSet Name="FK_Combinations_Subjects" Association="Self.FK_Combinations_Subjects">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Combinations_Subjects1" Association="Self.FK_Combinations_Subjects1">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Combinations_Subjects2" Association="Self.FK_Combinations_Subjects2">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MajorCombinations_Combinations" Association="Self.FK_MajorCombinations_Combinations">
-            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
+          <AssociationSet Name="FK_MajorSubjectCombinations_Majors" Association="Self.FK_MajorSubjectCombinations_Majors">
+            <End Role="Majors" EntitySet="Majors" />
             <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
           </AssociationSet>
-          <AssociationSet Name="FK_MajorCombinations_Majors" Association="Self.FK_MajorCombinations_Majors">
-            <End Role="Majors" EntitySet="Majors" />
+          <AssociationSet Name="FK_MajorSubjectCombinations_SubjectCombinations" Association="Self.FK_MajorSubjectCombinations_SubjectCombinations">
+            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
             <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
           </AssociationSet>
           <AssociationSet Name="FK_Marks_Candidates" Association="Self.FK_Marks_Candidates">
@@ -332,21 +295,33 @@
             <End Role="Candidates" EntitySet="Candidates" />
             <End Role="Options" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations" Association="Self.FK_Options_MajorCombinations">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations1" Association="Self.FK_Options_MajorSubjectCombinations1">
             <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
             <End Role="Options" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations1" Association="Self.FK_Options_MajorCombinations1">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations2" Association="Self.FK_Options_MajorSubjectCombinations2">
             <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
             <End Role="Options" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations2" Association="Self.FK_Options_MajorCombinations2">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations3" Association="Self.FK_Options_MajorSubjectCombinations3">
             <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
             <End Role="Options" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations3" Association="Self.FK_Options_MajorCombinations3">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations4" Association="Self.FK_Options_MajorSubjectCombinations4">
             <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
             <End Role="Options" EntitySet="Options" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubjectCombinations_Subjects1" Association="Self.FK_SubjectCombinations_Subjects1">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubjectCombinations_Subjects2" Association="Self.FK_SubjectCombinations_Subjects2">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubjectCombinations_Subjects3" Association="Self.FK_SubjectCombinations_Subjects3">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="SubjectCombinations" EntitySet="SubjectCombinations" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -360,18 +335,9 @@
           <EntitySet Name="MajorSubjectCombinations" EntityType="EnrollmentModel.MajorSubjectCombination" />
           <EntitySet Name="Marks" EntityType="EnrollmentModel.Mark" />
           <EntitySet Name="Options" EntityType="EnrollmentModel.Option" />
-          <EntitySet Name="Privileges" EntityType="EnrollmentModel.Privilege" />
           <EntitySet Name="Regions" EntityType="EnrollmentModel.Region" />
           <EntitySet Name="SubjectCombinations" EntityType="EnrollmentModel.SubjectCombination" />
           <EntitySet Name="Subjects" EntityType="EnrollmentModel.Subject" />
-          <AssociationSet Name="FK_Candidates_dm_doi_tuong" Association="EnrollmentModel.FK_Candidates_dm_doi_tuong">
-            <End Role="Beneficiary" EntitySet="Beneficiaries" />
-            <End Role="Candidate" EntitySet="Candidates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Candidates_DM_UU_TIEN" Association="EnrollmentModel.FK_Candidates_DM_UU_TIEN">
-            <End Role="Privilege" EntitySet="Privileges" />
-            <End Role="Candidate" EntitySet="Candidates" />
-          </AssociationSet>
           <AssociationSet Name="FK_Candidates_Regions" Association="EnrollmentModel.FK_Candidates_Regions">
             <End Role="Region" EntitySet="Regions" />
             <End Role="Candidate" EntitySet="Candidates" />
@@ -384,27 +350,27 @@
             <End Role="Candidate" EntitySet="Candidates" />
             <End Role="Option" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_MajorCombinations_Majors" Association="EnrollmentModel.FK_MajorCombinations_Majors">
+          <AssociationSet Name="FK_MajorSubjectCombinations_Majors" Association="EnrollmentModel.FK_MajorSubjectCombinations_Majors">
             <End Role="Major" EntitySet="Majors" />
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
           </AssociationSet>
-          <AssociationSet Name="FK_MajorCombinations_Combinations" Association="EnrollmentModel.FK_MajorCombinations_Combinations">
+          <AssociationSet Name="FK_MajorSubjectCombinations_SubjectCombinations" Association="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations">
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations" Association="EnrollmentModel.FK_Options_MajorCombinations">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations1" Association="EnrollmentModel.FK_Options_MajorSubjectCombinations1">
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Option" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations1" Association="EnrollmentModel.FK_Options_MajorCombinations1">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations2" Association="EnrollmentModel.FK_Options_MajorSubjectCombinations2">
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Option" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations2" Association="EnrollmentModel.FK_Options_MajorCombinations2">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations3" Association="EnrollmentModel.FK_Options_MajorSubjectCombinations3">
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Option" EntitySet="Options" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_MajorCombinations3" Association="EnrollmentModel.FK_Options_MajorCombinations3">
+          <AssociationSet Name="FK_Options_MajorSubjectCombinations4" Association="EnrollmentModel.FK_Options_MajorSubjectCombinations4">
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Option" EntitySet="Options" />
           </AssociationSet>
@@ -412,79 +378,82 @@
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="Mark" EntitySet="Marks" />
           </AssociationSet>
-          <AssociationSet Name="FK_Combinations_Subjects" Association="EnrollmentModel.FK_Combinations_Subjects">
+          <AssociationSet Name="FK_SubjectCombinations_Subjects1" Association="EnrollmentModel.FK_SubjectCombinations_Subjects1">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
           </AssociationSet>
-          <AssociationSet Name="FK_Combinations_Subjects1" Association="EnrollmentModel.FK_Combinations_Subjects1">
+          <AssociationSet Name="FK_SubjectCombinations_Subjects2" Association="EnrollmentModel.FK_SubjectCombinations_Subjects2">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
           </AssociationSet>
-          <AssociationSet Name="FK_Combinations_Subjects2" Association="EnrollmentModel.FK_Combinations_Subjects2">
+          <AssociationSet Name="FK_SubjectCombinations_Subjects3" Association="EnrollmentModel.FK_SubjectCombinations_Subjects3">
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidates_Beneficiaries" Association="EnrollmentModel.FK_Candidates_Beneficiaries">
+            <End Role="Beneficiary" EntitySet="Beneficiaries" />
+            <End Role="Candidate" EntitySet="Candidates" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Beneficiary">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bounus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_dm_doi_tuong" FromRole="Beneficiary" ToRole="Candidate" />
+          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Beneficiary" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="Candidate">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="CandidateID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RegionID" Type="Int32" />
           <Property Name="BeneficiaryID" Type="Int32" />
-          <Property Name="PrivilegeID" Type="Int32" />
-          <Property Name="Pasword" Type="Binary" MaxLength="32" FixedLength="true" />
-          <Property Name="MajorPass" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_dm_doi_tuong" FromRole="Candidate" ToRole="Beneficiary" />
-          <NavigationProperty Name="Privilege" Relationship="EnrollmentModel.FK_Candidates_DM_UU_TIEN" FromRole="Candidate" ToRole="Privilege" />
+          <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
+          <Property Name="Pasword" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
+          <Property Name="AdmittedMajorID" Type="Int32" />
           <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
           <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
           <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Candidate" ToRole="Option" />
+          <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Candidate" ToRole="Beneficiary" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Majorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Limit" Type="Int32" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MajorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="Int32" Nullable="false" />
           <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
+          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
         </EntityType>
         <EntityType Name="MajorSubjectCombination">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MajorID" Type="Int32" Nullable="false" />
           <Property Name="SubjectCombinationID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_MajorCombinations_Majors" FromRole="MajorSubjectCombination" ToRole="Major" />
-          <NavigationProperty Name="SubjectCombination" Relationship="EnrollmentModel.FK_MajorCombinations_Combinations" FromRole="MajorSubjectCombination" ToRole="SubjectCombination" />
-          <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_MajorCombinations" FromRole="MajorSubjectCombination" ToRole="Option" />
-          <NavigationProperty Name="Options1" Relationship="EnrollmentModel.FK_Options_MajorCombinations1" FromRole="MajorSubjectCombination" ToRole="Option" />
-          <NavigationProperty Name="Options2" Relationship="EnrollmentModel.FK_Options_MajorCombinations2" FromRole="MajorSubjectCombination" ToRole="Option" />
-          <NavigationProperty Name="Options3" Relationship="EnrollmentModel.FK_Options_MajorCombinations3" FromRole="MajorSubjectCombination" ToRole="Option" />
+          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="MajorSubjectCombination" ToRole="Major" />
+          <NavigationProperty Name="SubjectCombination" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations" FromRole="MajorSubjectCombination" ToRole="SubjectCombination" />
+          <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations1" FromRole="MajorSubjectCombination" ToRole="Option" />
+          <NavigationProperty Name="Options1" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations2" FromRole="MajorSubjectCombination" ToRole="Option" />
+          <NavigationProperty Name="Options2" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations3" FromRole="MajorSubjectCombination" ToRole="Option" />
+          <NavigationProperty Name="Options3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="MajorSubjectCombination" ToRole="Option" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CandidateID" Type="Int32" Nullable="false" />
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
-          <Property Name="Mark1" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Mark1" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Mark" ToRole="Candidate" />
           <NavigationProperty Name="Subject" Relationship="EnrollmentModel.FK_Marks_Subjects" FromRole="Mark" ToRole="Subject" />
         </EntityType>
@@ -492,85 +461,52 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CandidateID" Type="Int32" Nullable="false" />
           <Property Name="MajorCombinationID1" Type="Int32" Nullable="false" />
           <Property Name="MajorCombinationID2" Type="Int32" Nullable="false" />
           <Property Name="MajorCombinationID3" Type="Int32" Nullable="false" />
           <Property Name="MajorCombinationID4" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Option" ToRole="Candidate" />
-          <NavigationProperty Name="MajorSubjectCombination" Relationship="EnrollmentModel.FK_Options_MajorCombinations" FromRole="Option" ToRole="MajorSubjectCombination" />
-          <NavigationProperty Name="MajorSubjectCombination1" Relationship="EnrollmentModel.FK_Options_MajorCombinations1" FromRole="Option" ToRole="MajorSubjectCombination" />
-          <NavigationProperty Name="MajorSubjectCombination2" Relationship="EnrollmentModel.FK_Options_MajorCombinations2" FromRole="Option" ToRole="MajorSubjectCombination" />
-          <NavigationProperty Name="MajorSubjectCombination3" Relationship="EnrollmentModel.FK_Options_MajorCombinations3" FromRole="Option" ToRole="MajorSubjectCombination" />
-        </EntityType>
-        <EntityType Name="Privilege">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Bounus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_DM_UU_TIEN" FromRole="Privilege" ToRole="Candidate" />
+          <NavigationProperty Name="MajorSubjectCombination" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations1" FromRole="Option" ToRole="MajorSubjectCombination" />
+          <NavigationProperty Name="MajorSubjectCombination1" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations2" FromRole="Option" ToRole="MajorSubjectCombination" />
+          <NavigationProperty Name="MajorSubjectCombination2" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations3" FromRole="Option" ToRole="MajorSubjectCombination" />
+          <NavigationProperty Name="MajorSubjectCombination3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="Option" ToRole="MajorSubjectCombination" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RegionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bounus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Region" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="SubjectCombination">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="SubjectID1" Type="Int32" />
-          <Property Name="SubjectID2" Type="Int32" />
-          <Property Name="SubjectID3" Type="Int32" />
-          <Property Name="HasMainSubject" Type="Boolean" />
-          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorCombinations_Combinations" FromRole="SubjectCombination" ToRole="MajorSubjectCombination" />
-          <NavigationProperty Name="Subject" Relationship="EnrollmentModel.FK_Combinations_Subjects" FromRole="SubjectCombination" ToRole="Subject" />
-          <NavigationProperty Name="Subject1" Relationship="EnrollmentModel.FK_Combinations_Subjects1" FromRole="SubjectCombination" ToRole="Subject" />
-          <NavigationProperty Name="Subject2" Relationship="EnrollmentModel.FK_Combinations_Subjects2" FromRole="SubjectCombination" ToRole="Subject" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID1" Type="Int32" Nullable="false" />
+          <Property Name="SubjectID2" Type="Int32" Nullable="false" />
+          <Property Name="SubjectID3" Type="Int32" Nullable="false" />
+          <Property Name="HasMainSubject" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations" FromRole="SubjectCombination" ToRole="MajorSubjectCombination" />
+          <NavigationProperty Name="Subject" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects1" FromRole="SubjectCombination" ToRole="Subject" />
+          <NavigationProperty Name="Subject1" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects2" FromRole="SubjectCombination" ToRole="Subject" />
+          <NavigationProperty Name="Subject2" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects3" FromRole="SubjectCombination" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Subjects" FromRole="Subject" ToRole="Mark" />
-          <NavigationProperty Name="SubjectCombinations" Relationship="EnrollmentModel.FK_Combinations_Subjects" FromRole="Subject" ToRole="SubjectCombination" />
-          <NavigationProperty Name="SubjectCombinations1" Relationship="EnrollmentModel.FK_Combinations_Subjects1" FromRole="Subject" ToRole="SubjectCombination" />
-          <NavigationProperty Name="SubjectCombinations2" Relationship="EnrollmentModel.FK_Combinations_Subjects2" FromRole="Subject" ToRole="SubjectCombination" />
+          <NavigationProperty Name="SubjectCombinations" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects1" FromRole="Subject" ToRole="SubjectCombination" />
+          <NavigationProperty Name="SubjectCombinations1" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects2" FromRole="Subject" ToRole="SubjectCombination" />
+          <NavigationProperty Name="SubjectCombinations2" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects3" FromRole="Subject" ToRole="SubjectCombination" />
         </EntityType>
-        <Association Name="FK_Candidates_dm_doi_tuong">
-          <End Type="EnrollmentModel.Beneficiary" Role="Beneficiary" Multiplicity="0..1" />
-          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Beneficiary">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Candidate">
-              <PropertyRef Name="BeneficiaryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Candidates_DM_UU_TIEN">
-          <End Type="EnrollmentModel.Privilege" Role="Privilege" Multiplicity="0..1" />
-          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Privilege">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Candidate">
-              <PropertyRef Name="PrivilegeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Candidates_Regions">
           <End Type="EnrollmentModel.Region" Role="Region" Multiplicity="0..1" />
           <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
@@ -607,7 +543,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MajorCombinations_Majors">
+        <Association Name="FK_MajorSubjectCombinations_Majors">
           <End Type="EnrollmentModel.Major" Role="Major" Multiplicity="1" />
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
           <ReferentialConstraint>
@@ -619,7 +555,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MajorCombinations_Combinations">
+        <Association Name="FK_MajorSubjectCombinations_SubjectCombinations">
           <End Type="EnrollmentModel.SubjectCombination" Role="SubjectCombination" Multiplicity="1" />
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
           <ReferentialConstraint>
@@ -631,7 +567,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations">
+        <Association Name="FK_Options_MajorSubjectCombinations1">
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="1" />
           <End Type="EnrollmentModel.Option" Role="Option" Multiplicity="*" />
           <ReferentialConstraint>
@@ -643,7 +579,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations1">
+        <Association Name="FK_Options_MajorSubjectCombinations2">
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="1" />
           <End Type="EnrollmentModel.Option" Role="Option" Multiplicity="*" />
           <ReferentialConstraint>
@@ -655,7 +591,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations2">
+        <Association Name="FK_Options_MajorSubjectCombinations3">
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="1" />
           <End Type="EnrollmentModel.Option" Role="Option" Multiplicity="*" />
           <ReferentialConstraint>
@@ -667,7 +603,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_MajorCombinations3">
+        <Association Name="FK_Options_MajorSubjectCombinations4">
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="1" />
           <End Type="EnrollmentModel.Option" Role="Option" Multiplicity="*" />
           <ReferentialConstraint>
@@ -691,8 +627,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Combinations_Subjects">
-          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="0..1" />
+        <Association Name="FK_SubjectCombinations_Subjects1">
+          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="1" />
           <End Type="EnrollmentModel.SubjectCombination" Role="SubjectCombination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
@@ -703,8 +639,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Combinations_Subjects1">
-          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="0..1" />
+        <Association Name="FK_SubjectCombinations_Subjects2">
+          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="1" />
           <End Type="EnrollmentModel.SubjectCombination" Role="SubjectCombination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
@@ -715,8 +651,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Combinations_Subjects2">
-          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="0..1" />
+        <Association Name="FK_SubjectCombinations_Subjects3">
+          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="1" />
           <End Type="EnrollmentModel.SubjectCombination" Role="SubjectCombination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
@@ -727,7 +663,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Candidates_Beneficiaries">
+          <End Type="EnrollmentModel.Beneficiary" Role="Beneficiary" Multiplicity="0..1" />
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beneficiary">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="BeneficiaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -736,7 +684,7 @@
           <EntitySetMapping Name="Beneficiaries">
             <EntityTypeMapping TypeName="EnrollmentModel.Beneficiary">
               <MappingFragment StoreEntitySet="Beneficiaries">
-                <ScalarProperty Name="Bounus" ColumnName="Bounus" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -745,9 +693,9 @@
           <EntitySetMapping Name="Candidates">
             <EntityTypeMapping TypeName="EnrollmentModel.Candidate">
               <MappingFragment StoreEntitySet="Candidates">
-                <ScalarProperty Name="MajorPass" ColumnName="MajorPass" />
+                <ScalarProperty Name="AdmittedMajorID" ColumnName="AdmittedMajorID" />
                 <ScalarProperty Name="Pasword" ColumnName="Pasword" />
-                <ScalarProperty Name="PrivilegeID" ColumnName="PrivilegeID" />
+                <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
                 <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
@@ -762,7 +710,7 @@
               <MappingFragment StoreEntitySet="Majors">
                 <ScalarProperty Name="CutOff" ColumnName="CutOff" />
                 <ScalarProperty Name="Limit" ColumnName="Limit" />
-                <ScalarProperty Name="Majorname" ColumnName="Majorname" />
+                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -798,19 +746,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Privileges">
-            <EntityTypeMapping TypeName="EnrollmentModel.Privilege">
-              <MappingFragment StoreEntitySet="Privileges">
-                <ScalarProperty Name="Bounus" ColumnName="Bounus" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Regions">
             <EntityTypeMapping TypeName="EnrollmentModel.Region">
               <MappingFragment StoreEntitySet="Regions">
-                <ScalarProperty Name="Bounus" ColumnName="Bounus" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
                 <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

@@ -22,7 +22,7 @@ namespace EnrollmentSystem
     
         public int ID { get; set; }
         public string RegionName { get; set; }
-        public decimal Bounus { get; set; }
+        public decimal Bonus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Candidate> Candidates { get; set; }

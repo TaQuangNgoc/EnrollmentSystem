@@ -21,10 +21,10 @@ namespace EnrollmentSystem
         }
     
         public int ID { get; set; }
-        public Nullable<int> SubjectID1 { get; set; }
-        public Nullable<int> SubjectID2 { get; set; }
-        public Nullable<int> SubjectID3 { get; set; }
-        public Nullable<bool> HasMainSubject { get; set; }
+        public int SubjectID1 { get; set; }
+        public int SubjectID2 { get; set; }
+        public int SubjectID3 { get; set; }
+        public bool HasMainSubject { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MajorSubjectCombination> MajorSubjectCombinations { get; set; }

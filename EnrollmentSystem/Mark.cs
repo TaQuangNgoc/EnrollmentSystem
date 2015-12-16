@@ -17,7 +17,7 @@ namespace EnrollmentSystem
         public int ID { get; set; }
         public int CandidateID { get; set; }
         public int SubjectID { get; set; }
-        public Nullable<decimal> Mark1 { get; set; }
+        public decimal Mark1 { get; set; }
     
         public virtual Candidate Candidate { get; set; }
         public virtual Subject Subject { get; set; }

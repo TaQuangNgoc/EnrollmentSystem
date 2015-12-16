@@ -21,8 +21,8 @@ namespace EnrollmentSystem
         }
     
         public int ID { get; set; }
-        public string Majorname { get; set; }
-        public Nullable<int> Limit { get; set; }
+        public string MajorName { get; set; }
+        public int Limit { get; set; }
         public Nullable<decimal> CutOff { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
