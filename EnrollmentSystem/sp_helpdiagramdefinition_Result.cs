@@ -7,19 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ES
+namespace EnrollmentSystem
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Marks
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int ID { get; set; }
-        public int CandidateID { get; set; }
-        public int SubjectID { get; set; }
-        public Nullable<decimal> Mark { get; set; }
-    
-        public virtual Candidates Candidates { get; set; }
-        public virtual Subjects Subjects { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

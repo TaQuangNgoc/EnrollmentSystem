@@ -7,24 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ES
+namespace EnrollmentSystem
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Privileges
+    public partial class Majors
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Privileges()
+        public Majors()
         {
-            this.Candidates = new HashSet<Candidates>();
+            this.MajorCombinations = new HashSet<MajorCombinations>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
-        public decimal Bounus { get; set; }
+        public string Majorname { get; set; }
+        public Nullable<int> Limit { get; set; }
+        public Nullable<decimal> CutOff { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidates> Candidates { get; set; }
+        public virtual ICollection<MajorCombinations> MajorCombinations { get; set; }
     }
 }

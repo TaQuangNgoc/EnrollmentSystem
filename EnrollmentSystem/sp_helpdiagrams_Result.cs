@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ES
+namespace EnrollmentSystem
 {
     using System;
     

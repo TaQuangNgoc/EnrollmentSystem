@@ -1,4 +1,4 @@
-﻿namespace ES
+﻿namespace EnrollmentSystem
 {
     partial class Form1
     {

@@ -7,17 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ES
+namespace EnrollmentSystem
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class Marks
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int ID { get; set; }
+        public int CandidateID { get; set; }
+        public int SubjectID { get; set; }
+        public Nullable<decimal> Mark { get; set; }
+    
+        public virtual Candidates Candidates { get; set; }
+        public virtual Subjects Subjects { get; set; }
     }
 }
