@@ -235,7 +235,6 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Runtime.Serialization" />
@@ -253,12 +252,8 @@
     <Compile Include="AdmissionList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdmissionList.Designer.cs" />
-    <Compile Include="BackUpForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BackUpForm.designer.cs">
-      <DependentUpon>BackUpForm.cs</DependentUpon>
+    <Compile Include="AdmissionList.Designer.cs">
+      <DependentUpon>AdmissionList.cs</DependentUpon>
     </Compile>
     <Compile Include="Beneficiary.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
@@ -306,11 +301,12 @@
     <Compile Include="Mark.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Algorithm\NhomNganh.cs" />
     <Compile Include="NonAdmissionList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NonAdmissionList.Designer.cs" />
+    <Compile Include="NonAdmissionList.Designer.cs">
+      <DependentUpon>NonAdmissionList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Option.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -352,11 +348,8 @@
     <Compile Include="SubjectCombination.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Algorithm\ThiSinh.cs" />
-    <Compile Include="Algorithm\XetTuyen.cs" />
-    <EmbeddedResource Include="AdmissionList.resx" />
-    <EmbeddedResource Include="BackUpForm.resx">
-      <DependentUpon>BackUpForm.cs</DependentUpon>
+    <EmbeddedResource Include="AdmissionList.resx">
+      <DependentUpon>AdmissionList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CandidateForm.resx">
       <DependentUpon>CandidateForm.cs</DependentUpon>
@@ -364,7 +357,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NonAdmissionList.resx" />
+    <EmbeddedResource Include="NonAdmissionList.resx">
+      <DependentUpon>NonAdmissionList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PreferencesForm.resx">
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </EmbeddedResource>
