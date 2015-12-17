@@ -12,9 +12,14 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Privilege
+    public partial class Marks
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int CandidateID { get; set; }
+        public int SubjectID { get; set; }
+        public decimal Score { get; set; }
+    
+        public virtual Candidates Candidates { get; set; }
+        public virtual Subjects Subjects { get; set; }
     }
 }

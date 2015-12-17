@@ -12,12 +12,12 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Beneficiary
+    public partial class Regions
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Beneficiary()
+        public Regions()
         {
-            this.Candidates = new HashSet<Candidate>();
+            this.Candidates = new HashSet<Candidates>();
         }
     
         public int ID { get; set; }
@@ -25,6 +25,6 @@ namespace EnrollmentSystem
         public decimal Bonus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidate> Candidates { get; set; }
+        public virtual ICollection<Candidates> Candidates { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace EnrollmentSystem
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Entities : DbContext
+    public partial class EnrollmentSystemEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public EnrollmentSystemEntities()
+            : base("name=EnrollmentSystemEntities")
         {
         }
     
@@ -27,52 +27,19 @@ namespace EnrollmentSystem
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Beneficiary> Beneficiaries { get; set; }
-        public virtual DbSet<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
-        public virtual DbSet<Option> Options { get; set; }
-        public virtual DbSet<SubjectCombination> SubjectCombinations { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
-        public virtual DbSet<Privilege> Privileges { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<MajorSujectCombinationsView> MajorSujectCombinationsViews { get; set; }
-        public virtual DbSet<Candidate> Candidates { get; set; }
-        public virtual DbSet<ReportView> ReportViews { get; set; }
-        public virtual DbSet<Major> Majors { get; set; }
-        public virtual DbSet<Region> Regions { get; set; }
-        public virtual DbSet<Mark> Marks { get; set; }
-    
-        public virtual int pr_ho_so_ts(string mA_TS, string hO_TEN, Nullable<System.DateTime> nGAY_SINH, string kHU_VUC, string dOI_TUONG, string uU_TIEN, byte[] pASSWORD)
-        {
-            var mA_TSParameter = mA_TS != null ?
-                new ObjectParameter("MA_TS", mA_TS) :
-                new ObjectParameter("MA_TS", typeof(string));
-    
-            var hO_TENParameter = hO_TEN != null ?
-                new ObjectParameter("HO_TEN", hO_TEN) :
-                new ObjectParameter("HO_TEN", typeof(string));
-    
-            var nGAY_SINHParameter = nGAY_SINH.HasValue ?
-                new ObjectParameter("NGAY_SINH", nGAY_SINH) :
-                new ObjectParameter("NGAY_SINH", typeof(System.DateTime));
-    
-            var kHU_VUCParameter = kHU_VUC != null ?
-                new ObjectParameter("KHU_VUC", kHU_VUC) :
-                new ObjectParameter("KHU_VUC", typeof(string));
-    
-            var dOI_TUONGParameter = dOI_TUONG != null ?
-                new ObjectParameter("DOI_TUONG", dOI_TUONG) :
-                new ObjectParameter("DOI_TUONG", typeof(string));
-    
-            var uU_TIENParameter = uU_TIEN != null ?
-                new ObjectParameter("UU_TIEN", uU_TIEN) :
-                new ObjectParameter("UU_TIEN", typeof(string));
-    
-            var pASSWORDParameter = pASSWORD != null ?
-                new ObjectParameter("PASSWORD", pASSWORD) :
-                new ObjectParameter("PASSWORD", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_ho_so_ts", mA_TSParameter, hO_TENParameter, nGAY_SINHParameter, kHU_VUCParameter, dOI_TUONGParameter, uU_TIENParameter, pASSWORDParameter);
-        }
+        public virtual DbSet<Beneficiaries> Beneficiaries { get; set; }
+        public virtual DbSet<Candidates> Candidates { get; set; }
+        public virtual DbSet<Majors> Majors { get; set; }
+        public virtual DbSet<MajorSubjectCombinations> MajorSubjectCombinations { get; set; }
+        public virtual DbSet<Marks> Marks { get; set; }
+        public virtual DbSet<Options> Options { get; set; }
+        public virtual DbSet<Privileges> Privileges { get; set; }
+        public virtual DbSet<Regions> Regions { get; set; }
+        public virtual DbSet<SubjectCombinations> SubjectCombinations { get; set; }
+        public virtual DbSet<Subjects> Subjects { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<MajorSujectCombinationsView> MajorSujectCombinationsView { get; set; }
+        public virtual DbSet<ReportView> ReportView { get; set; }
     
         public virtual int ProcedureInsertCandidate(string candidateID, string name, Nullable<System.DateTime> dateOfBirth, Nullable<int> regionID, Nullable<int> benificiaryID, Nullable<bool> hasPrivilege)
         {

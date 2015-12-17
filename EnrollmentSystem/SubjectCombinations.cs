@@ -12,20 +12,25 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Major
+    public partial class SubjectCombinations
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Major()
+        public SubjectCombinations()
         {
-            this.MajorSubjectCombinations = new HashSet<MajorSubjectCombination>();
+            this.MajorSubjectCombinations = new HashSet<MajorSubjectCombinations>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
-        public int Limit { get; set; }
-        public Nullable<decimal> CutOff { get; set; }
+        public int SubjectID1 { get; set; }
+        public int SubjectID2 { get; set; }
+        public int SubjectID3 { get; set; }
+        public bool HasMainSubject { get; set; }
+        public string SubjectCombinationName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
+        public virtual ICollection<MajorSubjectCombinations> MajorSubjectCombinations { get; set; }
+        public virtual Subjects Subjects { get; set; }
+        public virtual Subjects Subjects1 { get; set; }
+        public virtual Subjects Subjects2 { get; set; }
     }
 }

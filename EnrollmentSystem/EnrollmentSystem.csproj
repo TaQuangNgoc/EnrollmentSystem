@@ -329,6 +329,9 @@
     <Compile Include="ReportForm.Designer.cs">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportView.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>

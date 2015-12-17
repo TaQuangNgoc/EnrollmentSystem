@@ -12,13 +12,13 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Candidate
+    public partial class Candidates
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Candidate()
+        public Candidates()
         {
-            this.Options = new HashSet<Option>();
-            this.Marks = new HashSet<Mark>();
+            this.Marks = new HashSet<Marks>();
+            this.Options = new HashSet<Options>();
         }
     
         public int ID { get; set; }
@@ -31,12 +31,12 @@ namespace EnrollmentSystem
         public byte[] Password { get; set; }
         public Nullable<int> AdmittingMajorSubjectCombinationID { get; set; }
     
-        public virtual Beneficiary Beneficiary { get; set; }
-        public virtual MajorSubjectCombination MajorSubjectCombination { get; set; }
+        public virtual Beneficiaries Beneficiaries { get; set; }
+        public virtual MajorSubjectCombinations MajorSubjectCombinations { get; set; }
+        public virtual Regions Regions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Options { get; set; }
-        public virtual Region Region { get; set; }
+        public virtual ICollection<Marks> Marks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mark> Marks { get; set; }
+        public virtual ICollection<Options> Options { get; set; }
     }
 }

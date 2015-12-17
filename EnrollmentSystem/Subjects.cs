@@ -12,33 +12,27 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class MajorSubjectCombination
+    public partial class Subjects
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MajorSubjectCombination()
+        public Subjects()
         {
-            this.Options = new HashSet<Option>();
-            this.Options1 = new HashSet<Option>();
-            this.Options2 = new HashSet<Option>();
-            this.Options3 = new HashSet<Option>();
-            this.Candidates = new HashSet<Candidate>();
+            this.Marks = new HashSet<Marks>();
+            this.SubjectCombinations = new HashSet<SubjectCombinations>();
+            this.SubjectCombinations1 = new HashSet<SubjectCombinations>();
+            this.SubjectCombinations2 = new HashSet<SubjectCombinations>();
         }
     
         public int ID { get; set; }
-        public int MajorID { get; set; }
-        public int SubjectCombinationID { get; set; }
+        public string SubjectName { get; set; }
     
-        public virtual SubjectCombination SubjectCombination { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Options { get; set; }
+        public virtual ICollection<Marks> Marks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Options1 { get; set; }
+        public virtual ICollection<SubjectCombinations> SubjectCombinations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Options2 { get; set; }
+        public virtual ICollection<SubjectCombinations> SubjectCombinations1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Options3 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidate> Candidates { get; set; }
-        public virtual Major Major { get; set; }
+        public virtual ICollection<SubjectCombinations> SubjectCombinations2 { get; set; }
     }
 }

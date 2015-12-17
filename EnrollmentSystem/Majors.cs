@@ -12,19 +12,20 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Region
+    public partial class Majors
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Region()
+        public Majors()
         {
-            this.Candidates = new HashSet<Candidate>();
+            this.MajorSubjectCombinations = new HashSet<MajorSubjectCombinations>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public decimal Bonus { get; set; }
+        public int Limit { get; set; }
+        public Nullable<decimal> CutOff { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidate> Candidates { get; set; }
+        public virtual ICollection<MajorSubjectCombinations> MajorSubjectCombinations { get; set; }
     }
 }
