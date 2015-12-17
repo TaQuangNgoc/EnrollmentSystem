@@ -25,7 +25,7 @@
           <Property Name="BeneficiaryID" Type="int" />
           <Property Name="HasPrivilege" Type="bit" Nullable="false" />
           <Property Name="Password" Type="binary" MaxLength="32" Nullable="false" />
-          <Property Name="AdmittingMajorID" Type="int" />
+          <Property Name="AdmittingMajorSubjectCombinationID" Type="int" />
         </EntityType>
         <EntityType Name="Majors">
           <Key>
@@ -120,6 +120,29 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <Property Name="SubjectCombinationName" Type="nvarchar" MaxLength="50" />
           <Property Name="SubjectCombinationID" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ReportView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CandidateID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="DateOfBirth" />
+            <PropertyRef Name="HasPrivilege" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CandidateID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="RegionID" Type="int" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Limit" Type="int" />
+          <Property Name="CutOff" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="BeneficiaryID" Type="int" />
+          <Property Name="BeneficiaryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="HasPrivilege" Type="bit" Nullable="false" />
+          <Property Name="MajorName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Role="Beneficiaries" Type="Self.Beneficiaries" Multiplicity="0..1" />
           <End Role="Candidates" Type="Self.Candidates" Multiplicity="*" />
@@ -132,15 +155,15 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Candidates_Majors">
-          <End Role="Majors" Type="Self.Majors" Multiplicity="0..1" />
+        <Association Name="FK_Candidates_MajorSubjectCombinations">
+          <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="0..1" />
           <End Role="Candidates" Type="Self.Candidates" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Majors">
+            <Principal Role="MajorSubjectCombinations">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Candidates">
-              <PropertyRef Name="AdmittingMajorID" />
+              <PropertyRef Name="AdmittingMajorSubjectCombinationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -364,6 +387,7 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TruncateEverything" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="EnrollmentModelStoreContainer">
           <EntitySet Name="Beneficiaries" EntityType="Self.Beneficiaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Candidates" EntityType="Self.Candidates" Schema="dbo" store:Type="Tables" />
@@ -384,12 +408,28 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
     [MajorSujectCombinationsView].[SubjectCombinationID] AS [SubjectCombinationID]
     FROM [dbo].[MajorSujectCombinationsView] AS [MajorSujectCombinationsView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ReportView" EntityType="Self.ReportView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ReportView].[ID] AS [ID], 
+    [ReportView].[CandidateID] AS [CandidateID], 
+    [ReportView].[Name] AS [Name], 
+    [ReportView].[DateOfBirth] AS [DateOfBirth], 
+    [ReportView].[RegionID] AS [RegionID], 
+    [ReportView].[RegionName] AS [RegionName], 
+    [ReportView].[Limit] AS [Limit], 
+    [ReportView].[CutOff] AS [CutOff], 
+    [ReportView].[BeneficiaryID] AS [BeneficiaryID], 
+    [ReportView].[BeneficiaryName] AS [BeneficiaryName], 
+    [ReportView].[HasPrivilege] AS [HasPrivilege], 
+    [ReportView].[MajorName] AS [MajorName]
+    FROM [dbo].[ReportView] AS [ReportView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Candidates_Beneficiaries" Association="Self.FK_Candidates_Beneficiaries">
             <End Role="Beneficiaries" EntitySet="Beneficiaries" />
             <End Role="Candidates" EntitySet="Candidates" />
           </AssociationSet>
-          <AssociationSet Name="FK_Candidates_Majors" Association="Self.FK_Candidates_Majors">
-            <End Role="Majors" EntitySet="Majors" />
+          <AssociationSet Name="FK_Candidates_MajorSubjectCombinations" Association="Self.FK_Candidates_MajorSubjectCombinations">
+            <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
             <End Role="Candidates" EntitySet="Candidates" />
           </AssociationSet>
           <AssociationSet Name="FK_Candidates_Regions" Association="Self.FK_Candidates_Regions">
@@ -564,13 +604,15 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="ReportViews" EntityType="EnrollmentModel.ReportView" />
+          <FunctionImport Name="TruncateEverything" />
           <EntitySet Name="Candidates" EntityType="EnrollmentModel.Candidate" />
           <AssociationSet Name="FK_Candidates_Beneficiaries" Association="EnrollmentModel.FK_Candidates_Beneficiaries">
             <End Role="Beneficiary" EntitySet="Beneficiaries" />
             <End Role="Candidate" EntitySet="Candidates" />
           </AssociationSet>
-          <AssociationSet Name="FK_Candidates_Majors" Association="EnrollmentModel.FK_Candidates_Majors">
-            <End Role="Major" EntitySet="Majors" />
+          <AssociationSet Name="FK_Candidates_MajorSubjectCombinations" Association="EnrollmentModel.FK_Candidates_MajorSubjectCombinations">
+            <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Candidate" EntitySet="Candidates" />
           </AssociationSet>
           <AssociationSet Name="FK_Candidates_Regions" Association="EnrollmentModel.FK_Candidates_Regions">
@@ -604,7 +646,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <Property Name="Limit" Type="Int32" Nullable="false" />
           <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
-          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Majors" FromRole="Major" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="MajorSubjectCombination">
           <Key>
@@ -619,6 +660,7 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <NavigationProperty Name="Options1" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations2" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options2" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations3" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="MajorSubjectCombination" ToRole="Option" />
+          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="MajorSubjectCombination" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
@@ -841,6 +883,27 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="ReportView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CandidateID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="DateOfBirth" />
+            <PropertyRef Name="HasPrivilege" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CandidateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="Int32" />
+          <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BeneficiaryID" Type="Int32" />
+          <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
+          <Property Name="MajorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Candidate">
           <Key>
             <PropertyRef Name="ID" />
@@ -853,9 +916,9 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <Property Name="BeneficiaryID" Type="Int32" />
           <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
           <Property Name="Password" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
-          <Property Name="AdmittingMajorID" Type="Int32" />
+          <Property Name="AdmittingMajorSubjectCombinationID" Type="Int32" />
           <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Candidate" ToRole="Beneficiary" />
-          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_Candidates_Majors" FromRole="Candidate" ToRole="Major" />
+          <NavigationProperty Name="MajorSubjectCombination" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="Candidate" ToRole="MajorSubjectCombination" />
           <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
           <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
           <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Candidate" ToRole="Option" />
@@ -872,15 +935,15 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Candidates_Majors">
-          <End Type="EnrollmentModel.Major" Role="Major" Multiplicity="0..1" />
+        <Association Name="FK_Candidates_MajorSubjectCombinations">
+          <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="0..1" />
           <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Major">
+            <Principal Role="MajorSubjectCombination">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Candidate">
-              <PropertyRef Name="AdmittingMajorID" />
+              <PropertyRef Name="AdmittingMajorSubjectCombinationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1061,10 +1124,29 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="EnrollmentModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="EnrollmentModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="ReportViews">
+            <EntityTypeMapping TypeName="EnrollmentModel.ReportView">
+              <MappingFragment StoreEntitySet="ReportView">
+                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
+                <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
+                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+                <ScalarProperty Name="CutOff" ColumnName="CutOff" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="TruncateEverything" FunctionName="EnrollmentModel.Store.TruncateEverything" />
           <EntitySetMapping Name="Candidates">
             <EntityTypeMapping TypeName="EnrollmentModel.Candidate">
               <MappingFragment StoreEntitySet="Candidates">
-                <ScalarProperty Name="AdmittingMajorID" ColumnName="AdmittingMajorID" />
+                <ScalarProperty Name="AdmittingMajorSubjectCombinationID" ColumnName="AdmittingMajorSubjectCombinationID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
                 <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />

@@ -38,6 +38,7 @@ namespace EnrollmentSystem
         public virtual DbSet<Privilege> Privileges { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<MajorSujectCombinationsView> MajorSujectCombinationsViews { get; set; }
+        public virtual DbSet<ReportView> ReportViews { get; set; }
         public virtual DbSet<Candidate> Candidates { get; set; }
     
         public virtual int pr_ho_so_ts(string mA_TS, string hO_TEN, Nullable<System.DateTime> nGAY_SINH, string kHU_VUC, string dOI_TUONG, string uU_TIEN, byte[] pASSWORD)
@@ -264,6 +265,11 @@ namespace EnrollmentSystem
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual int TruncateEverything()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TruncateEverything");
         }
     }
 }

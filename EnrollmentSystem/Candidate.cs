@@ -29,10 +29,10 @@ namespace EnrollmentSystem
         public Nullable<int> BeneficiaryID { get; set; }
         public bool HasPrivilege { get; set; }
         public byte[] Password { get; set; }
-        public Nullable<int> AdmittingMajorID { get; set; }
+        public Nullable<int> AdmittingMajorSubjectCombinationID { get; set; }
     
         public virtual Beneficiary Beneficiary { get; set; }
-        public virtual Major Major { get; set; }
+        public virtual MajorSubjectCombination MajorSubjectCombination { get; set; }
         public virtual Region Region { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mark> Marks { get; set; }

@@ -21,6 +21,7 @@ namespace EnrollmentSystem
             this.Options1 = new HashSet<Option>();
             this.Options2 = new HashSet<Option>();
             this.Options3 = new HashSet<Option>();
+            this.Candidates = new HashSet<Candidate>();
         }
     
         public int ID { get; set; }
@@ -37,5 +38,7 @@ namespace EnrollmentSystem
         public virtual ICollection<Option> Options2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Option> Options3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Candidate> Candidates { get; set; }
     }
 }

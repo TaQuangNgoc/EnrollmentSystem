@@ -12,20 +12,19 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Major
+    public partial class ReportView
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Major()
-        {
-            this.MajorSubjectCombinations = new HashSet<MajorSubjectCombination>();
-        }
-    
         public int ID { get; set; }
-        public string MajorName { get; set; }
-        public int Limit { get; set; }
+        public string CandidateID { get; set; }
+        public string Name { get; set; }
+        public System.DateTime DateOfBirth { get; set; }
+        public Nullable<int> RegionID { get; set; }
+        public string RegionName { get; set; }
+        public Nullable<int> Limit { get; set; }
         public Nullable<decimal> CutOff { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
+        public Nullable<int> BeneficiaryID { get; set; }
+        public string BeneficiaryName { get; set; }
+        public bool HasPrivilege { get; set; }
+        public string MajorName { get; set; }
     }
 }
