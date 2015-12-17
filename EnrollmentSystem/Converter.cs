@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,10 +20,10 @@ namespace EnrollmentSystem
 
         public void ImportCSV(string folderPath, string candidatesFileName, string optionsFileName)
         {
-            var candidatesData = DataTableFromCSV(folderPath + candidatesFileName);
+            var candidatesData = DataTableFromCSV(folderPath + "\\" + candidatesFileName);
             ImportCandidatesData(candidatesData);
 
-            var optionsData = DataTableFromCSV(folderPath + candidatesFileName);
+            var optionsData = DataTableFromCSV(folderPath + "\\" + candidatesFileName);
             ImportCandidatesData(optionsData);
         }
 
@@ -62,24 +64,54 @@ namespace EnrollmentSystem
                                             "Anh", "Nga", "Pháp", "Trung", "Đức", "Nhật" };
             ValidateSubjectNames(validSubjectNames);
 
-            using (var entities = new EnrollmentSystemEntities())
-            {
-                int id = 0;
-                foreach (DataRow dataRow in candidatesData.Rows)
-                {
-                    var candidate = CandidateFromData(dataRow);
-                    entities.Candidates.Add(candidate);
+            var candidatesColumns = new[] { "CandidateID", "Name", "DateOfBirth", "RegionID", "BeneficiaryID",
+                "HasPrivilege", "Password", "AdmittingMajorSubjectCombinationID", "AdmissionMark" };
+            var candidatesTable = new DataTable();
+            foreach (var columnName in candidatesColumns)
+                candidatesTable.Columns.Add(columnName);
 
-                    id++;
-                    for (int i = 0; i < 13; i++)
-                    {
-                        int subjectID = i + 1;
-                        var markString = (string)dataRow[6 + i];
-                        AddMarkData(id, subjectID, markString);
-                    }
+            var marksColumns = new[] { "CandidateID", "SubjectID", "Score" };
+            var marksTable = new DataTable();
+            foreach (var columnName in marksColumns)
+                marksTable.Columns.Add(columnName);
+
+            int id = 0;
+            foreach (DataRow dataRow in candidatesData.Rows)
+            {
+                var candidate = CandidateFromData(dataRow);
+                var candidateRow = candidatesTable.NewRow();
+                candidateRow[0] = candidate.CandidateID;
+                candidateRow[1] = candidate.Name;
+                candidateRow[2] = candidate.DateOfBirth;
+                candidateRow[3] = candidate.RegionID;
+                candidateRow[4] = candidate.BeneficiaryID;
+                candidateRow[5] = candidate.HasPrivilege;
+                candidateRow[6] = candidate.Password;
+                candidateRow[7] = null;
+                candidateRow[8] = null;
+
+                candidatesTable.Rows.Add(candidateRow);
+
+                id++;
+                for (int i = 0; i < 13; i++)
+                {
+                    int subjectID = i + 1;
+                    var markString = (string)dataRow[6 + i];
+                    if (markString == "NA")
+                        continue;
+
+                    var mark = MarkFromData(id, subjectID, markString);
+                    var markRow = marksTable.NewRow();
+                    markRow[0] = mark.CandidateID;
+                    markRow[1] = mark.SubjectID;
+                    markRow[2] = mark.Score;
+
+                    marksTable.Rows.Add(markRow);
                 }
-                entities.SaveChanges();
             }
+
+            BulkCopy(candidatesTable, "Candidates");
+            BulkCopy(marksTable, "Marks");
         }
 
         private void ValidateColumnNames(IEnumerable<string> columnNames, string[] validColumnNames)
@@ -171,7 +203,7 @@ namespace EnrollmentSystem
             }
         }
 
-        private int? BeneficiaryIDFromName(string beneficiaryName)
+        private int BeneficiaryIDFromName(string beneficiaryName)
         {
             using (var entities = new EnrollmentSystemEntities())
             {
@@ -199,27 +231,37 @@ namespace EnrollmentSystem
         private byte[] HashcodeFromString(string input)
         {
             var hasher = SHA256.Create();
-            var byteArray = Encoding.Unicode.GetBytes(input);
+            var byteArray = Encoding.UTF8.GetBytes(input);
             return hasher.ComputeHash(byteArray);
         }
 
-        private void AddMarkData(int candidateID, int subjectID, string markString)
+        private void BulkCopy(DataTable data, string tableName)
         {
-            if (markString == "NA")
-                return;
+            string connectionString = ConfigurationManager.ConnectionStrings["EnrollmentSystemEntities"].ConnectionString;
 
-            using (var entities = new EnrollmentSystemEntities())
+            using (var bulkCopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.KeepIdentity))
             {
-                decimal score = ValidateAndParseMark(markString);
+                foreach (DataColumn column in data.Columns)
+                    if (column.ColumnName != "ID")
+                        bulkCopy.ColumnMappings.Add(column.ColumnName, column.ColumnName);
 
-                var mark = new Mark()
-                {
-                    CandidateID = candidateID,
-                    SubjectID = subjectID,
-                    Score = score
-                };
-                entities.Marks.Add(mark);
+                bulkCopy.BulkCopyTimeout = 600;
+                bulkCopy.DestinationTableName = tableName;
+                bulkCopy.WriteToServer(data);
             }
+        }
+
+        private Mark MarkFromData(int candidateID, int subjectID, string markString)
+        {
+            decimal score = ValidateAndParseMark(markString);
+
+            var mark = new Mark()
+            {
+                CandidateID = candidateID,
+                SubjectID = subjectID,
+                Score = score
+            };
+            return mark;
         }
 
         private decimal ValidateAndParseMark(string markString)

@@ -14,9 +14,6 @@ namespace EnrollmentSystem
         [STAThread]
         static void Main()
         {
-            //var converter = new Converter();
-            //converter.ImportCSV(@"D:\User\Desktop\dataDLTS\data\", "csdl-bk.csv", "");
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

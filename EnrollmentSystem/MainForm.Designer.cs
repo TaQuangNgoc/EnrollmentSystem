@@ -34,15 +34,15 @@
             this.m_cmd_thong_tin = new DevExpress.XtraBars.BarButtonItem();
             this.m_cmd_nguyen_vong = new DevExpress.XtraBars.BarButtonItem();
             this.m_btn_report = new DevExpress.XtraBars.BarButtonItem();
+            this.backUpButton = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.backUpRestoreTab = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.backUpGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.backUpRestoreTab = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.backUpButton = new DevExpress.XtraBars.BarButtonItem();
-            this.backUpGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
             this.SuspendLayout();
@@ -96,6 +96,16 @@
             this.m_btn_report.Name = "m_btn_report";
             this.m_btn_report.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.m_btn_report_ItemClick);
             // 
+            // backUpButton
+            // 
+            this.backUpButton.Caption = "SAO LƯU";
+            this.backUpButton.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.backUpButton.Glyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.Glyph")));
+            this.backUpButton.Id = 4;
+            this.backUpButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.LargeGlyph")));
+            this.backUpButton.Name = "backUpButton";
+            this.backUpButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.backUpButton_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -121,6 +131,18 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.m_btn_report);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             // 
+            // backUpRestoreTab
+            // 
+            this.backUpRestoreTab.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.backUpGroup});
+            this.backUpRestoreTab.Name = "backUpRestoreTab";
+            this.backUpRestoreTab.Text = "SAO LƯU";
+            // 
+            // backUpGroup
+            // 
+            this.backUpGroup.ItemLinks.Add(this.backUpButton);
+            this.backUpGroup.Name = "backUpGroup";
+            // 
             // ribbonStatusBar
             // 
             this.ribbonStatusBar.Location = new System.Drawing.Point(0, 418);
@@ -131,27 +153,6 @@
             // xtraTabbedMdiManager1
             // 
             this.xtraTabbedMdiManager1.MdiParent = this;
-            // 
-            // backUpRestoreTab
-            // 
-            this.backUpRestoreTab.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.backUpGroup});
-            this.backUpRestoreTab.Name = "backUpRestoreTab";
-            this.backUpRestoreTab.Text = "SAO LƯU";
-            // 
-            // backUpButton
-            // 
-            this.backUpButton.Caption = "SAO LƯU";
-            this.backUpButton.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.backUpButton.Glyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.Glyph")));
-            this.backUpButton.Id = 4;
-            this.backUpButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.LargeGlyph")));
-            this.backUpButton.Name = "backUpButton";
-            // 
-            // backUpGroup
-            // 
-            this.backUpGroup.ItemLinks.Add(this.backUpButton);
-            this.backUpGroup.Name = "backUpGroup";
             // 
             // MainForm
             // 

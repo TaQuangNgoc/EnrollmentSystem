@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using DevExpress.XtraBars;
+using DevExpress.XtraTab;
 
 namespace EnrollmentSystem
 {
@@ -15,7 +9,8 @@ namespace EnrollmentSystem
         public MainForm()
         {
             InitializeComponent();
-            xtraTabbedMdiManager1.ClosePageButtonShowMode = DevExpress.XtraTab.ClosePageButtonShowMode.InAllTabPageHeaders;
+
+            xtraTabbedMdiManager1.ClosePageButtonShowMode = ClosePageButtonShowMode.InAllTabPageHeaders;
             ribbon.SelectedPage = ribbonPage1;
         }
 
@@ -77,6 +72,12 @@ namespace EnrollmentSystem
                 if (form.Name == checkForm.Name)
                     return true;
             return false;
-        }      
+        }
+
+        private void backUpButton_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var backUpForm = new BackUpForm();
+            backUpForm.ShowDialog();
+        }
     }
 }
