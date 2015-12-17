@@ -33,13 +33,12 @@
             this.backUpButton = new DevExpress.XtraEditors.SimpleButton();
             this.restoreButton = new DevExpress.XtraEditors.SimpleButton();
             this.exitButton = new DevExpress.XtraEditors.SimpleButton();
-            this.browseButton = new System.Windows.Forms.Button();
-            this.candidatesFileNameTextBox = new System.Windows.Forms.TextBox();
-            this.optionsFileNameTextBox = new System.Windows.Forms.TextBox();
-            this.pathTextBox = new System.Windows.Forms.TextBox();
-            this.pathLabel = new System.Windows.Forms.Label();
+            this.candidatesBrowseButton = new System.Windows.Forms.Button();
+            this.candidatesFilePathTextBox = new System.Windows.Forms.TextBox();
+            this.optionsFilePathTextBox = new System.Windows.Forms.TextBox();
             this.candidatesFileLabel = new System.Windows.Forms.Label();
             this.optionsFileLabel = new System.Windows.Forms.Label();
+            this.optionsBrowseButton = new System.Windows.Forms.Button();
             this.buttonsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,52 +111,36 @@
             this.exitButton.Text = "Thoát";
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // browseButton
+            // candidatesBrowseButton
             // 
-            this.browseButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.browseButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.browseButton.Location = new System.Drawing.Point(366, 32);
-            this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(91, 33);
-            this.browseButton.TabIndex = 22;
-            this.browseButton.Text = "Chọn thư mục";
-            this.browseButton.UseVisualStyleBackColor = false;
-            this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
+            this.candidatesBrowseButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.candidatesBrowseButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.candidatesBrowseButton.Location = new System.Drawing.Point(369, 54);
+            this.candidatesBrowseButton.Name = "candidatesBrowseButton";
+            this.candidatesBrowseButton.Size = new System.Drawing.Size(91, 33);
+            this.candidatesBrowseButton.TabIndex = 22;
+            this.candidatesBrowseButton.Text = "Chọn...";
+            this.candidatesBrowseButton.UseVisualStyleBackColor = false;
+            this.candidatesBrowseButton.Click += new System.EventHandler(this.candidatesBrowseButton_Click);
             // 
-            // candidatesFileNameTextBox
+            // candidatesFilePathTextBox
             // 
-            this.candidatesFileNameTextBox.Location = new System.Drawing.Point(186, 89);
-            this.candidatesFileNameTextBox.Name = "candidatesFileNameTextBox";
-            this.candidatesFileNameTextBox.Size = new System.Drawing.Size(163, 20);
-            this.candidatesFileNameTextBox.TabIndex = 23;
+            this.candidatesFilePathTextBox.Location = new System.Drawing.Point(189, 61);
+            this.candidatesFilePathTextBox.Name = "candidatesFilePathTextBox";
+            this.candidatesFilePathTextBox.Size = new System.Drawing.Size(163, 20);
+            this.candidatesFilePathTextBox.TabIndex = 23;
             // 
-            // optionsFileNameTextBox
+            // optionsFilePathTextBox
             // 
-            this.optionsFileNameTextBox.Location = new System.Drawing.Point(186, 136);
-            this.optionsFileNameTextBox.Name = "optionsFileNameTextBox";
-            this.optionsFileNameTextBox.Size = new System.Drawing.Size(163, 20);
-            this.optionsFileNameTextBox.TabIndex = 24;
-            // 
-            // pathTextBox
-            // 
-            this.pathTextBox.Location = new System.Drawing.Point(76, 39);
-            this.pathTextBox.Name = "pathTextBox";
-            this.pathTextBox.Size = new System.Drawing.Size(273, 20);
-            this.pathTextBox.TabIndex = 25;
-            // 
-            // pathLabel
-            // 
-            this.pathLabel.AutoSize = true;
-            this.pathLabel.Location = new System.Drawing.Point(21, 42);
-            this.pathLabel.Name = "pathLabel";
-            this.pathLabel.Size = new System.Drawing.Size(49, 13);
-            this.pathLabel.TabIndex = 26;
-            this.pathLabel.Text = "Thư mục";
+            this.optionsFilePathTextBox.Location = new System.Drawing.Point(189, 108);
+            this.optionsFilePathTextBox.Name = "optionsFilePathTextBox";
+            this.optionsFilePathTextBox.Size = new System.Drawing.Size(163, 20);
+            this.optionsFilePathTextBox.TabIndex = 24;
             // 
             // candidatesFileLabel
             // 
             this.candidatesFileLabel.AutoSize = true;
-            this.candidatesFileLabel.Location = new System.Drawing.Point(21, 92);
+            this.candidatesFileLabel.Location = new System.Drawing.Point(24, 64);
             this.candidatesFileLabel.Name = "candidatesFileLabel";
             this.candidatesFileLabel.Size = new System.Drawing.Size(133, 13);
             this.candidatesFileLabel.TabIndex = 27;
@@ -166,11 +149,23 @@
             // optionsFileLabel
             // 
             this.optionsFileLabel.AutoSize = true;
-            this.optionsFileLabel.Location = new System.Drawing.Point(21, 139);
+            this.optionsFileLabel.Location = new System.Drawing.Point(24, 111);
             this.optionsFileLabel.Name = "optionsFileLabel";
             this.optionsFileLabel.Size = new System.Drawing.Size(107, 13);
             this.optionsFileLabel.TabIndex = 28;
             this.optionsFileLabel.Text = "Tên file nguyện vọng";
+            // 
+            // optionsBrowseButton
+            // 
+            this.optionsBrowseButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.optionsBrowseButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.optionsBrowseButton.Location = new System.Drawing.Point(369, 101);
+            this.optionsBrowseButton.Name = "optionsBrowseButton";
+            this.optionsBrowseButton.Size = new System.Drawing.Size(91, 33);
+            this.optionsBrowseButton.TabIndex = 29;
+            this.optionsBrowseButton.Text = "Chọn...";
+            this.optionsBrowseButton.UseVisualStyleBackColor = false;
+            this.optionsBrowseButton.Click += new System.EventHandler(this.optionsBrowseButton_Click);
             // 
             // BackUpForm
             // 
@@ -178,13 +173,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(480, 236);
+            this.Controls.Add(this.optionsBrowseButton);
             this.Controls.Add(this.optionsFileLabel);
             this.Controls.Add(this.candidatesFileLabel);
-            this.Controls.Add(this.pathLabel);
-            this.Controls.Add(this.pathTextBox);
-            this.Controls.Add(this.optionsFileNameTextBox);
-            this.Controls.Add(this.candidatesFileNameTextBox);
-            this.Controls.Add(this.browseButton);
+            this.Controls.Add(this.optionsFilePathTextBox);
+            this.Controls.Add(this.candidatesFilePathTextBox);
+            this.Controls.Add(this.candidatesBrowseButton);
             this.Controls.Add(this.buttonsPanel);
             this.Name = "BackUpForm";
             this.Text = "Sao lưu và khôi phục";
@@ -196,15 +190,14 @@
 
         #endregion
         internal System.Windows.Forms.Panel buttonsPanel;
-        private System.Windows.Forms.Button browseButton;
-        private System.Windows.Forms.TextBox candidatesFileNameTextBox;
+        private System.Windows.Forms.Button candidatesBrowseButton;
+        private System.Windows.Forms.TextBox candidatesFilePathTextBox;
         private DevExpress.XtraEditors.SimpleButton backUpButton;
         private DevExpress.XtraEditors.SimpleButton exitButton;
-        private System.Windows.Forms.TextBox optionsFileNameTextBox;
+        private System.Windows.Forms.TextBox optionsFilePathTextBox;
         private DevExpress.XtraEditors.SimpleButton restoreButton;
-        private System.Windows.Forms.TextBox pathTextBox;
-        private System.Windows.Forms.Label pathLabel;
         private System.Windows.Forms.Label candidatesFileLabel;
         private System.Windows.Forms.Label optionsFileLabel;
+        private System.Windows.Forms.Button optionsBrowseButton;
     }
 }

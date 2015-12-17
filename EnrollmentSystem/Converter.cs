@@ -18,13 +18,18 @@ namespace EnrollmentSystem
 
         }
 
-        public void ImportCSV(string folderPath, string candidatesFileName, string optionsFileName)
+        public void ImportCSV(string candidatesFilePath, string optionsFilePath)
         {
-            var candidatesData = DataTableFromCSV(folderPath + "\\" + candidatesFileName);
+            using (var entities = new EnrollmentSystemEntities())
+            {
+                entities.Database.ExecuteSqlCommand("TruncateEverything");
+            }
+
+            var candidatesData = DataTableFromCSV(candidatesFilePath);
             ImportCandidatesData(candidatesData);
 
-            var optionsData = DataTableFromCSV(folderPath + "\\" + candidatesFileName);
-            ImportCandidatesData(optionsData);
+            var optionsData = DataTableFromCSV(optionsFilePath);
+            ImportOptionsData(optionsData);
         }
 
         private DataTable DataTableFromCSV(string path)
@@ -35,18 +40,25 @@ namespace EnrollmentSystem
                 parser.SetDelimiters(new[] { "," });
                 parser.HasFieldsEnclosedInQuotes = true;
 
-                var columns = parser.ReadFields();
-                foreach (string column in columns)
+                try
                 {
-                    var dataColumn = new DataColumn(column);
-                    dataColumn.AllowDBNull = true;
-                    data.Columns.Add(dataColumn);
-                }
+                    var columns = parser.ReadFields();
+                    foreach (string column in columns)
+                    {
+                        var dataColumn = new DataColumn(column);
+                        dataColumn.AllowDBNull = true;
+                        data.Columns.Add(dataColumn);
+                    }
 
-                while (!parser.EndOfData)
+                    while (!parser.EndOfData)
+                    {
+                        var row = parser.ReadFields();
+                        data.Rows.Add(row);
+                    }
+                }
+                catch (MalformedLineException)
                 {
-                    var row = parser.ReadFields();
-                    data.Rows.Add(row);
+                    throw;
                 }
             }
             return data;
@@ -183,7 +195,7 @@ namespace EnrollmentSystem
                 var regionIDQuery = from region in entities.Regions
                                     where region.Name == regionName
                                     select region.ID;
-                var regionID = ValidateAndGetQueryID(regionIDQuery);
+                var regionID = ValidateAndGetFirstItem(regionIDQuery);
                 return regionID;
             }
         }
@@ -195,12 +207,12 @@ namespace EnrollmentSystem
                 var beneficiaryIDQuery = from beneficiary in entities.Beneficiaries
                                          where beneficiary.Name == beneficiaryName
                                          select beneficiary.ID;
-                var beneficiaryID = ValidateAndGetQueryID(beneficiaryIDQuery);
+                var beneficiaryID = ValidateAndGetFirstItem(beneficiaryIDQuery);
                 return beneficiaryID;
             }
         }
 
-        private int ValidateAndGetQueryID(IEnumerable<int> query)
+        private int ValidateAndGetFirstItem(IEnumerable<int> query)
         {
             Debug.Assert(query.Count() == 1);
             try
@@ -247,7 +259,102 @@ namespace EnrollmentSystem
 
         private void ImportOptionsData(DataTable optionsData)
         {
+            var validColumnNames = new[] { "SBD", "NV1.N", "NV1.TH", "NV2.N", "NV2.TH",
+                                                "NV3.N", "NV3.TH", "NV4.N", "NV4.TH"};
+            var columnNames = from column in optionsData.Columns.Cast<DataColumn>()
+                              select column.ColumnName;
+            ValidateColumnNames(columnNames, validColumnNames);
 
+
+            var entities = new EnrollmentSystemEntities();
+            entities.Configuration.AutoDetectChangesEnabled = false;
+
+            int id = 0;
+            foreach (DataRow dataRow in optionsData.Rows)
+            {
+                var option = OptionFromDataRow(dataRow);
+                entities.Options.Add(option);
+
+                id++;
+                if (id % 777 == 776)
+                {
+                    entities.SaveChanges();
+                    entities.Dispose();
+                    entities = new EnrollmentSystemEntities();
+                    entities.Configuration.AutoDetectChangesEnabled = false;
+                }
+            }
+
+            entities.SaveChanges();
+            entities.Dispose();
+
+        }
+
+        private Option OptionFromDataRow(DataRow dataRow)
+        {
+            string candidateID = (string)dataRow[0],
+                   major1 = (string)dataRow[1],
+                   majorSubjectCombination1 = (string)dataRow[2],
+                   major2 = (string)dataRow[3],
+                   majorSubjectCombination2 = (string)dataRow[4],
+                   major3 = (string)dataRow[5],
+                   majorSubjectCombination3 = (string)dataRow[6],
+                   major4 = (string)dataRow[7],
+                   majorSubjectCombination4 = (string)dataRow[8];
+
+            int theOtherKindOfID = GetCandidateID(candidateID);
+
+            int? majorSubjectCombinationID1 = GetMajorSubjectCombinationID(major1, majorSubjectCombination1),
+                 majorSubjectCombinationID2 = GetMajorSubjectCombinationID(major2, majorSubjectCombination2),
+                 majorSubjectCombinationID3 = GetMajorSubjectCombinationID(major3, majorSubjectCombination3),
+                 majorSubjectCombinationID4 = GetMajorSubjectCombinationID(major4, majorSubjectCombination4);
+
+            if (majorSubjectCombinationID1 == null)
+                throw new ArgumentNullException("First option cannot be null.");
+
+            bool invalid = (majorSubjectCombinationID4 != null && (majorSubjectCombinationID3 == null || majorSubjectCombinationID2 == null))
+                        || (majorSubjectCombinationID3 != null && majorSubjectCombinationID2 == null);
+            if (invalid)
+                throw new ArgumentException("Options must be continuous.");
+
+            var option = new Option()
+            {
+                CandidateID = theOtherKindOfID,
+                MajorCombinationID1 = (int)majorSubjectCombinationID1,
+                MajorCombinationID2 = majorSubjectCombinationID2,
+                MajorCombinationID3 = majorSubjectCombinationID3,
+                MajorCombinationID4 = majorSubjectCombinationID4
+            };
+
+            return option;
+        }
+
+        private int GetCandidateID(string theOtherKindOfID)
+        {
+            using (var entities = new EnrollmentSystemEntities())
+            {
+                var query = from candidate in entities.Candidates
+                            where candidate.CandidateID == theOtherKindOfID
+                            select candidate.ID;
+
+                return ValidateAndGetFirstItem(query);
+            }
+        }
+
+        private int? GetMajorSubjectCombinationID(string majorName, string combinationName)
+        {
+            if (majorName == "NA")
+                return null;
+
+            using (var entities = new EnrollmentSystemEntities())
+            {
+                var query = from majorSubjectCombination in entities.MajorSubjectCombinations
+                            where majorSubjectCombination.Major.Name == majorName
+                            && majorSubjectCombination.SubjectCombination.SubjectCombinationName == combinationName
+                            select majorSubjectCombination.ID;
+
+                return ValidateAndGetFirstItem(query);
+            }
         }
     }
 }
