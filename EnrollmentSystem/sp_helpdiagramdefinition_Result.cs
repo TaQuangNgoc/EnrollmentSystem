@@ -10,14 +10,10 @@
 namespace EnrollmentSystem
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MajorSujectCombinationsView
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string Name { get; set; }
-        public int MajorID { get; set; }
-        public string SubjectCombinationName { get; set; }
-        public int SubjectCombinationID { get; set; }
-        public int ID { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

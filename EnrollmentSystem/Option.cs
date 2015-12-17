@@ -17,9 +17,9 @@ namespace EnrollmentSystem
         public int ID { get; set; }
         public int CandidateID { get; set; }
         public int MajorCombinationID1 { get; set; }
-        public int MajorCombinationID2 { get; set; }
-        public int MajorCombinationID3 { get; set; }
-        public int MajorCombinationID4 { get; set; }
+        public Nullable<int> MajorCombinationID2 { get; set; }
+        public Nullable<int> MajorCombinationID3 { get; set; }
+        public Nullable<int> MajorCombinationID4 { get; set; }
     
         public virtual Candidate Candidate { get; set; }
         public virtual MajorSubjectCombination MajorSubjectCombination { get; set; }

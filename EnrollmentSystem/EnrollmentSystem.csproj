@@ -329,6 +329,12 @@
     <Compile Include="ReportView.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Subject.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>

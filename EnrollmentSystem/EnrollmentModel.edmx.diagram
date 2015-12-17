@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a5561159c0994901b360c6be3c710aa8" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="EnrollmentSystemModel.Beneficiary" Width="1.5" PointX="5.25" PointY="10.375" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.Beneficiary" Width="1.5" PointX="5.25" PointY="10.5" />
         <EntityTypeShape EntityType="EnrollmentSystemModel.Candidate" Width="1.5" PointX="7.5" PointY="5.5" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.Major" Width="1.5" PointX="3" PointY="10.375" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.MajorSubjectCombination" Width="1.5" PointX="5.25" PointY="5.875" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.Mark" Width="1.5" PointX="3" PointY="2.375" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.Major" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.MajorSubjectCombination" Width="1.5" PointX="5.25" PointY="6" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.Mark" Width="1.5" PointX="3" PointY="2.5" />
         <EntityTypeShape EntityType="EnrollmentSystemModel.Option" Width="1.5" PointX="9.75" PointY="5.875" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.Region" Width="1.5" PointX="5.25" PointY="2.875" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.SubjectCombination" Width="1.5" PointX="3" PointY="5.875" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.Subject" Width="1.5" PointX="0.75" PointY="3.375" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.MajorSujectCombinationsView" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="EnrollmentSystemModel.ReportView" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.Region" Width="1.5" PointX="5.25" PointY="3" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.SubjectCombination" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.Subject" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.MajorSujectCombinationsView" Width="1.5" PointX="12" PointY="3" />
+        <EntityTypeShape EntityType="EnrollmentSystemModel.ReportView" Width="1.5" PointX="12" PointY="5.625" />
         <AssociationConnector Association="EnrollmentSystemModel.FK_Candidates_Beneficiaries" />
         <AssociationConnector Association="EnrollmentSystemModel.FK_Candidates_MajorSubjectCombinations" />
         <AssociationConnector Association="EnrollmentSystemModel.FK_Candidates_Regions" />

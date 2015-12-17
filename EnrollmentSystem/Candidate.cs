@@ -30,6 +30,7 @@ namespace EnrollmentSystem
         public bool HasPrivilege { get; set; }
         public byte[] Password { get; set; }
         public Nullable<int> AdmittingMajorSubjectCombinationID { get; set; }
+        public Nullable<decimal> AdmissionMark { get; set; }
     
         public virtual Beneficiary Beneficiary { get; set; }
         public virtual MajorSubjectCombination MajorSubjectCombination { get; set; }
