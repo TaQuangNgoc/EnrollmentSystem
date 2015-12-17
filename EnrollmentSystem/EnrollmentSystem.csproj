@@ -249,10 +249,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackUpForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BackUpForm.designer.cs" />
     <Compile Include="Beneficiary.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -304,14 +300,18 @@
     <Compile Include="Option.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PreferencesForm.Designer.cs" />
     <Compile Include="PreferencesForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreferencesForm.Designer.cs">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProfileForm.Designer.cs" />
+    <Compile Include="ProfileForm.Designer.cs">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs">
@@ -320,11 +320,15 @@
     <Compile Include="ReportDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReportDetailsForm.Designer.cs" />
+    <Compile Include="ReportDetailsForm.Designer.cs">
+      <DependentUpon>ReportDetailsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReportForm.Designer.cs" />
+    <Compile Include="ReportForm.Designer.cs">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Subject.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -334,9 +338,6 @@
     <Compile Include="ThiSinh.cs" />
     <Compile Include="ThongTinTS.cs" />
     <Compile Include="XetTuyen.cs" />
-    <EmbeddedResource Include="BackUpForm.resx">
-      <DependentUpon>BackUpForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CandidateForm.resx">
       <DependentUpon>CandidateForm.cs</DependentUpon>
     </EmbeddedResource>
