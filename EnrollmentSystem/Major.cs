@@ -21,7 +21,7 @@ namespace EnrollmentSystem
         }
     
         public int ID { get; set; }
-        public string MajorName { get; set; }
+        public string Name { get; set; }
         public int Limit { get; set; }
         public Nullable<decimal> CutOff { get; set; }
     

@@ -32,7 +32,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MajorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Limit" Type="int" Nullable="false" />
           <Property Name="CutOff" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
@@ -76,7 +76,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RegionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Bonus" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="SubjectCombinations">
@@ -135,13 +135,19 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
           <Property Name="RegionID" Type="int" />
-          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Limit" Type="int" />
-          <Property Name="CutOff" Type="numeric" Precision="18" Scale="2" />
           <Property Name="BeneficiaryID" Type="int" />
           <Property Name="BeneficiaryName" Type="nvarchar" MaxLength="50" />
-          <Property Name="HasPrivilege" Type="bit" Nullable="false" />
+          <Property Name="MajorID" Type="int" />
           <Property Name="MajorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectCombinationID" Type="int" />
+          <Property Name="SubjectCombinationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectID1" Type="int" />
+          <Property Name="SubjectName1" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectID2" Type="int" />
+          <Property Name="SubjectName2" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectID3" Type="int" />
+          <Property Name="SubjectName3" Type="nvarchar" MaxLength="50" />
+          <Property Name="HasPrivilege" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Role="Beneficiaries" Type="Self.Beneficiaries" Multiplicity="0..1" />
@@ -415,13 +421,19 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
     [ReportView].[Name] AS [Name], 
     [ReportView].[DateOfBirth] AS [DateOfBirth], 
     [ReportView].[RegionID] AS [RegionID], 
-    [ReportView].[RegionName] AS [RegionName], 
-    [ReportView].[Limit] AS [Limit], 
-    [ReportView].[CutOff] AS [CutOff], 
     [ReportView].[BeneficiaryID] AS [BeneficiaryID], 
     [ReportView].[BeneficiaryName] AS [BeneficiaryName], 
-    [ReportView].[HasPrivilege] AS [HasPrivilege], 
-    [ReportView].[MajorName] AS [MajorName]
+    [ReportView].[MajorID] AS [MajorID], 
+    [ReportView].[MajorName] AS [MajorName], 
+    [ReportView].[SubjectCombinationID] AS [SubjectCombinationID], 
+    [ReportView].[SubjectCombinationName] AS [SubjectCombinationName], 
+    [ReportView].[SubjectID1] AS [SubjectID1], 
+    [ReportView].[SubjectName1] AS [SubjectName1], 
+    [ReportView].[SubjectID2] AS [SubjectID2], 
+    [ReportView].[SubjectName2] AS [SubjectName2], 
+    [ReportView].[SubjectID3] AS [SubjectID3], 
+    [ReportView].[SubjectName3] AS [SubjectName3], 
+    [ReportView].[HasPrivilege] AS [HasPrivilege]
     FROM [dbo].[ReportView] AS [ReportView]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Candidates_Beneficiaries" Association="Self.FK_Candidates_Beneficiaries">
@@ -491,17 +503,11 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
       <Schema Namespace="EnrollmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Beneficiaries" EntityType="EnrollmentModel.Beneficiary" />
-          <EntitySet Name="Majors" EntityType="EnrollmentModel.Major" />
           <EntitySet Name="MajorSubjectCombinations" EntityType="EnrollmentModel.MajorSubjectCombination" />
           <EntitySet Name="Marks" EntityType="EnrollmentModel.Mark" />
           <EntitySet Name="Options" EntityType="EnrollmentModel.Option" />
-          <EntitySet Name="Regions" EntityType="EnrollmentModel.Region" />
           <EntitySet Name="SubjectCombinations" EntityType="EnrollmentModel.SubjectCombination" />
           <EntitySet Name="Subjects" EntityType="EnrollmentModel.Subject" />
-          <AssociationSet Name="FK_MajorSubjectCombinations_Majors" Association="EnrollmentModel.FK_MajorSubjectCombinations_Majors">
-            <End Role="Major" EntitySet="Majors" />
-            <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
-          </AssociationSet>
           <AssociationSet Name="FK_MajorSubjectCombinations_SubjectCombinations" Association="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations">
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
@@ -604,7 +610,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="ReportViews" EntityType="EnrollmentModel.ReportView" />
           <FunctionImport Name="TruncateEverything" />
           <EntitySet Name="Candidates" EntityType="EnrollmentModel.Candidate" />
           <AssociationSet Name="FK_Candidates_Beneficiaries" Association="EnrollmentModel.FK_Candidates_Beneficiaries">
@@ -615,10 +620,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Candidate" EntitySet="Candidates" />
           </AssociationSet>
-          <AssociationSet Name="FK_Candidates_Regions" Association="EnrollmentModel.FK_Candidates_Regions">
-            <End Role="Region" EntitySet="Regions" />
-            <End Role="Candidate" EntitySet="Candidates" />
-          </AssociationSet>
           <AssociationSet Name="FK_Marks_Candidates" Association="EnrollmentModel.FK_Marks_Candidates">
             <End Role="Candidate" EntitySet="Candidates" />
             <End Role="Mark" EntitySet="Marks" />
@@ -626,6 +627,17 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <AssociationSet Name="FK_Options_Candidates" Association="EnrollmentModel.FK_Options_Candidates">
             <End Role="Candidate" EntitySet="Candidates" />
             <End Role="Option" EntitySet="Options" />
+          </AssociationSet>
+          <EntitySet Name="ReportViews" EntityType="EnrollmentModel.ReportView" />
+          <EntitySet Name="Majors" EntityType="EnrollmentModel.Major" />
+          <EntitySet Name="Regions" EntityType="EnrollmentModel.Region" />
+          <AssociationSet Name="FK_Candidates_Regions" Association="EnrollmentModel.FK_Candidates_Regions">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MajorSubjectCombinations_Majors" Association="EnrollmentModel.FK_MajorSubjectCombinations_Majors">
+            <End Role="Major" EntitySet="Majors" />
+            <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Beneficiary">
@@ -637,16 +649,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Beneficiary" ToRole="Candidate" />
         </EntityType>
-        <EntityType Name="Major">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MajorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Limit" Type="Int32" Nullable="false" />
-          <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
-        </EntityType>
         <EntityType Name="MajorSubjectCombination">
           <Key>
             <PropertyRef Name="ID" />
@@ -654,13 +656,13 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MajorID" Type="Int32" Nullable="false" />
           <Property Name="SubjectCombinationID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="MajorSubjectCombination" ToRole="Major" />
           <NavigationProperty Name="SubjectCombination" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations" FromRole="MajorSubjectCombination" ToRole="SubjectCombination" />
           <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations1" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options1" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations2" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options2" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations3" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="MajorSubjectCombination" ToRole="Candidate" />
+          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="MajorSubjectCombination" ToRole="Major" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
@@ -689,15 +691,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <NavigationProperty Name="MajorSubjectCombination3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="Option" ToRole="MajorSubjectCombination" />
           <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Option" ToRole="Candidate" />
         </EntityType>
-        <EntityType Name="Region">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Region" ToRole="Candidate" />
-        </EntityType>
         <EntityType Name="SubjectCombination">
           <Key>
             <PropertyRef Name="ID" />
@@ -724,18 +717,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <NavigationProperty Name="SubjectCombinations1" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects2" FromRole="Subject" ToRole="SubjectCombination" />
           <NavigationProperty Name="SubjectCombinations2" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects3" FromRole="Subject" ToRole="SubjectCombination" />
         </EntityType>
-        <Association Name="FK_MajorSubjectCombinations_Majors">
-          <End Type="EnrollmentModel.Major" Role="Major" Multiplicity="1" />
-          <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Major">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MajorSubjectCombination">
-              <PropertyRef Name="MajorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MajorSubjectCombinations_SubjectCombinations">
           <End Type="EnrollmentModel.SubjectCombination" Role="SubjectCombination" Multiplicity="1" />
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
@@ -883,27 +864,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="ReportView">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="CandidateID" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="DateOfBirth" />
-            <PropertyRef Name="HasPrivilege" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="CandidateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RegionID" Type="Int32" />
-          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Limit" Type="Int32" />
-          <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="BeneficiaryID" Type="Int32" />
-          <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
-          <Property Name="MajorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Candidate">
           <Key>
             <PropertyRef Name="ID" />
@@ -919,9 +879,9 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="AdmittingMajorSubjectCombinationID" Type="Int32" />
           <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Candidate" ToRole="Beneficiary" />
           <NavigationProperty Name="MajorSubjectCombination" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="Candidate" ToRole="MajorSubjectCombination" />
-          <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
           <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
           <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Candidate" ToRole="Option" />
+          <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
         </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Type="EnrollmentModel.Beneficiary" Role="Beneficiary" Multiplicity="0..1" />
@@ -944,18 +904,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             </Principal>
             <Dependent Role="Candidate">
               <PropertyRef Name="AdmittingMajorSubjectCombinationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Candidates_Regions">
-          <End Type="EnrollmentModel.Region" Role="Region" Multiplicity="0..1" />
-          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Region">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Candidate">
-              <PropertyRef Name="RegionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -983,6 +931,76 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ReportView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CandidateID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="DateOfBirth" />
+            <PropertyRef Name="HasPrivilege" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CandidateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="BeneficiaryID" Type="Int32" />
+          <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MajorID" Type="Int32" />
+          <Property Name="MajorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectCombinationID" Type="Int32" />
+          <Property Name="SubjectCombinationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID1" Type="Int32" />
+          <Property Name="SubjectName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID2" Type="Int32" />
+          <Property Name="SubjectName2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID3" Type="Int32" />
+          <Property Name="SubjectName3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Major">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="Int32" Nullable="false" />
+          <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Region" ToRole="Candidate" />
+        </EntityType>
+        <Association Name="FK_Candidates_Regions">
+          <End Type="EnrollmentModel.Region" Role="Region" Multiplicity="0..1" />
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MajorSubjectCombinations_Majors">
+          <End Type="EnrollmentModel.Major" Role="Major" Multiplicity="1" />
+          <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Major">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MajorSubjectCombination">
+              <PropertyRef Name="MajorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -994,16 +1012,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
               <MappingFragment StoreEntitySet="Beneficiaries">
                 <ScalarProperty Name="Bonus" ColumnName="Bonus" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Majors">
-            <EntityTypeMapping TypeName="EnrollmentModel.Major">
-              <MappingFragment StoreEntitySet="Majors">
-                <ScalarProperty Name="CutOff" ColumnName="CutOff" />
-                <ScalarProperty Name="Limit" ColumnName="Limit" />
-                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1035,15 +1043,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
                 <ScalarProperty Name="MajorCombinationID2" ColumnName="MajorCombinationID2" />
                 <ScalarProperty Name="MajorCombinationID1" ColumnName="MajorCombinationID1" />
                 <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Regions">
-            <EntityTypeMapping TypeName="EnrollmentModel.Region">
-              <MappingFragment StoreEntitySet="Regions">
-                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1124,24 +1123,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="EnrollmentModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="EnrollmentModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="ReportViews">
-            <EntityTypeMapping TypeName="EnrollmentModel.ReportView">
-              <MappingFragment StoreEntitySet="ReportView">
-                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
-                <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
-                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
-                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
-                <ScalarProperty Name="CutOff" ColumnName="CutOff" />
-                <ScalarProperty Name="Limit" ColumnName="Limit" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="TruncateEverything" FunctionName="EnrollmentModel.Store.TruncateEverything" />
           <EntitySetMapping Name="Candidates">
             <EntityTypeMapping TypeName="EnrollmentModel.Candidate">
@@ -1154,6 +1135,49 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportViews">
+            <EntityTypeMapping TypeName="EnrollmentModel.ReportView">
+              <MappingFragment StoreEntitySet="ReportView">
+                <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
+                <ScalarProperty Name="SubjectName3" ColumnName="SubjectName3" />
+                <ScalarProperty Name="SubjectID3" ColumnName="SubjectID3" />
+                <ScalarProperty Name="SubjectName2" ColumnName="SubjectName2" />
+                <ScalarProperty Name="SubjectID2" ColumnName="SubjectID2" />
+                <ScalarProperty Name="SubjectName1" ColumnName="SubjectName1" />
+                <ScalarProperty Name="SubjectID1" ColumnName="SubjectID1" />
+                <ScalarProperty Name="SubjectCombinationName" ColumnName="SubjectCombinationName" />
+                <ScalarProperty Name="SubjectCombinationID" ColumnName="SubjectCombinationID" />
+                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
+                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Majors">
+            <EntityTypeMapping TypeName="EnrollmentModel.Major">
+              <MappingFragment StoreEntitySet="Majors">
+                <ScalarProperty Name="CutOff" ColumnName="CutOff" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="EnrollmentModel.Region">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -21,7 +21,7 @@ namespace EnrollmentSystem
         }
     
         public int ID { get; set; }
-        public string RegionName { get; set; }
+        public string Name { get; set; }
         public decimal Bonus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

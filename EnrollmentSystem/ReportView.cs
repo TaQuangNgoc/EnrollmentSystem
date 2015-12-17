@@ -19,12 +19,18 @@ namespace EnrollmentSystem
         public string Name { get; set; }
         public System.DateTime DateOfBirth { get; set; }
         public Nullable<int> RegionID { get; set; }
-        public string RegionName { get; set; }
-        public Nullable<int> Limit { get; set; }
-        public Nullable<decimal> CutOff { get; set; }
         public Nullable<int> BeneficiaryID { get; set; }
         public string BeneficiaryName { get; set; }
-        public bool HasPrivilege { get; set; }
+        public Nullable<int> MajorID { get; set; }
         public string MajorName { get; set; }
+        public Nullable<int> SubjectCombinationID { get; set; }
+        public string SubjectCombinationName { get; set; }
+        public Nullable<int> SubjectID1 { get; set; }
+        public string SubjectName1 { get; set; }
+        public Nullable<int> SubjectID2 { get; set; }
+        public string SubjectName2 { get; set; }
+        public Nullable<int> SubjectID3 { get; set; }
+        public string SubjectName3 { get; set; }
+        public bool HasPrivilege { get; set; }
     }
 }

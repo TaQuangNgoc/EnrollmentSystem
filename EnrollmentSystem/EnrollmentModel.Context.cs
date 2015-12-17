@@ -28,18 +28,18 @@ namespace EnrollmentSystem
         }
     
         public virtual DbSet<Beneficiary> Beneficiaries { get; set; }
-        public virtual DbSet<Major> Majors { get; set; }
         public virtual DbSet<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
         public virtual DbSet<Mark> Marks { get; set; }
         public virtual DbSet<Option> Options { get; set; }
-        public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<SubjectCombination> SubjectCombinations { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<Privilege> Privileges { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<MajorSujectCombinationsView> MajorSujectCombinationsViews { get; set; }
-        public virtual DbSet<ReportView> ReportViews { get; set; }
         public virtual DbSet<Candidate> Candidates { get; set; }
+        public virtual DbSet<ReportView> ReportViews { get; set; }
+        public virtual DbSet<Major> Majors { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
     
         public virtual int pr_ho_so_ts(string mA_TS, string hO_TEN, Nullable<System.DateTime> nGAY_SINH, string kHU_VUC, string dOI_TUONG, string uU_TIEN, byte[] pASSWORD)
         {
