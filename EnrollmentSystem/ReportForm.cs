@@ -14,11 +14,22 @@ namespace EnrollmentSystem
         public ReportForm()
         {
             InitializeComponent();
+            loadDataToGrid();
+        }
+
+        private void loadDataToGrid()
+        {
+            using (var context = new EnrollmentSystemEntities())
+            {            
+                BindingSource dataReport = new BindingSource();
+                dataReport.DataSource = context.ReportView;
+                pivotGridControl.DataSource = dataReport;
+            }
         }
 
         internal void display_for_bao_cao(DataTable v_dt)
         {
-            pivotGridControl1.DataSource = v_dt;
+            pivotGridControl.DataSource = v_dt;
             this.ShowDialog();
         }
 

@@ -12,12 +12,12 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Major
+    public partial class Majors
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Major()
+        public Majors()
         {
-            this.MajorSubjectCombinations = new HashSet<MajorSubjectCombination>();
+            this.MajorSubjectCombinations = new HashSet<MajorSubjectCombinations>();
         }
     
         public int ID { get; set; }
@@ -26,6 +26,6 @@ namespace EnrollmentSystem
         public Nullable<decimal> CutOff { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
+        public virtual ICollection<MajorSubjectCombinations> MajorSubjectCombinations { get; set; }
     }
 }
