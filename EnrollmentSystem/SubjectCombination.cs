@@ -25,6 +25,7 @@ namespace EnrollmentSystem
         public int SubjectID2 { get; set; }
         public int SubjectID3 { get; set; }
         public bool HasMainSubject { get; set; }
+        public string SubjectCombinationName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MajorSubjectCombination> MajorSubjectCombinations { get; set; }

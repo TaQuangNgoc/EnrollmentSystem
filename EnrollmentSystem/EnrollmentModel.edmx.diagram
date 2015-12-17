@@ -6,17 +6,13 @@
     <edmx:Diagrams>
       <Diagram DiagramId="921f6fcfe6f640b9872deb9907cbae0b" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="EnrollmentModel.Beneficiary" Width="1.5" PointX="4.5" PointY="2.5" />
-        <EntityTypeShape EntityType="EnrollmentModel.Candidate" Width="1.5" PointX="0.75" PointY="1.375" />
         <EntityTypeShape EntityType="EnrollmentModel.Major" Width="1.5" PointX="0.75" PointY="9.125" />
-        <EntityTypeShape EntityType="EnrollmentModel.MajorSubjectCombination" Width="1.5" PointX="4.5" PointY="7.625" />
+        <EntityTypeShape EntityType="EnrollmentModel.MajorSubjectCombination" Width="1.375" PointX="5" PointY="9.625" />
         <EntityTypeShape EntityType="EnrollmentModel.Mark" Width="1.5" PointX="4.5" PointY="4.375" />
         <EntityTypeShape EntityType="EnrollmentModel.Option" Width="1.5" PointX="6.875" PointY="7.25" />
         <EntityTypeShape EntityType="EnrollmentModel.Region" Width="1.5" PointX="4.5" PointY="0.5" />
         <EntityTypeShape EntityType="EnrollmentModel.SubjectCombination" Width="1.5" PointX="2.75" PointY="6.75" />
         <EntityTypeShape EntityType="EnrollmentModel.Subject" Width="1.5" PointX="0.75" PointY="5.875" />
-        <AssociationConnector Association="EnrollmentModel.FK_Candidates_Regions" />
-        <AssociationConnector Association="EnrollmentModel.FK_Marks_Candidates" />
-        <AssociationConnector Association="EnrollmentModel.FK_Options_Candidates" />
         <AssociationConnector Association="EnrollmentModel.FK_MajorSubjectCombinations_Majors" />
         <AssociationConnector Association="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations" />
         <AssociationConnector Association="EnrollmentModel.FK_Options_MajorSubjectCombinations1" />
@@ -27,7 +23,14 @@
         <AssociationConnector Association="EnrollmentModel.FK_SubjectCombinations_Subjects1" />
         <AssociationConnector Association="EnrollmentModel.FK_SubjectCombinations_Subjects2" />
         <AssociationConnector Association="EnrollmentModel.FK_SubjectCombinations_Subjects3" />
+        <EntityTypeShape EntityType="EnrollmentModel.Privilege" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EnrollmentModel.sysdiagram" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="EnrollmentModel.MajorSujectCombinationsView" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EnrollmentModel.Candidate" Width="1.5" PointX="1.5" PointY="1" />
         <AssociationConnector Association="EnrollmentModel.FK_Candidates_Beneficiaries" />
+        <AssociationConnector Association="EnrollmentModel.FK_Candidates_Regions" />
+        <AssociationConnector Association="EnrollmentModel.FK_Marks_Candidates" />
+        <AssociationConnector Association="EnrollmentModel.FK_Options_Candidates" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
