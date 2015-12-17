@@ -19,10 +19,10 @@ namespace EnrollmentSystem
 
         private void loadDataToGrid()
         {
-            using (var context = new Entities())
+            using (var context = new EnrollmentSystemEntities())
             {            
                 BindingSource dataReport = new BindingSource();
-                dataReport.DataSource = context.ReportViews;
+                dataReport.DataSource = context.ReportView;
                 pivotGridControl.DataSource = dataReport;
             }
         }
