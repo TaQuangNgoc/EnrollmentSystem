@@ -17,8 +17,8 @@ namespace EnrollmentSystem
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Candidate()
         {
-            this.Marks = new HashSet<Mark>();
             this.Options = new HashSet<Option>();
+            this.Marks = new HashSet<Mark>();
         }
     
         public int ID { get; set; }
@@ -34,9 +34,9 @@ namespace EnrollmentSystem
         public virtual Beneficiary Beneficiary { get; set; }
         public virtual MajorSubjectCombination MajorSubjectCombination { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mark> Marks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Option> Options { get; set; }
         public virtual Region Region { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mark> Marks { get; set; }
     }
 }

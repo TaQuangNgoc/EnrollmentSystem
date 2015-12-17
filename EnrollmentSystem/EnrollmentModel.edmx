@@ -51,7 +51,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CandidateID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
-          <Property Name="Mark" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Score" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Options">
           <Key>
@@ -330,15 +330,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="pr_ho_so_ts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="MA_TS" Type="nvarchar" Mode="In" />
-          <Parameter Name="HO_TEN" Type="nchar" Mode="In" />
-          <Parameter Name="NGAY_SINH" Type="date" Mode="In" />
-          <Parameter Name="KHU_VUC" Type="nvarchar" Mode="In" />
-          <Parameter Name="DOI_TUONG" Type="nvarchar" Mode="In" />
-          <Parameter Name="UU_TIEN" Type="nvarchar" Mode="In" />
-          <Parameter Name="PASSWORD" Type="binary" Mode="In" />
-        </Function>
         <Function Name="ProcedureInsertCandidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CandidateID" Type="nvarchar" Mode="In" />
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
@@ -504,7 +495,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Beneficiaries" EntityType="EnrollmentModel.Beneficiary" />
           <EntitySet Name="MajorSubjectCombinations" EntityType="EnrollmentModel.MajorSubjectCombination" />
-          <EntitySet Name="Marks" EntityType="EnrollmentModel.Mark" />
           <EntitySet Name="Options" EntityType="EnrollmentModel.Option" />
           <EntitySet Name="SubjectCombinations" EntityType="EnrollmentModel.SubjectCombination" />
           <EntitySet Name="Subjects" EntityType="EnrollmentModel.Subject" />
@@ -527,10 +517,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <AssociationSet Name="FK_Options_MajorSubjectCombinations4" Association="EnrollmentModel.FK_Options_MajorSubjectCombinations4">
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Option" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Marks_Subjects" Association="EnrollmentModel.FK_Marks_Subjects">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="Mark" EntitySet="Marks" />
           </AssociationSet>
           <AssociationSet Name="FK_SubjectCombinations_Subjects1" Association="EnrollmentModel.FK_SubjectCombinations_Subjects1">
             <End Role="Subject" EntitySet="Subjects" />
@@ -620,10 +606,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
             <End Role="Candidate" EntitySet="Candidates" />
           </AssociationSet>
-          <AssociationSet Name="FK_Marks_Candidates" Association="EnrollmentModel.FK_Marks_Candidates">
-            <End Role="Candidate" EntitySet="Candidates" />
-            <End Role="Mark" EntitySet="Marks" />
-          </AssociationSet>
           <AssociationSet Name="FK_Options_Candidates" Association="EnrollmentModel.FK_Options_Candidates">
             <End Role="Candidate" EntitySet="Candidates" />
             <End Role="Option" EntitySet="Options" />
@@ -638,6 +620,15 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <AssociationSet Name="FK_MajorSubjectCombinations_Majors" Association="EnrollmentModel.FK_MajorSubjectCombinations_Majors">
             <End Role="Major" EntitySet="Majors" />
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
+          </AssociationSet>
+          <EntitySet Name="Marks" EntityType="EnrollmentModel.Mark" />
+          <AssociationSet Name="FK_Marks_Candidates" Association="EnrollmentModel.FK_Marks_Candidates">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="Mark" EntitySet="Marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marks_Subjects" Association="EnrollmentModel.FK_Marks_Subjects">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Mark" EntitySet="Marks" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Beneficiary">
@@ -663,17 +654,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <NavigationProperty Name="Options3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="MajorSubjectCombination" ToRole="Candidate" />
           <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="MajorSubjectCombination" ToRole="Major" />
-        </EntityType>
-        <EntityType Name="Mark">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CandidateID" Type="Int32" Nullable="false" />
-          <Property Name="SubjectID" Type="Int32" Nullable="false" />
-          <Property Name="Mark1" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Subject" Relationship="EnrollmentModel.FK_Marks_Subjects" FromRole="Mark" ToRole="Subject" />
-          <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Mark" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="Option">
           <Key>
@@ -712,10 +692,10 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Subjects" FromRole="Subject" ToRole="Mark" />
           <NavigationProperty Name="SubjectCombinations" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects1" FromRole="Subject" ToRole="SubjectCombination" />
           <NavigationProperty Name="SubjectCombinations1" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects2" FromRole="Subject" ToRole="SubjectCombination" />
           <NavigationProperty Name="SubjectCombinations2" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects3" FromRole="Subject" ToRole="SubjectCombination" />
+          <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Subjects" FromRole="Subject" ToRole="Mark" />
         </EntityType>
         <Association Name="FK_MajorSubjectCombinations_SubjectCombinations">
           <End Type="EnrollmentModel.SubjectCombination" Role="SubjectCombination" Multiplicity="1" />
@@ -774,18 +754,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             </Principal>
             <Dependent Role="Option">
               <PropertyRef Name="MajorCombinationID4" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Marks_Subjects">
-          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="1" />
-          <End Type="EnrollmentModel.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subject">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="SubjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -879,9 +847,9 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="AdmittingMajorSubjectCombinationID" Type="Int32" />
           <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Candidate" ToRole="Beneficiary" />
           <NavigationProperty Name="MajorSubjectCombination" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="Candidate" ToRole="MajorSubjectCombination" />
-          <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
           <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Candidate" ToRole="Option" />
           <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
+          <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
         </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Type="EnrollmentModel.Beneficiary" Role="Beneficiary" Multiplicity="0..1" />
@@ -904,18 +872,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             </Principal>
             <Dependent Role="Candidate">
               <PropertyRef Name="AdmittingMajorSubjectCombinationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Marks_Candidates">
-          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="1" />
-          <End Type="EnrollmentModel.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Candidate">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="CandidateID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1001,6 +957,41 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Mark">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectID" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Mark" ToRole="Candidate" />
+          <NavigationProperty Name="Subject" Relationship="EnrollmentModel.FK_Marks_Subjects" FromRole="Mark" ToRole="Subject" />
+        </EntityType>
+        <Association Name="FK_Marks_Candidates">
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="1" />
+          <End Type="EnrollmentModel.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marks_Subjects">
+          <End Type="EnrollmentModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="EnrollmentModel.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1021,16 +1012,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
               <MappingFragment StoreEntitySet="MajorSubjectCombinations">
                 <ScalarProperty Name="SubjectCombinationID" ColumnName="SubjectCombinationID" />
                 <ScalarProperty Name="MajorID" ColumnName="MajorID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Marks">
-            <EntityTypeMapping TypeName="EnrollmentModel.Mark">
-              <MappingFragment StoreEntitySet="Marks">
-                <ScalarProperty Name="Mark1" ColumnName="Mark" />
-                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
-                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1096,7 +1077,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_ho_so_ts" FunctionName="EnrollmentModel.Store.pr_ho_so_ts" />
           <FunctionImportMapping FunctionImportName="ProcedureInsertCandidate" FunctionName="EnrollmentModel.Store.ProcedureInsertCandidate" />
           <FunctionImportMapping FunctionImportName="ProcedureInsertMark" FunctionName="EnrollmentModel.Store.ProcedureInsertMark" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="EnrollmentModel.Store.sp_alterdiagram" />
@@ -1178,6 +1158,16 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
               <MappingFragment StoreEntitySet="Regions">
                 <ScalarProperty Name="Bonus" ColumnName="Bonus" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marks">
+            <EntityTypeMapping TypeName="EnrollmentModel.Mark">
+              <MappingFragment StoreEntitySet="Marks">
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

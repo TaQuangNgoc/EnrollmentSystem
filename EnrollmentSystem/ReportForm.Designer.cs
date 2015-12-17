@@ -32,13 +32,13 @@
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.PieSeriesView pieSeriesView1 = new DevExpress.XtraCharts.PieSeriesView();
             DevExpress.XtraCharts.PieSeriesView pieSeriesView2 = new DevExpress.XtraCharts.PieSeriesView();
-            this.pivotGridControl1 = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.pivotGridControl = new DevExpress.XtraPivotGrid.PivotGridControl();
             this.pivotGridField1 = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pivotGridField2 = new DevExpress.XtraPivotGrid.PivotGridField();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
-            ((System.ComponentModel.ISupportInitialize)(this.pivotGridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pivotGridControl)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(simpleDiagram1)).BeginInit();
@@ -47,17 +47,17 @@
             ((System.ComponentModel.ISupportInitialize)(pieSeriesView2)).BeginInit();
             this.SuspendLayout();
             // 
-            // pivotGridControl1
+            // pivotGridControl
             // 
-            this.pivotGridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pivotGridControl1.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
+            this.pivotGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pivotGridControl.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
             this.pivotGridField1,
             this.pivotGridField2});
-            this.pivotGridControl1.Location = new System.Drawing.Point(0, 68);
-            this.pivotGridControl1.Name = "pivotGridControl1";
-            this.pivotGridControl1.Size = new System.Drawing.Size(753, 440);
-            this.pivotGridControl1.TabIndex = 0;
-            this.pivotGridControl1.CellDoubleClick += new DevExpress.XtraPivotGrid.PivotCellEventHandler(this.pivotGridControl1_CellDoubleClick);
+            this.pivotGridControl.Location = new System.Drawing.Point(0, 68);
+            this.pivotGridControl.Name = "pivotGridControl";
+            this.pivotGridControl.Size = new System.Drawing.Size(753, 440);
+            this.pivotGridControl.TabIndex = 0;
+            this.pivotGridControl.CellDoubleClick += new DevExpress.XtraPivotGrid.PivotCellEventHandler(this.pivotGridControl1_CellDoubleClick);
             // 
             // pivotGridField1
             // 
@@ -118,12 +118,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1097, 508);
-            this.Controls.Add(this.pivotGridControl1);
+            this.Controls.Add(this.pivotGridControl);
             this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.panel1);
             this.Name = "ReportForm";
             this.Text = "F130_BAO_CAO";
-            ((System.ComponentModel.ISupportInitialize)(this.pivotGridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pivotGridControl)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(simpleDiagram1)).EndInit();
@@ -137,7 +137,7 @@
 
         #endregion
 
-        private DevExpress.XtraPivotGrid.PivotGridControl pivotGridControl1;
+        private DevExpress.XtraPivotGrid.PivotGridControl pivotGridControl;
         private DevExpress.XtraPivotGrid.PivotGridField pivotGridField1;
         private DevExpress.XtraPivotGrid.PivotGridField pivotGridField2;
         private System.Windows.Forms.Panel panel1;
