@@ -10,16 +10,13 @@
 namespace EnrollmentSystem
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Mark
+    public partial class sp_helpdiagrams_Result
     {
+        public string Database { get; set; }
+        public string Name { get; set; }
         public int ID { get; set; }
-        public int CandidateID { get; set; }
-        public int SubjectID { get; set; }
-        public decimal Mark1 { get; set; }
-    
-        public virtual Subject Subject { get; set; }
-        public virtual Candidate Candidate { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

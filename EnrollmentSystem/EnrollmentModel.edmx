@@ -19,20 +19,20 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CandidateID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
           <Property Name="RegionID" Type="int" />
           <Property Name="BeneficiaryID" Type="int" />
           <Property Name="HasPrivilege" Type="bit" Nullable="false" />
-          <Property Name="Pasword" Type="binary" MaxLength="32" Nullable="false" />
-          <Property Name="AdmittedMajorID" Type="int" />
+          <Property Name="Password" Type="binary" MaxLength="32" Nullable="false" />
+          <Property Name="AdmittingMajorSubjectCombinationID" Type="int" />
         </EntityType>
         <EntityType Name="Majors">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MajorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Limit" Type="int" Nullable="false" />
           <Property Name="CutOff" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
@@ -64,12 +64,19 @@
           <Property Name="MajorCombinationID3" Type="int" Nullable="false" />
           <Property Name="MajorCombinationID4" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Privileges">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Regions">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RegionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Bonus" Type="numeric" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="SubjectCombinations">
@@ -81,6 +88,7 @@
           <Property Name="SubjectID2" Type="int" Nullable="false" />
           <Property Name="SubjectID3" Type="int" Nullable="false" />
           <Property Name="HasMainSubject" Type="bit" Nullable="false" />
+          <Property Name="SubjectCombinationName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Subjects">
           <Key>
@@ -88,6 +96,58 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MajorSujectCombinationsView">
+          <Key>
+            <PropertyRef Name="MajorName" />
+            <PropertyRef Name="MajorID" />
+            <PropertyRef Name="SubjectCombinationID" />
+          </Key>
+          <Property Name="MajorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MajorID" Type="int" Nullable="false" />
+          <Property Name="SubjectCombinationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectCombinationID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ReportView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CandidateID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="DateOfBirth" />
+            <PropertyRef Name="HasPrivilege" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CandidateID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="RegionID" Type="int" />
+          <Property Name="BeneficiaryID" Type="int" />
+          <Property Name="BeneficiaryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MajorID" Type="int" />
+          <Property Name="MajorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectCombinationID" Type="int" />
+          <Property Name="SubjectCombinationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectID1" Type="int" />
+          <Property Name="SubjectName1" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectID2" Type="int" />
+          <Property Name="SubjectName2" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubjectID3" Type="int" />
+          <Property Name="SubjectName3" Type="nvarchar" MaxLength="50" />
+          <Property Name="HasPrivilege" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Role="Beneficiaries" Type="Self.Beneficiaries" Multiplicity="0..1" />
@@ -98,6 +158,18 @@
             </Principal>
             <Dependent Role="Candidates">
               <PropertyRef Name="BeneficiaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidates_MajorSubjectCombinations">
+          <End Role="MajorSubjectCombinations" Type="Self.MajorSubjectCombinations" Multiplicity="0..1" />
+          <End Role="Candidates" Type="Self.Candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MajorSubjectCombinations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidates">
+              <PropertyRef Name="AdmittingMajorSubjectCombinationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -257,6 +329,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="pr_ho_so_ts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MA_TS" Type="nvarchar" Mode="In" />
+          <Parameter Name="HO_TEN" Type="nchar" Mode="In" />
+          <Parameter Name="NGAY_SINH" Type="date" Mode="In" />
+          <Parameter Name="KHU_VUC" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOI_TUONG" Type="nvarchar" Mode="In" />
+          <Parameter Name="UU_TIEN" Type="nvarchar" Mode="In" />
+          <Parameter Name="PASSWORD" Type="binary" Mode="In" />
+        </Function>
+        <Function Name="ProcedureInsertCandidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CandidateID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="DateOfBirth" Type="date" Mode="In" />
+          <Parameter Name="RegionID" Type="int" Mode="In" />
+          <Parameter Name="BenificiaryID" Type="int" Mode="In" />
+          <Parameter Name="HasPrivilege" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="ProcedureInsertMark" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CandidateID" Type="int" Mode="In" />
+          <Parameter Name="MarkToan" Type="numeric" Mode="In" />
+          <Parameter Name="MarkVan" Type="numeric" Mode="In" />
+          <Parameter Name="MarkLy" Type="numeric" Mode="In" />
+          <Parameter Name="MarkHoa" Type="numeric" Mode="In" />
+          <Parameter Name="MarkSinh" Type="numeric" Mode="In" />
+          <Parameter Name="MarkSu" Type="numeric" Mode="In" />
+          <Parameter Name="MarkDia" Type="numeric" Mode="In" />
+          <Parameter Name="MarkAnh" Type="numeric" Mode="In" />
+          <Parameter Name="MarkNga" Type="numeric" Mode="In" />
+          <Parameter Name="MarkPhap" Type="numeric" Mode="In" />
+          <Parameter Name="MarkTrung" Type="numeric" Mode="In" />
+          <Parameter Name="MarkDuc" Type="numeric" Mode="In" />
+          <Parameter Name="MarkNhat" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TruncateEverything" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="EnrollmentModelStoreContainer">
           <EntitySet Name="Beneficiaries" EntityType="Self.Beneficiaries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Candidates" EntityType="Self.Candidates" Schema="dbo" store:Type="Tables" />
@@ -264,11 +401,47 @@
           <EntitySet Name="MajorSubjectCombinations" EntityType="Self.MajorSubjectCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Privileges" EntityType="Self.Privileges" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubjectCombinations" EntityType="Self.SubjectCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MajorSujectCombinationsView" EntityType="Self.MajorSujectCombinationsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MajorSujectCombinationsView].[MajorName] AS [MajorName], 
+    [MajorSujectCombinationsView].[MajorID] AS [MajorID], 
+    [MajorSujectCombinationsView].[SubjectCombinationName] AS [SubjectCombinationName], 
+    [MajorSujectCombinationsView].[SubjectCombinationID] AS [SubjectCombinationID]
+    FROM [dbo].[MajorSujectCombinationsView] AS [MajorSujectCombinationsView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ReportView" EntityType="Self.ReportView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ReportView].[ID] AS [ID], 
+    [ReportView].[CandidateID] AS [CandidateID], 
+    [ReportView].[Name] AS [Name], 
+    [ReportView].[DateOfBirth] AS [DateOfBirth], 
+    [ReportView].[RegionID] AS [RegionID], 
+    [ReportView].[BeneficiaryID] AS [BeneficiaryID], 
+    [ReportView].[BeneficiaryName] AS [BeneficiaryName], 
+    [ReportView].[MajorID] AS [MajorID], 
+    [ReportView].[MajorName] AS [MajorName], 
+    [ReportView].[SubjectCombinationID] AS [SubjectCombinationID], 
+    [ReportView].[SubjectCombinationName] AS [SubjectCombinationName], 
+    [ReportView].[SubjectID1] AS [SubjectID1], 
+    [ReportView].[SubjectName1] AS [SubjectName1], 
+    [ReportView].[SubjectID2] AS [SubjectID2], 
+    [ReportView].[SubjectName2] AS [SubjectName2], 
+    [ReportView].[SubjectID3] AS [SubjectID3], 
+    [ReportView].[SubjectName3] AS [SubjectName3], 
+    [ReportView].[HasPrivilege] AS [HasPrivilege]
+    FROM [dbo].[ReportView] AS [ReportView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Candidates_Beneficiaries" Association="Self.FK_Candidates_Beneficiaries">
             <End Role="Beneficiaries" EntitySet="Beneficiaries" />
+            <End Role="Candidates" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidates_MajorSubjectCombinations" Association="Self.FK_Candidates_MajorSubjectCombinations">
+            <End Role="MajorSubjectCombinations" EntitySet="MajorSubjectCombinations" />
             <End Role="Candidates" EntitySet="Candidates" />
           </AssociationSet>
           <AssociationSet Name="FK_Candidates_Regions" Association="Self.FK_Candidates_Regions">
@@ -330,30 +503,11 @@
       <Schema Namespace="EnrollmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Beneficiaries" EntityType="EnrollmentModel.Beneficiary" />
-          <EntitySet Name="Candidates" EntityType="EnrollmentModel.Candidate" />
-          <EntitySet Name="Majors" EntityType="EnrollmentModel.Major" />
           <EntitySet Name="MajorSubjectCombinations" EntityType="EnrollmentModel.MajorSubjectCombination" />
           <EntitySet Name="Marks" EntityType="EnrollmentModel.Mark" />
           <EntitySet Name="Options" EntityType="EnrollmentModel.Option" />
-          <EntitySet Name="Regions" EntityType="EnrollmentModel.Region" />
           <EntitySet Name="SubjectCombinations" EntityType="EnrollmentModel.SubjectCombination" />
           <EntitySet Name="Subjects" EntityType="EnrollmentModel.Subject" />
-          <AssociationSet Name="FK_Candidates_Regions" Association="EnrollmentModel.FK_Candidates_Regions">
-            <End Role="Region" EntitySet="Regions" />
-            <End Role="Candidate" EntitySet="Candidates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Marks_Candidates" Association="EnrollmentModel.FK_Marks_Candidates">
-            <End Role="Candidate" EntitySet="Candidates" />
-            <End Role="Mark" EntitySet="Marks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Options_Candidates" Association="EnrollmentModel.FK_Options_Candidates">
-            <End Role="Candidate" EntitySet="Candidates" />
-            <End Role="Option" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MajorSubjectCombinations_Majors" Association="EnrollmentModel.FK_MajorSubjectCombinations_Majors">
-            <End Role="Major" EntitySet="Majors" />
-            <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
-          </AssociationSet>
           <AssociationSet Name="FK_MajorSubjectCombinations_SubjectCombinations" Association="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations">
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
             <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
@@ -390,11 +544,102 @@
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
           </AssociationSet>
+          <EntitySet Name="Privileges" EntityType="EnrollmentModel.Privilege" />
+          <EntitySet Name="sysdiagrams" EntityType="EnrollmentModel.sysdiagram" />
+          <EntitySet Name="MajorSujectCombinationsViews" EntityType="EnrollmentModel.MajorSujectCombinationsView" />
+          <FunctionImport Name="pr_ho_so_ts">
+            <Parameter Name="MA_TS" Mode="In" Type="String" />
+            <Parameter Name="HO_TEN" Mode="In" Type="String" />
+            <Parameter Name="NGAY_SINH" Mode="In" Type="DateTime" />
+            <Parameter Name="KHU_VUC" Mode="In" Type="String" />
+            <Parameter Name="DOI_TUONG" Mode="In" Type="String" />
+            <Parameter Name="UU_TIEN" Mode="In" Type="String" />
+            <Parameter Name="PASSWORD" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="ProcedureInsertCandidate">
+            <Parameter Name="CandidateID" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="RegionID" Mode="In" Type="Int32" />
+            <Parameter Name="BenificiaryID" Mode="In" Type="Int32" />
+            <Parameter Name="HasPrivilege" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="ProcedureInsertMark">
+            <Parameter Name="CandidateID" Mode="In" Type="Int32" />
+            <Parameter Name="MarkToan" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkVan" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkLy" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkHoa" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkSinh" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkSu" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkDia" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkAnh" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkNga" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkPhap" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkTrung" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkDuc" Mode="In" Type="Decimal" />
+            <Parameter Name="MarkNhat" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(EnrollmentModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(EnrollmentModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="TruncateEverything" />
+          <EntitySet Name="Candidates" EntityType="EnrollmentModel.Candidate" />
           <AssociationSet Name="FK_Candidates_Beneficiaries" Association="EnrollmentModel.FK_Candidates_Beneficiaries">
             <End Role="Beneficiary" EntitySet="Beneficiaries" />
             <End Role="Candidate" EntitySet="Candidates" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_Candidates_MajorSubjectCombinations" Association="EnrollmentModel.FK_Candidates_MajorSubjectCombinations">
+            <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marks_Candidates" Association="EnrollmentModel.FK_Marks_Candidates">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="Mark" EntitySet="Marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Options_Candidates" Association="EnrollmentModel.FK_Options_Candidates">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="Option" EntitySet="Options" />
+          </AssociationSet>
+          <EntitySet Name="ReportViews" EntityType="EnrollmentModel.ReportView" />
+          <EntitySet Name="Majors" EntityType="EnrollmentModel.Major" />
+          <EntitySet Name="Regions" EntityType="EnrollmentModel.Region" />
+          <AssociationSet Name="FK_Candidates_Regions" Association="EnrollmentModel.FK_Candidates_Regions">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MajorSubjectCombinations_Majors" Association="EnrollmentModel.FK_MajorSubjectCombinations_Majors">
+            <End Role="Major" EntitySet="Majors" />
+            <End Role="MajorSubjectCombination" EntitySet="MajorSubjectCombinations" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Beneficiary">
           <Key>
             <PropertyRef Name="ID" />
@@ -404,34 +649,6 @@
           <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Beneficiary" ToRole="Candidate" />
         </EntityType>
-        <EntityType Name="Candidate">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CandidateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RegionID" Type="Int32" />
-          <Property Name="BeneficiaryID" Type="Int32" />
-          <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
-          <Property Name="Pasword" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
-          <Property Name="AdmittedMajorID" Type="Int32" />
-          <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
-          <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
-          <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Candidate" ToRole="Option" />
-          <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Candidate" ToRole="Beneficiary" />
-        </EntityType>
-        <EntityType Name="Major">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MajorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Limit" Type="Int32" Nullable="false" />
-          <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
-        </EntityType>
         <EntityType Name="MajorSubjectCombination">
           <Key>
             <PropertyRef Name="ID" />
@@ -439,12 +656,13 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MajorID" Type="Int32" Nullable="false" />
           <Property Name="SubjectCombinationID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="MajorSubjectCombination" ToRole="Major" />
           <NavigationProperty Name="SubjectCombination" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_SubjectCombinations" FromRole="MajorSubjectCombination" ToRole="SubjectCombination" />
           <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations1" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options1" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations2" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options2" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations3" FromRole="MajorSubjectCombination" ToRole="Option" />
           <NavigationProperty Name="Options3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="MajorSubjectCombination" ToRole="Option" />
+          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="MajorSubjectCombination" ToRole="Candidate" />
+          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="MajorSubjectCombination" ToRole="Major" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
@@ -454,8 +672,8 @@
           <Property Name="CandidateID" Type="Int32" Nullable="false" />
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
           <Property Name="Mark1" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Mark" ToRole="Candidate" />
           <NavigationProperty Name="Subject" Relationship="EnrollmentModel.FK_Marks_Subjects" FromRole="Mark" ToRole="Subject" />
+          <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Mark" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="Option">
           <Key>
@@ -467,20 +685,11 @@
           <Property Name="MajorCombinationID2" Type="Int32" Nullable="false" />
           <Property Name="MajorCombinationID3" Type="Int32" Nullable="false" />
           <Property Name="MajorCombinationID4" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Option" ToRole="Candidate" />
           <NavigationProperty Name="MajorSubjectCombination" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations1" FromRole="Option" ToRole="MajorSubjectCombination" />
           <NavigationProperty Name="MajorSubjectCombination1" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations2" FromRole="Option" ToRole="MajorSubjectCombination" />
           <NavigationProperty Name="MajorSubjectCombination2" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations3" FromRole="Option" ToRole="MajorSubjectCombination" />
           <NavigationProperty Name="MajorSubjectCombination3" Relationship="EnrollmentModel.FK_Options_MajorSubjectCombinations4" FromRole="Option" ToRole="MajorSubjectCombination" />
-        </EntityType>
-        <EntityType Name="Region">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Region" ToRole="Candidate" />
+          <NavigationProperty Name="Candidate" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Option" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="SubjectCombination">
           <Key>
@@ -495,6 +704,7 @@
           <NavigationProperty Name="Subject" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects1" FromRole="SubjectCombination" ToRole="Subject" />
           <NavigationProperty Name="Subject1" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects2" FromRole="SubjectCombination" ToRole="Subject" />
           <NavigationProperty Name="Subject2" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects3" FromRole="SubjectCombination" ToRole="Subject" />
+          <Property Name="SubjectCombinationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -507,54 +717,6 @@
           <NavigationProperty Name="SubjectCombinations1" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects2" FromRole="Subject" ToRole="SubjectCombination" />
           <NavigationProperty Name="SubjectCombinations2" Relationship="EnrollmentModel.FK_SubjectCombinations_Subjects3" FromRole="Subject" ToRole="SubjectCombination" />
         </EntityType>
-        <Association Name="FK_Candidates_Regions">
-          <End Type="EnrollmentModel.Region" Role="Region" Multiplicity="0..1" />
-          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Region">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Candidate">
-              <PropertyRef Name="RegionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Marks_Candidates">
-          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="1" />
-          <End Type="EnrollmentModel.Mark" Role="Mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Candidate">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Mark">
-              <PropertyRef Name="CandidateID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Options_Candidates">
-          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="1" />
-          <End Type="EnrollmentModel.Option" Role="Option" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Candidate">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Option">
-              <PropertyRef Name="CandidateID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MajorSubjectCombinations_Majors">
-          <End Type="EnrollmentModel.Major" Role="Major" Multiplicity="1" />
-          <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Major">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MajorSubjectCombination">
-              <PropertyRef Name="MajorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MajorSubjectCombinations_SubjectCombinations">
           <End Type="EnrollmentModel.SubjectCombination" Role="SubjectCombination" Multiplicity="1" />
           <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
@@ -663,6 +825,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Privilege">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MajorSujectCombinationsView">
+          <Key>
+            <PropertyRef Name="MajorName" />
+            <PropertyRef Name="MajorID" />
+            <PropertyRef Name="SubjectCombinationID" />
+          </Key>
+          <Property Name="MajorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MajorID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectCombinationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectCombinationID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="BeneficiaryID" Type="Int32" />
+          <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
+          <Property Name="AdmittingMajorSubjectCombinationID" Type="Int32" />
+          <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Candidate" ToRole="Beneficiary" />
+          <NavigationProperty Name="MajorSubjectCombination" Relationship="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" FromRole="Candidate" ToRole="MajorSubjectCombination" />
+          <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
+          <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Candidate" ToRole="Option" />
+          <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
+        </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Type="EnrollmentModel.Beneficiary" Role="Beneficiary" Multiplicity="0..1" />
           <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
@@ -672,6 +892,112 @@
             </Principal>
             <Dependent Role="Candidate">
               <PropertyRef Name="BeneficiaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidates_MajorSubjectCombinations">
+          <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="0..1" />
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MajorSubjectCombination">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="AdmittingMajorSubjectCombinationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marks_Candidates">
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="1" />
+          <End Type="EnrollmentModel.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Options_Candidates">
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="1" />
+          <End Type="EnrollmentModel.Option" Role="Option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Option">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ReportView">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CandidateID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="DateOfBirth" />
+            <PropertyRef Name="HasPrivilege" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CandidateID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="BeneficiaryID" Type="Int32" />
+          <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MajorID" Type="Int32" />
+          <Property Name="MajorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectCombinationID" Type="Int32" />
+          <Property Name="SubjectCombinationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID1" Type="Int32" />
+          <Property Name="SubjectName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID2" Type="Int32" />
+          <Property Name="SubjectName2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectID3" Type="Int32" />
+          <Property Name="SubjectName3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Major">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="Int32" Nullable="false" />
+          <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bonus" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Region" ToRole="Candidate" />
+        </EntityType>
+        <Association Name="FK_Candidates_Regions">
+          <End Type="EnrollmentModel.Region" Role="Region" Multiplicity="0..1" />
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MajorSubjectCombinations_Majors">
+          <End Type="EnrollmentModel.Major" Role="Major" Multiplicity="1" />
+          <End Type="EnrollmentModel.MajorSubjectCombination" Role="MajorSubjectCombination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Major">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MajorSubjectCombination">
+              <PropertyRef Name="MajorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -686,31 +1012,6 @@
               <MappingFragment StoreEntitySet="Beneficiaries">
                 <ScalarProperty Name="Bonus" ColumnName="Bonus" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Candidates">
-            <EntityTypeMapping TypeName="EnrollmentModel.Candidate">
-              <MappingFragment StoreEntitySet="Candidates">
-                <ScalarProperty Name="AdmittedMajorID" ColumnName="AdmittedMajorID" />
-                <ScalarProperty Name="Pasword" ColumnName="Pasword" />
-                <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
-                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Majors">
-            <EntityTypeMapping TypeName="EnrollmentModel.Major">
-              <MappingFragment StoreEntitySet="Majors">
-                <ScalarProperty Name="CutOff" ColumnName="CutOff" />
-                <ScalarProperty Name="Limit" ColumnName="Limit" />
-                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -746,18 +1047,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Regions">
-            <EntityTypeMapping TypeName="EnrollmentModel.Region">
-              <MappingFragment StoreEntitySet="Regions">
-                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
-                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SubjectCombinations">
             <EntityTypeMapping TypeName="EnrollmentModel.SubjectCombination">
               <MappingFragment StoreEntitySet="SubjectCombinations">
+                <ScalarProperty Name="SubjectCombinationName" ColumnName="SubjectCombinationName" />
                 <ScalarProperty Name="HasMainSubject" ColumnName="HasMainSubject" />
                 <ScalarProperty Name="SubjectID3" ColumnName="SubjectID3" />
                 <ScalarProperty Name="SubjectID2" ColumnName="SubjectID2" />
@@ -770,6 +1063,121 @@
             <EntityTypeMapping TypeName="EnrollmentModel.Subject">
               <MappingFragment StoreEntitySet="Subjects">
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Privileges">
+            <EntityTypeMapping TypeName="EnrollmentModel.Privilege">
+              <MappingFragment StoreEntitySet="Privileges">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EnrollmentModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MajorSujectCombinationsViews">
+            <EntityTypeMapping TypeName="EnrollmentModel.MajorSujectCombinationsView">
+              <MappingFragment StoreEntitySet="MajorSujectCombinationsView">
+                <ScalarProperty Name="SubjectCombinationID" ColumnName="SubjectCombinationID" />
+                <ScalarProperty Name="SubjectCombinationName" ColumnName="SubjectCombinationName" />
+                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_ho_so_ts" FunctionName="EnrollmentModel.Store.pr_ho_so_ts" />
+          <FunctionImportMapping FunctionImportName="ProcedureInsertCandidate" FunctionName="EnrollmentModel.Store.ProcedureInsertCandidate" />
+          <FunctionImportMapping FunctionImportName="ProcedureInsertMark" FunctionName="EnrollmentModel.Store.ProcedureInsertMark" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="EnrollmentModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="EnrollmentModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="EnrollmentModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="EnrollmentModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EnrollmentModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="EnrollmentModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EnrollmentModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="EnrollmentModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="EnrollmentModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="TruncateEverything" FunctionName="EnrollmentModel.Store.TruncateEverything" />
+          <EntitySetMapping Name="Candidates">
+            <EntityTypeMapping TypeName="EnrollmentModel.Candidate">
+              <MappingFragment StoreEntitySet="Candidates">
+                <ScalarProperty Name="AdmittingMajorSubjectCombinationID" ColumnName="AdmittingMajorSubjectCombinationID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
+                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportViews">
+            <EntityTypeMapping TypeName="EnrollmentModel.ReportView">
+              <MappingFragment StoreEntitySet="ReportView">
+                <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
+                <ScalarProperty Name="SubjectName3" ColumnName="SubjectName3" />
+                <ScalarProperty Name="SubjectID3" ColumnName="SubjectID3" />
+                <ScalarProperty Name="SubjectName2" ColumnName="SubjectName2" />
+                <ScalarProperty Name="SubjectID2" ColumnName="SubjectID2" />
+                <ScalarProperty Name="SubjectName1" ColumnName="SubjectName1" />
+                <ScalarProperty Name="SubjectID1" ColumnName="SubjectID1" />
+                <ScalarProperty Name="SubjectCombinationName" ColumnName="SubjectCombinationName" />
+                <ScalarProperty Name="SubjectCombinationID" ColumnName="SubjectCombinationID" />
+                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
+                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+                <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Majors">
+            <EntityTypeMapping TypeName="EnrollmentModel.Major">
+              <MappingFragment StoreEntitySet="Majors">
+                <ScalarProperty Name="CutOff" ColumnName="CutOff" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="EnrollmentModel.Region">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

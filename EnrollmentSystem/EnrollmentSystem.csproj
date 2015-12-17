@@ -293,6 +293,9 @@
     <Compile Include="MajorSubjectCombination.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MajorSujectCombinationsView.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Mark.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -305,6 +308,9 @@
     </Compile>
     <Compile Include="PreferencesForm.Designer.cs">
       <DependentUpon>PreferencesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Privilege.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -323,10 +329,19 @@
     <Compile Include="ReportForm.Designer.cs">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Subject.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubjectCombination.cs">
+      <DependentUpon>EnrollmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ThiSinh.cs" />
@@ -361,6 +376,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EnrollmentModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
     <None Include="EnrollmentModel.edmx.diagram">
       <DependentUpon>EnrollmentModel.edmx</DependentUpon>
     </None>

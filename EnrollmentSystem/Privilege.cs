@@ -12,19 +12,9 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Region
+    public partial class Privilege
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Region()
-        {
-            this.Candidates = new HashSet<Candidate>();
-        }
-    
         public int ID { get; set; }
         public string Name { get; set; }
-        public decimal Bonus { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidate> Candidates { get; set; }
     }
 }

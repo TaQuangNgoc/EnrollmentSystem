@@ -21,10 +21,10 @@ namespace EnrollmentSystem
         public int MajorCombinationID3 { get; set; }
         public int MajorCombinationID4 { get; set; }
     
-        public virtual Candidate Candidate { get; set; }
         public virtual MajorSubjectCombination MajorSubjectCombination { get; set; }
         public virtual MajorSubjectCombination MajorSubjectCombination1 { get; set; }
         public virtual MajorSubjectCombination MajorSubjectCombination2 { get; set; }
         public virtual MajorSubjectCombination MajorSubjectCombination3 { get; set; }
+        public virtual Candidate Candidate { get; set; }
     }
 }
