@@ -64,33 +64,15 @@ namespace EnrollmentSystem
                                             "Anh", "Nga", "Pháp", "Trung", "Đức", "Nhật" };
             ValidateSubjectNames(validSubjectNames);
 
-            var candidatesColumns = new[] { "CandidateID", "Name", "DateOfBirth", "RegionID", "BeneficiaryID",
-                "HasPrivilege", "Password", "AdmittingMajorSubjectCombinationID", "AdmissionMark" };
-            var candidatesTable = new DataTable();
-            foreach (var columnName in candidatesColumns)
-                candidatesTable.Columns.Add(columnName);
 
-            var marksColumns = new[] { "CandidateID", "SubjectID", "Score" };
-            var marksTable = new DataTable();
-            foreach (var columnName in marksColumns)
-                marksTable.Columns.Add(columnName);
+            var entities = new EnrollmentSystemEntities();
+            entities.Configuration.AutoDetectChangesEnabled = false;
 
             int id = 0;
             foreach (DataRow dataRow in candidatesData.Rows)
             {
                 var candidate = CandidateFromData(dataRow);
-                var candidateRow = candidatesTable.NewRow();
-                candidateRow[0] = candidate.CandidateID;
-                candidateRow[1] = candidate.Name;
-                candidateRow[2] = candidate.DateOfBirth;
-                candidateRow[3] = candidate.RegionID;
-                candidateRow[4] = candidate.BeneficiaryID;
-                candidateRow[5] = candidate.HasPrivilege;
-                candidateRow[6] = candidate.Password;
-                candidateRow[7] = null;
-                candidateRow[8] = null;
-
-                candidatesTable.Rows.Add(candidateRow);
+                entities.Candidates.Add(candidate);
 
                 id++;
                 for (int i = 0; i < 13; i++)
@@ -101,17 +83,20 @@ namespace EnrollmentSystem
                         continue;
 
                     var mark = MarkFromData(id, subjectID, markString);
-                    var markRow = marksTable.NewRow();
-                    markRow[0] = mark.CandidateID;
-                    markRow[1] = mark.SubjectID;
-                    markRow[2] = mark.Score;
+                    entities.Marks.Add(mark);
+                }
 
-                    marksTable.Rows.Add(markRow);
+                if (id % 777 == 776)
+                {
+                    entities.SaveChanges();
+                    entities.Dispose();
+                    entities = new EnrollmentSystemEntities();
+                    entities.Configuration.AutoDetectChangesEnabled = false;
                 }
             }
 
-            BulkCopy(candidatesTable, "Candidates");
-            BulkCopy(marksTable, "Marks");
+            entities.SaveChanges();
+            entities.Dispose();
         }
 
         private void ValidateColumnNames(IEnumerable<string> columnNames, string[] validColumnNames)
@@ -233,22 +218,6 @@ namespace EnrollmentSystem
             var hasher = SHA256.Create();
             var byteArray = Encoding.UTF8.GetBytes(input);
             return hasher.ComputeHash(byteArray);
-        }
-
-        private void BulkCopy(DataTable data, string tableName)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["EnrollmentSystemEntities"].ConnectionString;
-
-            using (var bulkCopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.KeepIdentity))
-            {
-                foreach (DataColumn column in data.Columns)
-                    if (column.ColumnName != "ID")
-                        bulkCopy.ColumnMappings.Add(column.ColumnName, column.ColumnName);
-
-                bulkCopy.BulkCopyTimeout = 600;
-                bulkCopy.DestinationTableName = tableName;
-                bulkCopy.WriteToServer(data);
-            }
         }
 
         private Mark MarkFromData(int candidateID, int subjectID, string markString)
