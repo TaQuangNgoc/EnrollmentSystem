@@ -250,6 +250,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdmissionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdmissionList.Designer.cs" />
     <Compile Include="BackUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -303,6 +307,10 @@
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Algorithm\NhomNganh.cs" />
+    <Compile Include="NonAdmissionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NonAdmissionList.Designer.cs" />
     <Compile Include="Option.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -346,6 +354,7 @@
     </Compile>
     <Compile Include="Algorithm\ThiSinh.cs" />
     <Compile Include="Algorithm\XetTuyen.cs" />
+    <EmbeddedResource Include="AdmissionList.resx" />
     <EmbeddedResource Include="BackUpForm.resx">
       <DependentUpon>BackUpForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -355,6 +364,7 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NonAdmissionList.resx" />
     <EmbeddedResource Include="PreferencesForm.resx">
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,10 +1,11 @@
 ﻿using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DevExpress.XtraTab;
+using DevExpress.XtraBars.Ribbon;
 
 namespace EnrollmentSystem
 {
-    public partial class MainForm : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class MainForm : RibbonForm
     {
         public MainForm()
         {
