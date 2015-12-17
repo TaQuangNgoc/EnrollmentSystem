@@ -20,9 +20,7 @@
         <AssociationConnector Association="EnrollmentModel.FK_SubjectCombinations_Subjects1" />
         <AssociationConnector Association="EnrollmentModel.FK_SubjectCombinations_Subjects2" />
         <AssociationConnector Association="EnrollmentModel.FK_SubjectCombinations_Subjects3" />
-        <EntityTypeShape EntityType="EnrollmentModel.Privilege" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="EnrollmentModel.sysdiagram" Width="1.5" PointX="7.375" PointY="3.75" />
-        <EntityTypeShape EntityType="EnrollmentModel.MajorSujectCombinationsView" Width="2.625" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EnrollmentModel.MajorSujectCombinationsView" Width="2.625" PointX="8.75" PointY="0.5" />
         <EntityTypeShape EntityType="EnrollmentModel.Candidate" Width="1.5" PointX="1.75" PointY="1.25" />
         <AssociationConnector Association="EnrollmentModel.FK_Candidates_Beneficiaries" />
         <AssociationConnector Association="EnrollmentModel.FK_Candidates_MajorSubjectCombinations" />

@@ -54,82 +54,96 @@ namespace EnrollmentSystem
         {
             var validColumnNames = new[] { "SBD", "HoTen", "NgaySinh", "KV", "DT", "UT",
                 "Toan", "Van", "Ly", "Hoa", "Sinh", "Su", "Dia", "Anh", "Nga", "Phap", "Trung", "Duc", "Nhat" };
+            var columnNames = from column in candidatesData.Columns.Cast<DataColumn>()
+                              select column.ColumnName;
+            ValidateColumnNames(columnNames, validColumnNames);
 
-            bool dataIsvalid = DataIsValid(candidatesData, validColumnNames);
-            if (!dataIsvalid)
-                throw new FormatException("Data file is not of correct format.");
+            var validSubjectNames = new[] { "Toán", "Văn", "Lý", "Hóa", "Sinh", "Sử", "Địa",
+                                            "Anh", "Nga", "Pháp", "Trung", "Đức", "Nhật" };
+            ValidateSubjectNames(validSubjectNames);
 
-            foreach (DataRow dataRow in candidatesData.Rows)
+            using (var entities = new Entities())
             {
-                var candidateID = (string)dataRow[0];
-                var name = (string)dataRow[1];
-                var dateOfBirthString = (string)dataRow[2];
-                var regionName = (string)dataRow[3];
-                var beneficiaryName = (string)dataRow[4];
-                var priviledge = (string)dataRow[5];
-
-                var mathString = (string)dataRow[6];
-                var literatureString = (string)dataRow[7];
-                var physicsString = (string)dataRow[8];
-                var chemistryString = (string)dataRow[9];
-                var biologyString = (string)dataRow[10];
-                var historyString = (string)dataRow[11];
-                var geographyString = (string)dataRow[12];
-
-                var englishString = (string)dataRow[13];
-                var russianString = (string)dataRow[14];
-                var frenchString = (string)dataRow[15];
-                var chineseString = (string)dataRow[16];
-                var germanString = (string)dataRow[17];
-                var japaneseString = (string)dataRow[18];
-
-                DateTime dateOfBirth = ValidateAndParseDate(dateOfBirthString);
-
-                bool hasPriviledge = priviledge != "";
-
-                decimal math = ValidateAndParseMark(mathString),
-                        literature = ValidateAndParseMark(literatureString),
-                        physics = ValidateAndParseMark(physicsString),
-                        chemistry = ValidateAndParseMark(chemistryString),
-                        biology = ValidateAndParseMark(biologyString),
-                        history = ValidateAndParseMark(historyString),
-                        geography = ValidateAndParseMark(geographyString),
-                        english = ValidateAndParseMark(englishString),
-                        russian = ValidateAndParseMark(russianString),
-                        french = ValidateAndParseMark(frenchString),
-                        chinese = ValidateAndParseMark(chineseString),
-                        german = ValidateAndParseMark(germanString),
-                        japanese = ValidateAndParseMark(japaneseString);
-
-                var regionID = RegionIDFromName(regionName);
-                var beneficiaryID = RegionIDFromName(beneficiaryName);
-
-                var password = HashcodeFromString(candidateID + "randomSalt");
-
-                var candidate = new Candidate()
+                foreach (DataRow dataRow in candidatesData.Rows)
                 {
-                    CandidateID = candidateID,
-                    Name = name,
-                    DateOfBirth = dateOfBirth,
-                    RegionID = regionID,
-                    BeneficiaryID = beneficiaryID,
-                    HasPrivilege = hasPriviledge,
-                    Pasword = password
-                };
+                    var candidate = CandidateFromData(dataRow);
+                    entities.Candidates.Add(candidate);
+                    entities.SaveChanges();
+
+                    int id = candidate.ID;
+                    for (int i = 0; i < 13; i++)
+                    {
+                        int subjectID = i + 1;
+                        var markString = (string)dataRow[6 + i];
+                        AddMarkData(id, subjectID, markString);
+                    }
+                    entities.SaveChanges();
+                }
             }
         }
 
-        private bool DataIsValid(DataTable data, string[] validColumnNames)
+        private void ValidateColumnNames(IEnumerable<string> columnNames, string[] validColumnNames)
         {
-            var dataColumns = data.Columns;
-            if (dataColumns.Count != validColumnNames.Length)
+            bool dataIsvalid = NamesAreValid(columnNames, validColumnNames);
+            if (!dataIsvalid)
+                throw new FormatException("Data file is not of correct format.");
+        }
+
+        private bool NamesAreValid(IEnumerable<string> names, string[] validNames)
+        {
+            var nameArray = names.ToArray();
+
+            if (nameArray.Length != validNames.Length)
                 return false;
 
-            for (int i = 0; i < validColumnNames.Length; i++)
-                if (dataColumns[i].ColumnName != validColumnNames[i])
+            for (int i = 0; i < validNames.Length; i++)
+                if (nameArray[i] != validNames[i])
                     return false;
 
             return true;
+        }
+
+        private void ValidateSubjectNames(string[] validSubjectNames)
+        {
+            using (var entities = new Entities())
+            {
+                var subjectNames = from subject in entities.Subjects
+                                   select subject.SubjectName;
+
+                bool dataIsvalid = NamesAreValid(subjectNames, validSubjectNames);
+                if (!dataIsvalid)
+                    throw new FormatException("Subject name mismatched.");
+            }
+        }
+
+        private Candidate CandidateFromData(DataRow dataRow)
+        {
+            var candidateID = (string)dataRow[0];
+            var name = (string)dataRow[1];
+            var dateOfBirthString = (string)dataRow[2];
+            var regionName = (string)dataRow[3];
+            var beneficiaryName = (string)dataRow[4];
+            var priviledge = (string)dataRow[5];
+
+            var dateOfBirth = ValidateAndParseDate(dateOfBirthString);
+            bool hasPriviledge = priviledge != "Khong";
+
+            var regionID = RegionIDFromName(regionName);
+            var beneficiaryID = BeneficiaryIDFromName(beneficiaryName);
+
+            var password = HashcodeFromString(candidateID);
+
+            var candidate = new Candidate()
+            {
+                CandidateID = candidateID,
+                Name = name,
+                DateOfBirth = dateOfBirth,
+                RegionID = regionID,
+                BeneficiaryID = beneficiaryID,
+                HasPrivilege = hasPriviledge,
+                Password = password
+            };
+            return candidate;
         }
 
         private DateTime ValidateAndParseDate(string dateString)
@@ -144,32 +158,23 @@ namespace EnrollmentSystem
             }
         }
 
-        private decimal ValidateAndParseMark(string markString)
-        {
-            try
-            {
-                return decimal.Parse(markString);
-            }
-            catch (FormatException)
-            {
-                throw new FormatException("Mark fields are not of correct format.");
-            }
-        }
-
         private int RegionIDFromName(string regionName)
         {
             using (var entities = new Entities())
             {
                 var regionIDQuery = from region in entities.Regions
-                                    where region.RegionName == regionName
+                                    where region.Name == regionName
                                     select region.ID;
                 var regionID = ValidateAndGetQueryID(regionIDQuery);
                 return regionID;
             }
         }
 
-        private int BeneficiaryIDFromName(string beneficiaryName)
+        private int? BeneficiaryIDFromName(string beneficiaryName)
         {
+            if (beneficiaryName == "Khong")
+                return null;
+
             using (var entities = new Entities())
             {
                 var beneficiaryIDQuery = from beneficiary in entities.Beneficiaries
@@ -189,7 +194,7 @@ namespace EnrollmentSystem
             }
             catch (InvalidOperationException)
             {
-                throw new FormatException("Beneficiary name is not of correct format.");
+                throw new FormatException("Column name is not of correct format.");
             }
         }
 
@@ -198,6 +203,37 @@ namespace EnrollmentSystem
             var hasher = SHA256.Create();
             var byteArray = Encoding.Unicode.GetBytes(input);
             return hasher.ComputeHash(byteArray);
+        }
+
+        private void AddMarkData(int candidateID, int subjectID, string markString)
+        {
+            if (markString == "NA")
+                return;
+
+            using (var entities = new Entities())
+            {
+                decimal score = ValidateAndParseMark(markString);
+
+                var mark = new Mark()
+                {
+                    CandidateID = candidateID,
+                    SubjectID = subjectID,
+                    Mark1 = score
+                };
+                entities.Marks.Add(mark);
+            }
+        }
+
+        private decimal ValidateAndParseMark(string markString)
+        {
+            try
+            {
+                return decimal.Parse(markString);
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("Mark fields are not of correct format.");
+            }
         }
 
         private void ImportOptionsData(DataTable optionsData)

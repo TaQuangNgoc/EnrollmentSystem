@@ -33,8 +33,6 @@ namespace EnrollmentSystem
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<SubjectCombination> SubjectCombinations { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
-        public virtual DbSet<Privilege> Privileges { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<MajorSujectCombinationsView> MajorSujectCombinationsViews { get; set; }
         public virtual DbSet<Candidate> Candidates { get; set; }
         public virtual DbSet<ReportView> ReportViews { get; set; }

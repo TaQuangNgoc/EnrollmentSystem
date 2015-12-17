@@ -64,13 +64,6 @@
           <Property Name="MajorCombinationID3" Type="int" Nullable="false" />
           <Property Name="MajorCombinationID4" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Privileges">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
-        </EntityType>
         <EntityType Name="Regions">
           <Key>
             <PropertyRef Name="ID" />
@@ -96,16 +89,6 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -401,11 +384,9 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <EntitySet Name="MajorSubjectCombinations" EntityType="Self.MajorSubjectCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Privileges" EntityType="Self.Privileges" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubjectCombinations" EntityType="Self.SubjectCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MajorSujectCombinationsView" EntityType="Self.MajorSujectCombinationsView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [MajorSujectCombinationsView].[MajorName] AS [MajorName], 
@@ -544,8 +525,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             <End Role="Subject" EntitySet="Subjects" />
             <End Role="SubjectCombination" EntitySet="SubjectCombinations" />
           </AssociationSet>
-          <EntitySet Name="Privileges" EntityType="EnrollmentModel.Privilege" />
-          <EntitySet Name="sysdiagrams" EntityType="EnrollmentModel.sysdiagram" />
           <EntitySet Name="MajorSujectCombinationsViews" EntityType="EnrollmentModel.MajorSujectCombinationsView" />
           <FunctionImport Name="pr_ho_so_ts">
             <Parameter Name="MA_TS" Mode="In" Type="String" />
@@ -825,23 +804,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Privilege">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="MajorSujectCombinationsView">
           <Key>
             <PropertyRef Name="MajorName" />
@@ -1064,25 +1026,6 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
               <MappingFragment StoreEntitySet="Subjects">
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Privileges">
-            <EntityTypeMapping TypeName="EnrollmentModel.Privilege">
-              <MappingFragment StoreEntitySet="Privileges">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="EnrollmentModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
