@@ -16,6 +16,8 @@ namespace EnrollmentSystem
             InitializeComponent();
         }
 
+
+
         internal void display_for_bao_cao(DataTable v_dt)
         {
             pivotGridControl1.DataSource = v_dt;

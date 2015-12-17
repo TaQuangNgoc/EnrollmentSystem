@@ -24,7 +24,7 @@
           <Property Name="RegionID" Type="int" />
           <Property Name="BeneficiaryID" Type="int" />
           <Property Name="HasPrivilege" Type="bit" Nullable="false" />
-          <Property Name="Pasword" Type="binary" MaxLength="32" Nullable="false" />
+          <Property Name="Password" Type="binary" MaxLength="32" Nullable="false" />
           <Property Name="AdmittingMajorID" Type="int" />
         </EntityType>
         <EntityType Name="Majors">
@@ -129,6 +129,18 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             </Principal>
             <Dependent Role="Candidates">
               <PropertyRef Name="BeneficiaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidates_Majors">
+          <End Role="Majors" Type="Self.Majors" Multiplicity="0..1" />
+          <End Role="Candidates" Type="Self.Candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Majors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidates">
+              <PropertyRef Name="AdmittingMajorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -376,6 +388,10 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             <End Role="Beneficiaries" EntitySet="Beneficiaries" />
             <End Role="Candidates" EntitySet="Candidates" />
           </AssociationSet>
+          <AssociationSet Name="FK_Candidates_Majors" Association="Self.FK_Candidates_Majors">
+            <End Role="Majors" EntitySet="Majors" />
+            <End Role="Candidates" EntitySet="Candidates" />
+          </AssociationSet>
           <AssociationSet Name="FK_Candidates_Regions" Association="Self.FK_Candidates_Regions">
             <End Role="Regions" EntitySet="Regions" />
             <End Role="Candidates" EntitySet="Candidates" />
@@ -553,6 +569,10 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             <End Role="Beneficiary" EntitySet="Beneficiaries" />
             <End Role="Candidate" EntitySet="Candidates" />
           </AssociationSet>
+          <AssociationSet Name="FK_Candidates_Majors" Association="EnrollmentModel.FK_Candidates_Majors">
+            <End Role="Major" EntitySet="Majors" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
           <AssociationSet Name="FK_Candidates_Regions" Association="EnrollmentModel.FK_Candidates_Regions">
             <End Role="Region" EntitySet="Regions" />
             <End Role="Candidate" EntitySet="Candidates" />
@@ -565,7 +585,7 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             <End Role="Candidate" EntitySet="Candidates" />
             <End Role="Option" EntitySet="Options" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Beneficiary">
           <Key>
             <PropertyRef Name="ID" />
@@ -584,6 +604,7 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <Property Name="Limit" Type="Int32" Nullable="false" />
           <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="MajorSubjectCombinations" Relationship="EnrollmentModel.FK_MajorSubjectCombinations_Majors" FromRole="Major" ToRole="MajorSubjectCombination" />
+          <NavigationProperty Name="Candidates" Relationship="EnrollmentModel.FK_Candidates_Majors" FromRole="Major" ToRole="Candidate" />
         </EntityType>
         <EntityType Name="MajorSubjectCombination">
           <Key>
@@ -831,9 +852,10 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
           <Property Name="RegionID" Type="Int32" />
           <Property Name="BeneficiaryID" Type="Int32" />
           <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
-          <Property Name="Pasword" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
+          <Property Name="Password" Type="Binary" Nullable="false" MaxLength="32" FixedLength="true" />
           <Property Name="AdmittingMajorID" Type="Int32" />
           <NavigationProperty Name="Beneficiary" Relationship="EnrollmentModel.FK_Candidates_Beneficiaries" FromRole="Candidate" ToRole="Beneficiary" />
+          <NavigationProperty Name="Major" Relationship="EnrollmentModel.FK_Candidates_Majors" FromRole="Candidate" ToRole="Major" />
           <NavigationProperty Name="Region" Relationship="EnrollmentModel.FK_Candidates_Regions" FromRole="Candidate" ToRole="Region" />
           <NavigationProperty Name="Marks" Relationship="EnrollmentModel.FK_Marks_Candidates" FromRole="Candidate" ToRole="Mark" />
           <NavigationProperty Name="Options" Relationship="EnrollmentModel.FK_Options_Candidates" FromRole="Candidate" ToRole="Option" />
@@ -847,6 +869,18 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             </Principal>
             <Dependent Role="Candidate">
               <PropertyRef Name="BeneficiaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidates_Majors">
+          <End Type="EnrollmentModel.Major" Role="Major" Multiplicity="0..1" />
+          <End Type="EnrollmentModel.Candidate" Role="Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Major">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="AdmittingMajorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1031,7 +1065,7 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.MajorSujectCombinationsView' 
             <EntityTypeMapping TypeName="EnrollmentModel.Candidate">
               <MappingFragment StoreEntitySet="Candidates">
                 <ScalarProperty Name="AdmittingMajorID" ColumnName="AdmittingMajorID" />
-                <ScalarProperty Name="Pasword" ColumnName="Pasword" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
                 <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
