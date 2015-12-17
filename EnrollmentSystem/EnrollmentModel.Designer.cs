@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\User\Desktop\thanh\Projects\EnrollmentSystem\EnrollmentSystem\EnrollmentModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\pham tuan anh\Desktop\EnrollmentSystem\EnrollmentSystem\EnrollmentModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

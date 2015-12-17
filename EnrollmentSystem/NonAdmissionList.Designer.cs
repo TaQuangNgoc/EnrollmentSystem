@@ -59,9 +59,9 @@
             this.label1.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(56, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(207, 23);
+            this.label1.Size = new System.Drawing.Size(332, 23);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Điểm chuẩn các ngành";
+            this.label1.Text = "Danh sách thí sinh không trúng tuyển";
             // 
             // panel2
             // 
@@ -122,7 +122,7 @@
             // gridColumn4
             // 
             this.gridColumn4.Caption = "Khu vực";
-            this.gridColumn4.FieldName = "Region";
+            this.gridColumn4.FieldName = "RegionName";
             this.gridColumn4.Name = "gridColumn4";
             this.gridColumn4.Visible = true;
             this.gridColumn4.VisibleIndex = 3;

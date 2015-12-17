@@ -20,22 +20,15 @@ namespace EnrollmentSystem
         private void loadDataToGrid()
         {
             using (var context = new EnrollmentSystemEntities())
-            {            
-                BindingSource dataReport = new BindingSource();
-                dataReport.DataSource = context.ReportViews.ToList();
+            {
+               var res = from data in  context.ReportViews
+                         where data.AdmittingMajorSubjectCombinationID != null
+                         select data;
+               pivotGridControl.DataSource = res.ToList();
             }
         }
 
-        internal void display_for_bao_cao(DataTable v_dt)
-        {
-            pivotGridControl.DataSource = v_dt;
-            this.ShowDialog();
-        }
-
-        private void pivotGridControl1_CellDoubleClick(object sender, DevExpress.XtraPivotGrid.PivotCellEventArgs e)
-        {
-            ReportDetailsForm v_f = new ReportDetailsForm();
-            v_f.Display_for_bao_cao_de(e.CreateDrillDownDataSource());
-        }
+       
+       
     }
 }
