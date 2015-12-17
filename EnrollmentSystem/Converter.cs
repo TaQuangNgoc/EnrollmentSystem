@@ -64,21 +64,21 @@ namespace EnrollmentSystem
 
             using (var entities = new EnrollmentSystemEntities())
             {
+                int id = 0;
                 foreach (DataRow dataRow in candidatesData.Rows)
                 {
                     var candidate = CandidateFromData(dataRow);
                     entities.Candidates.Add(candidate);
-                    entities.SaveChanges();
 
-                    int id = candidate.ID;
+                    id++;
                     for (int i = 0; i < 13; i++)
                     {
                         int subjectID = i + 1;
                         var markString = (string)dataRow[6 + i];
                         AddMarkData(id, subjectID, markString);
                     }
-                    entities.SaveChanges();
                 }
+                entities.SaveChanges();
             }
         }
 
@@ -173,9 +173,6 @@ namespace EnrollmentSystem
 
         private int? BeneficiaryIDFromName(string beneficiaryName)
         {
-            if (beneficiaryName == "Khong")
-                return null;
-
             using (var entities = new EnrollmentSystemEntities())
             {
                 var beneficiaryIDQuery = from beneficiary in entities.Beneficiaries
