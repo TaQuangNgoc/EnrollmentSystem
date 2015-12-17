@@ -43,9 +43,7 @@ namespace EnrollmentSystem
                 while (!parser.EndOfData)
                 {
                     var row = parser.ReadFields();
-                    var replaced = from cell in row
-                                   select (cell == "") ? null : cell;
-                    data.Rows.Add(replaced);
+                    data.Rows.Add(row);
                 }
             }
 
@@ -65,18 +63,33 @@ namespace EnrollmentSystem
             {
                 var candidateID = (string)dataRow[0];
                 var name = (string)dataRow[1];
+                var dateOfBirthString = (string)dataRow[2];
+                var region = (string)dataRow[3];
+                var beneficiary = (string)dataRow[4];
+                var priviledge = (string)dataRow[5];
+                var mathString = (string)dataRow[6];
+                var literatureString = (string)dataRow[7];
+                var physicsString = (string)dataRow[8];
+                var chemistryString = (string)dataRow[9];
+                var biologyString = (string)dataRow[10];
+                var historyString = (string)dataRow[11];
+                var geographyString = (string)dataRow[12];
+                var englishString = (string)dataRow[13];
+                /*
+                var geographyString = (string)dataRow[12];
+                var geographyString = (string)dataRow[12];
+                var geographyString = (string)dataRow[12];
+                var geographyString = (string)dataRow[12];
+                var geographyString = (string)dataRow[12];
+                */
+
                 try
                 {
-                    var dateOfBirth = DateTime.Parse((string)dataRow[2]);
                 }
                 catch (FormatException)
                 {
-                    throw new FormatException("Data fields are not of correct format.");
+                    throw new FormatException("Date fields are not of correct format.");
                 }
-                var region = (string)dataRow[3];
-                var beneficiary = (string)dataRow[4];
-                var priviledge = (string)dataRow[5] != "";
-                //var math =
                 }
         }
 

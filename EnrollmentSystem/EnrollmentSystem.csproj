@@ -304,7 +304,7 @@
     <Compile Include="Option.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Preference.Designer.cs" />
+    <Compile Include="PreferencesForm.Designer.cs" />
     <Compile Include="PreferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,15 +334,21 @@
     <Compile Include="ThiSinh.cs" />
     <Compile Include="ThongTinTS.cs" />
     <Compile Include="XetTuyen.cs" />
-    <EmbeddedResource Include="BackUpForm.resx" />
+    <EmbeddedResource Include="BackUpForm.resx">
+      <DependentUpon>BackUpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CandidateForm.resx">
       <DependentUpon>CandidateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Preference.resx" />
-    <EmbeddedResource Include="ProfileForm.resx" />
+    <EmbeddedResource Include="PreferencesForm.resx">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProfileForm.resx">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -353,8 +359,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ReportDetailsForm.resx" />
-    <EmbeddedResource Include="ReportForm.resx" />
+    <EmbeddedResource Include="ReportDetailsForm.resx">
+      <DependentUpon>ReportDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportForm.resx">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="EnrollmentModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EnrollmentModel.Designer.cs</LastGenOutput>
