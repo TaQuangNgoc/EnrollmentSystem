@@ -22,7 +22,7 @@ namespace EnrollmentSystem
         //form in tag
 
         ReportForm v_f130_bao_cao;
-        ProfileForm v_f140_ho_so_thong_tin;
+        CandidateForm v_f140_ho_so_thong_tin;
         PreferencesForm v_f100_chi_tiet_nguyen_vong;
 
         private void m_cmd_thong_tin_ItemClick(object sender, ItemClickEventArgs e)
@@ -30,7 +30,7 @@ namespace EnrollmentSystem
 
             if (v_f140_ho_so_thong_tin == null || !IsFormOpen(v_f140_ho_so_thong_tin))
             {
-                v_f140_ho_so_thong_tin = new ProfileForm();
+                v_f140_ho_so_thong_tin = new CandidateForm();
                 v_f140_ho_so_thong_tin.MdiParent = this;
                 v_f140_ho_so_thong_tin.Show();
             }
