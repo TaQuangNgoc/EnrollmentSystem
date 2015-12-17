@@ -10,7 +10,6 @@ namespace EnrollmentSystem
 {
     class Converter
     {
-
         public void ExportCSV()
         {
 
@@ -64,10 +63,21 @@ namespace EnrollmentSystem
 
             foreach (DataRow dataRow in candidatesData.Rows)
             {
-                string candidateID = (string)dataRow[0];
-                string name = (string)dataRow[1];
-                DateTime dateOfBirth = (DateTime)dataRow[2];
-            }
+                var candidateID = (string)dataRow[0];
+                var name = (string)dataRow[1];
+                try
+                {
+                    var dateOfBirth = DateTime.Parse((string)dataRow[2]);
+                }
+                catch (FormatException)
+                {
+                    throw new FormatException("Data fields are not of correct format.");
+                }
+                var region = (string)dataRow[3];
+                var beneficiary = (string)dataRow[4];
+                var priviledge = (string)dataRow[5] != "";
+                //var math =
+                }
         }
 
         private bool DataIsValid(DataTable data, string[] validColumnNames)
