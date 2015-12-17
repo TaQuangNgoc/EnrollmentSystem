@@ -27,19 +27,17 @@ namespace EnrollmentSystem
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Beneficiaries> Beneficiaries { get; set; }
-        public virtual DbSet<Candidates> Candidates { get; set; }
-        public virtual DbSet<Majors> Majors { get; set; }
-        public virtual DbSet<MajorSubjectCombinations> MajorSubjectCombinations { get; set; }
-        public virtual DbSet<Marks> Marks { get; set; }
-        public virtual DbSet<Options> Options { get; set; }
-        public virtual DbSet<Privileges> Privileges { get; set; }
-        public virtual DbSet<Regions> Regions { get; set; }
-        public virtual DbSet<SubjectCombinations> SubjectCombinations { get; set; }
-        public virtual DbSet<Subjects> Subjects { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<MajorSujectCombinationsView> MajorSujectCombinationsView { get; set; }
-        public virtual DbSet<ReportView> ReportView { get; set; }
+        public virtual DbSet<Beneficiary> Beneficiaries { get; set; }
+        public virtual DbSet<Candidate> Candidates { get; set; }
+        public virtual DbSet<Major> Majors { get; set; }
+        public virtual DbSet<MajorSubjectCombination> MajorSubjectCombinations { get; set; }
+        public virtual DbSet<Mark> Marks { get; set; }
+        public virtual DbSet<Option> Options { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<SubjectCombination> SubjectCombinations { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<MajorSujectCombinationsView> MajorSujectCombinationsViews { get; set; }
+        public virtual DbSet<ReportView> ReportViews { get; set; }
     
         public virtual int ProcedureInsertCandidate(string candidateID, string name, Nullable<System.DateTime> dateOfBirth, Nullable<int> regionID, Nullable<int> benificiaryID, Nullable<bool> hasPrivilege)
         {
@@ -184,32 +182,6 @@ namespace EnrollmentSystem
                 new ObjectParameter("owner_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
         }
     
         public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)

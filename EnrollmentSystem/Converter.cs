@@ -62,7 +62,7 @@ namespace EnrollmentSystem
                                             "Anh", "Nga", "Pháp", "Trung", "Đức", "Nhật" };
             ValidateSubjectNames(validSubjectNames);
 
-            using (var entities = new Entities())
+            using (var entities = new EnrollmentSystemEntities())
             {
                 foreach (DataRow dataRow in candidatesData.Rows)
                 {
@@ -105,7 +105,7 @@ namespace EnrollmentSystem
 
         private void ValidateSubjectNames(string[] validSubjectNames)
         {
-            using (var entities = new Entities())
+            using (var entities = new EnrollmentSystemEntities())
             {
                 var subjectNames = from subject in entities.Subjects
                                    select subject.SubjectName;
@@ -160,7 +160,7 @@ namespace EnrollmentSystem
 
         private int RegionIDFromName(string regionName)
         {
-            using (var entities = new Entities())
+            using (var entities = new EnrollmentSystemEntities())
             {
                 var regionIDQuery = from region in entities.Regions
                                     where region.Name == regionName
@@ -175,7 +175,7 @@ namespace EnrollmentSystem
             if (beneficiaryName == "Khong")
                 return null;
 
-            using (var entities = new Entities())
+            using (var entities = new EnrollmentSystemEntities())
             {
                 var beneficiaryIDQuery = from beneficiary in entities.Beneficiaries
                                          where beneficiary.Name == beneficiaryName
@@ -210,7 +210,7 @@ namespace EnrollmentSystem
             if (markString == "NA")
                 return;
 
-            using (var entities = new Entities())
+            using (var entities = new EnrollmentSystemEntities())
             {
                 decimal score = ValidateAndParseMark(markString);
 
@@ -218,7 +218,7 @@ namespace EnrollmentSystem
                 {
                     CandidateID = candidateID,
                     SubjectID = subjectID,
-                    Mark1 = score
+                    Score = score
                 };
                 entities.Marks.Add(mark);
             }

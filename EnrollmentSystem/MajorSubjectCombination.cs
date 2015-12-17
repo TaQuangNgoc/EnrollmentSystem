@@ -12,16 +12,16 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class MajorSubjectCombinations
+    public partial class MajorSubjectCombination
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MajorSubjectCombinations()
+        public MajorSubjectCombination()
         {
-            this.Candidates = new HashSet<Candidates>();
-            this.Options = new HashSet<Options>();
-            this.Options1 = new HashSet<Options>();
-            this.Options2 = new HashSet<Options>();
-            this.Options3 = new HashSet<Options>();
+            this.Candidates = new HashSet<Candidate>();
+            this.Options = new HashSet<Option>();
+            this.Options1 = new HashSet<Option>();
+            this.Options2 = new HashSet<Option>();
+            this.Options3 = new HashSet<Option>();
         }
     
         public int ID { get; set; }
@@ -29,16 +29,16 @@ namespace EnrollmentSystem
         public int SubjectCombinationID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidates> Candidates { get; set; }
-        public virtual Majors Majors { get; set; }
-        public virtual SubjectCombinations SubjectCombinations { get; set; }
+        public virtual ICollection<Candidate> Candidates { get; set; }
+        public virtual Major Major { get; set; }
+        public virtual SubjectCombination SubjectCombination { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options { get; set; }
+        public virtual ICollection<Option> Options { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options1 { get; set; }
+        public virtual ICollection<Option> Options1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options2 { get; set; }
+        public virtual ICollection<Option> Options2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options3 { get; set; }
+        public virtual ICollection<Option> Options3 { get; set; }
     }
 }

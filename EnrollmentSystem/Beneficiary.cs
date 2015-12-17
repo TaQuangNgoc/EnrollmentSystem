@@ -12,14 +12,19 @@ namespace EnrollmentSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Marks
+    public partial class Beneficiary
     {
-        public int ID { get; set; }
-        public int CandidateID { get; set; }
-        public int SubjectID { get; set; }
-        public decimal Score { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Beneficiary()
+        {
+            this.Candidates = new HashSet<Candidate>();
+        }
     
-        public virtual Candidates Candidates { get; set; }
-        public virtual Subjects Subjects { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public decimal Bonus { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Candidate> Candidates { get; set; }
     }
 }
