@@ -19,6 +19,8 @@ namespace EnrollmentSystem
         ReportForm v_f130_bao_cao;
         CandidateForm v_f140_ho_so_thong_tin;
         PreferencesForm v_f100_chi_tiet_nguyen_vong;
+        AdmissionList admissionListForm;
+        NonAdmissionList nonAdmissionListForm;
 
         private void m_cmd_thong_tin_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -52,8 +54,6 @@ namespace EnrollmentSystem
 
         private void m_btn_report_ItemClick(object sender, ItemClickEventArgs e)
         {
-
-
             if (v_f130_bao_cao == null || !IsFormOpen(v_f130_bao_cao))
             {
                 v_f130_bao_cao = new ReportForm();
@@ -72,7 +72,38 @@ namespace EnrollmentSystem
                 if (form.Name == checkForm.Name)
                     return true;
             return false;
+        }      
+
+        private void buttonAdmissionList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (admissionListForm == null || !IsFormOpen(admissionListForm))
+            {
+                admissionListForm = new AdmissionList();
+                admissionListForm.MdiParent = this;
+                admissionListForm.Show();
+            }
+            else
+            {
+                admissionListForm.Focus();
+            }
         }
+
+        private void buttonNonAdmissionList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (nonAdmissionListForm == null || !IsFormOpen(nonAdmissionListForm))
+            {
+                nonAdmissionListForm = new NonAdmissionList();
+                nonAdmissionListForm.MdiParent = this;
+                nonAdmissionListForm.Show();
+            }
+            else
+            {
+                nonAdmissionListForm.Focus();
+            }
+
+        }
+
+       
 
         private void backUpButton_ItemClick(object sender, ItemClickEventArgs e)
         {

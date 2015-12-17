@@ -22,8 +22,7 @@ namespace EnrollmentSystem
             using (var context = new EnrollmentSystemEntities())
             {            
                 BindingSource dataReport = new BindingSource();
-                dataReport.DataSource = context.ReportViews;
-                pivotGridControl.DataSource = dataReport;
+                dataReport.DataSource = context.ReportViews.ToList();
             }
         }
 
