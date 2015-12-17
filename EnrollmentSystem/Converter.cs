@@ -108,6 +108,7 @@ namespace EnrollmentSystem
             using (var entities = new EnrollmentSystemEntities())
             {
                 var subjectNames = from subject in entities.Subjects
+                                   orderby subject.ID
                                    select subject.SubjectName;
 
                 bool dataIsvalid = NamesAreValid(subjectNames, validSubjectNames);
