@@ -259,7 +259,6 @@
     <Compile Include="Beneficiary.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BUS.cs" />
     <Compile Include="Candidate.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -269,10 +268,7 @@
     <Compile Include="CandidateForm.designer.cs">
       <DependentUpon>CandidateForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class_dung_chung.cs" />
     <Compile Include="Converter.cs" />
-    <Compile Include="DAO.cs" />
-    <Compile Include="DBConnection.cs" />
     <Compile Include="EnrollmentModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -306,7 +302,7 @@
     <Compile Include="Mark.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="NhomNganh.cs" />
+    <Compile Include="Algorithm\NhomNganh.cs" />
     <Compile Include="Option.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -348,9 +344,8 @@
     <Compile Include="SubjectCombination.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ThiSinh.cs" />
-    <Compile Include="ThongTinTS.cs" />
-    <Compile Include="XetTuyen.cs" />
+    <Compile Include="Algorithm\ThiSinh.cs" />
+    <Compile Include="Algorithm\XetTuyen.cs" />
     <EmbeddedResource Include="BackUpForm.resx">
       <DependentUpon>BackUpForm.cs</DependentUpon>
     </EmbeddedResource>

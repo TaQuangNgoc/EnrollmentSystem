@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnrollmentSystem
+namespace EnrollmentSystem.Algorithm
 {
-    class XetTuyen
+   public class Admission
     {
-        public static DataTable XT(ThiSinh[] dsTS, NhomNganh[] dsNNganh)
+        //public void 
+
+        private DataTable XT(ThiSinh[] dsTS, NhomNganh[] dsNNganh)
         {
             Queue<ThiSinh> hdxt = new Queue<ThiSinh>(dsTS);                     // hang doi xet tuyen
 
@@ -68,7 +70,6 @@ namespace EnrollmentSystem
             foreach (ThiSinh ts1 in dsTS)
             {
                 DataRow temp = output2.NewRow();
-                temp[0] = ts1.SBD;
                 temp[1] = ts1.GetDiemDX();
                 temp[2] = ts1.GetNVDX().MaNN;
                 output2.Rows.Add(temp);

@@ -121,11 +121,9 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
           <Property Name="RegionID" Type="int" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
           <Property Name="BeneficiaryID" Type="int" />
           <Property Name="BeneficiaryName" Type="nvarchar" MaxLength="50" />
-          <Property Name="MajorID" Type="int" />
-          <Property Name="MajorName" Type="nvarchar" MaxLength="50" />
-          <Property Name="SubjectCombinationID" Type="int" />
           <Property Name="SubjectCombinationName" Type="nvarchar" MaxLength="50" />
           <Property Name="SubjectID1" Type="int" />
           <Property Name="SubjectName1" Type="nvarchar" MaxLength="50" />
@@ -134,6 +132,11 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="SubjectID3" Type="int" />
           <Property Name="SubjectName3" Type="nvarchar" MaxLength="50" />
           <Property Name="HasPrivilege" Type="bit" Nullable="false" />
+          <Property Name="MajorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Limit" Type="int" />
+          <Property Name="CutOff" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="AdmittingMajorSubjectCombinationID" Type="int" />
+          <Property Name="AdmissionMark" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Role="Beneficiaries" Type="Self.Beneficiaries" Multiplicity="0..1" />
@@ -397,11 +400,9 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
     [ReportView].[Name] AS [Name], 
     [ReportView].[DateOfBirth] AS [DateOfBirth], 
     [ReportView].[RegionID] AS [RegionID], 
+    [ReportView].[RegionName] AS [RegionName], 
     [ReportView].[BeneficiaryID] AS [BeneficiaryID], 
     [ReportView].[BeneficiaryName] AS [BeneficiaryName], 
-    [ReportView].[MajorID] AS [MajorID], 
-    [ReportView].[MajorName] AS [MajorName], 
-    [ReportView].[SubjectCombinationID] AS [SubjectCombinationID], 
     [ReportView].[SubjectCombinationName] AS [SubjectCombinationName], 
     [ReportView].[SubjectID1] AS [SubjectID1], 
     [ReportView].[SubjectName1] AS [SubjectName1], 
@@ -409,7 +410,12 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
     [ReportView].[SubjectName2] AS [SubjectName2], 
     [ReportView].[SubjectID3] AS [SubjectID3], 
     [ReportView].[SubjectName3] AS [SubjectName3], 
-    [ReportView].[HasPrivilege] AS [HasPrivilege]
+    [ReportView].[HasPrivilege] AS [HasPrivilege], 
+    [ReportView].[MajorName] AS [MajorName], 
+    [ReportView].[Limit] AS [Limit], 
+    [ReportView].[CutOff] AS [CutOff], 
+    [ReportView].[AdmittingMajorSubjectCombinationID] AS [AdmittingMajorSubjectCombinationID], 
+    [ReportView].[AdmissionMark] AS [AdmissionMark]
     FROM [dbo].[ReportView] AS [ReportView]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Candidates_Beneficiaries" Association="Self.FK_Candidates_Beneficiaries">
@@ -760,9 +766,7 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="RegionID" Type="Int32" />
           <Property Name="BeneficiaryID" Type="Int32" />
           <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MajorID" Type="Int32" />
           <Property Name="MajorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SubjectCombinationID" Type="Int32" />
           <Property Name="SubjectCombinationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SubjectID1" Type="Int32" />
           <Property Name="SubjectName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -771,6 +775,11 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <Property Name="SubjectID3" Type="Int32" />
           <Property Name="SubjectName3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HasPrivilege" Type="Boolean" Nullable="false" />
+          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Limit" Type="Int32" />
+          <Property Name="CutOff" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AdmittingMajorSubjectCombinationID" Type="Int32" />
+          <Property Name="AdmissionMark" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_Candidates_Beneficiaries">
           <End Type="EnrollmentSystemModel.Beneficiary" Role="Beneficiary" Multiplicity="0..1" />
@@ -1094,6 +1103,11 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
           <EntitySetMapping Name="ReportViews">
             <EntityTypeMapping TypeName="EnrollmentSystemModel.ReportView">
               <MappingFragment StoreEntitySet="ReportView">
+                <ScalarProperty Name="AdmissionMark" ColumnName="AdmissionMark" />
+                <ScalarProperty Name="AdmittingMajorSubjectCombinationID" ColumnName="AdmittingMajorSubjectCombinationID" />
+                <ScalarProperty Name="CutOff" ColumnName="CutOff" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
                 <ScalarProperty Name="HasPrivilege" ColumnName="HasPrivilege" />
                 <ScalarProperty Name="SubjectName3" ColumnName="SubjectName3" />
                 <ScalarProperty Name="SubjectID3" ColumnName="SubjectID3" />
@@ -1102,9 +1116,7 @@ warning 6002: The table/view 'EnrollmentSystem.dbo.ReportView' does not have a p
                 <ScalarProperty Name="SubjectName1" ColumnName="SubjectName1" />
                 <ScalarProperty Name="SubjectID1" ColumnName="SubjectID1" />
                 <ScalarProperty Name="SubjectCombinationName" ColumnName="SubjectCombinationName" />
-                <ScalarProperty Name="SubjectCombinationID" ColumnName="SubjectCombinationID" />
                 <ScalarProperty Name="MajorName" ColumnName="MajorName" />
-                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
                 <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
                 <ScalarProperty Name="BeneficiaryID" ColumnName="BeneficiaryID" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />

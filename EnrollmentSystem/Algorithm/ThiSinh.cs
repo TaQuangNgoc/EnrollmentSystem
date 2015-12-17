@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EnrollmentSystem
+namespace EnrollmentSystem.Algorithm
 {
     class ThiSinh : IComparable
     {
@@ -12,22 +9,10 @@ namespace EnrollmentSystem
         private NhomNganh[] nguyenVong;
 
         private readonly float[] diem;
-        private readonly ThongTinTS ttts;
-
-        public string SBD { get; set; }         // to be removed
-
-        public ThongTinTS TTTS
-        {
-            get
-            {
-                return ttts;
-            }
-        }
 
         // ham khoi tao
-        public ThiSinh(string sbd, NhomNganh[] nguyenVong, float[] diem)
+        public ThiSinh(NhomNganh[] nguyenVong, float[] diem)
         {
-            this.SBD = sbd;
             this.nguyenVong = nguyenVong;
             this.diem = diem;
 

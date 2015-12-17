@@ -48,11 +48,6 @@ namespace EnrollmentSystem
 
         internal void display_for_chi_tiet(string v_str_sbd, string v_ho_ten)
         {
-            m_txt_ho_ten.Text = v_ho_ten;
-            m_txt_sbd.Text = v_str_sbd;
-           m_ds_nganh= Class_dung_chung.excute_sql("select * from NGANH");
-           m_ds_to_hop = Class_dung_chung.excute_sql("select * from NGANH_TO_HOP");
-            this.ShowDialog();
 
         }
 

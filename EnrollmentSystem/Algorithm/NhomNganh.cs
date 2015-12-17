@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnrollmentSystem
+namespace EnrollmentSystem.Algorithm
 {
     class NhomNganh
     {

@@ -21,9 +21,7 @@ namespace EnrollmentSystem
         public Nullable<int> RegionID { get; set; }
         public Nullable<int> BeneficiaryID { get; set; }
         public string BeneficiaryName { get; set; }
-        public Nullable<int> MajorID { get; set; }
         public string MajorName { get; set; }
-        public Nullable<int> SubjectCombinationID { get; set; }
         public string SubjectCombinationName { get; set; }
         public Nullable<int> SubjectID1 { get; set; }
         public string SubjectName1 { get; set; }
@@ -32,5 +30,10 @@ namespace EnrollmentSystem
         public Nullable<int> SubjectID3 { get; set; }
         public string SubjectName3 { get; set; }
         public bool HasPrivilege { get; set; }
+        public string RegionName { get; set; }
+        public Nullable<int> Limit { get; set; }
+        public Nullable<decimal> CutOff { get; set; }
+        public Nullable<int> AdmittingMajorSubjectCombinationID { get; set; }
+        public Nullable<decimal> AdmissionMark { get; set; }
     }
 }
