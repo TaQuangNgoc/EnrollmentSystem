@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EnrollmentSystem
 {
@@ -46,7 +47,6 @@ namespace EnrollmentSystem
                     data.Rows.Add(row);
                 }
             }
-
             return data;
         }
 
@@ -64,9 +64,10 @@ namespace EnrollmentSystem
                 var candidateID = (string)dataRow[0];
                 var name = (string)dataRow[1];
                 var dateOfBirthString = (string)dataRow[2];
-                var region = (string)dataRow[3];
-                var beneficiary = (string)dataRow[4];
+                var regionName = (string)dataRow[3];
+                var beneficiaryName = (string)dataRow[4];
                 var priviledge = (string)dataRow[5];
+
                 var mathString = (string)dataRow[6];
                 var literatureString = (string)dataRow[7];
                 var physicsString = (string)dataRow[8];
@@ -74,23 +75,48 @@ namespace EnrollmentSystem
                 var biologyString = (string)dataRow[10];
                 var historyString = (string)dataRow[11];
                 var geographyString = (string)dataRow[12];
-                var englishString = (string)dataRow[13];
-                /*
-                var geographyString = (string)dataRow[12];
-                var geographyString = (string)dataRow[12];
-                var geographyString = (string)dataRow[12];
-                var geographyString = (string)dataRow[12];
-                var geographyString = (string)dataRow[12];
-                */
 
-                try
+                var englishString = (string)dataRow[13];
+                var russianString = (string)dataRow[14];
+                var frenchString = (string)dataRow[15];
+                var chineseString = (string)dataRow[16];
+                var germanString = (string)dataRow[17];
+                var japaneseString = (string)dataRow[18];
+
+                DateTime dateOfBirth = ValidateAndParseDate(dateOfBirthString);
+
+                bool hasPriviledge = priviledge != "";
+
+                decimal math = ValidateAndParseMark(mathString),
+                        literature = ValidateAndParseMark(literatureString),
+                        physics = ValidateAndParseMark(physicsString),
+                        chemistry = ValidateAndParseMark(chemistryString),
+                        biology = ValidateAndParseMark(biologyString),
+                        history = ValidateAndParseMark(historyString),
+                        geography = ValidateAndParseMark(geographyString),
+                        english = ValidateAndParseMark(englishString),
+                        russian = ValidateAndParseMark(russianString),
+                        french = ValidateAndParseMark(frenchString),
+                        chinese = ValidateAndParseMark(chineseString),
+                        german = ValidateAndParseMark(germanString),
+                        japanese = ValidateAndParseMark(japaneseString);
+
+                var regionID = RegionIDFromName(regionName);
+                var beneficiaryID = RegionIDFromName(beneficiaryName);
+
+                var password = HashcodeFromString(candidateID + "randomSalt");
+
+                var candidate = new Candidate()
                 {
-                }
-                catch (FormatException)
-                {
-                    throw new FormatException("Date fields are not of correct format.");
-                }
-                }
+                    CandidateID = candidateID,
+                    Name = name,
+                    DateOfBirth = dateOfBirth,
+                    RegionID = regionID,
+                    BeneficiaryID = beneficiaryID,
+                    HasPrivilege = hasPriviledge,
+                    Pasword = password
+                };
+            }
         }
 
         private bool DataIsValid(DataTable data, string[] validColumnNames)
@@ -104,6 +130,74 @@ namespace EnrollmentSystem
                     return false;
 
             return true;
+        }
+
+        private DateTime ValidateAndParseDate(string dateString)
+        {
+            try
+            {
+                return DateTime.Parse(dateString);
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("Date fields are not of correct format.");
+            }
+        }
+
+        private decimal ValidateAndParseMark(string markString)
+        {
+            try
+            {
+                return decimal.Parse(markString);
+            }
+            catch (FormatException)
+            {
+                throw new FormatException("Mark fields are not of correct format.");
+            }
+        }
+
+        private int RegionIDFromName(string regionName)
+        {
+            using (var entities = new Entities())
+            {
+                var regionIDQuery = from region in entities.Regions
+                                    where region.RegionName == regionName
+                                    select region.ID;
+                var regionID = ValidateAndGetQueryID(regionIDQuery);
+                return regionID;
+            }
+        }
+
+        private int BeneficiaryIDFromName(string beneficiaryName)
+        {
+            using (var entities = new Entities())
+            {
+                var beneficiaryIDQuery = from beneficiary in entities.Beneficiaries
+                                         where beneficiary.Name == beneficiaryName
+                                         select beneficiary.ID;
+                var beneficiaryID = ValidateAndGetQueryID(beneficiaryIDQuery);
+                return beneficiaryID;
+            }
+        }
+
+        private int ValidateAndGetQueryID(IEnumerable<int> query)
+        {
+            Debug.Assert(query.Count() == 1);
+            try
+            {
+                return query.First();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new FormatException("Beneficiary name is not of correct format.");
+            }
+        }
+
+        private byte[] HashcodeFromString(string input)
+        {
+            var hasher = SHA256.Create();
+            var byteArray = Encoding.Unicode.GetBytes(input);
+            return hasher.ComputeHash(byteArray);
         }
 
         private void ImportOptionsData(DataTable optionsData)
