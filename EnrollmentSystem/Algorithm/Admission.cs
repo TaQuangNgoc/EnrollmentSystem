@@ -37,7 +37,7 @@ namespace EnrollmentSystem.Algorithm
 
                     candidateList.Add(new EnrollingCandidate(candidate, options, scores));
                 }
-                this.candidates = candidates.ToArray();
+                this.candidates = candidateList.ToArray();
 
                 RunAlgorithm();
                 SaveResults();
