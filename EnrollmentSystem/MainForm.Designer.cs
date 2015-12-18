@@ -38,6 +38,8 @@
             this.buttonAdmissionList = new DevExpress.XtraBars.BarButtonItem();
             this.buttonNonAdmissionList = new DevExpress.XtraBars.BarButtonItem();
             this.calculateButton = new DevExpress.XtraBars.BarButtonItem();
+            this.btnAdmissionList = new DevExpress.XtraBars.BarButtonItem();
+            this.btnNonAdmissionList = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -61,9 +63,11 @@
             this.backUpButton,
             this.buttonAdmissionList,
             this.buttonNonAdmissionList,
-            this.calculateButton});
+            this.calculateButton,
+            this.btnAdmissionList,
+            this.btnNonAdmissionList});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 11;
+            this.ribbon.MaxItemId = 13;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
@@ -94,7 +98,7 @@
             // 
             // m_btn_report
             // 
-            this.m_btn_report.Caption = "KẾT QUẢ";
+            this.m_btn_report.Caption = "KẾT QUẢ CÁC NGÀNH";
             this.m_btn_report.Glyph = ((System.Drawing.Image)(resources.GetObject("m_btn_report.Glyph")));
             this.m_btn_report.Id = 3;
             this.m_btn_report.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("m_btn_report.LargeGlyph")));
@@ -110,6 +114,7 @@
             this.backUpButton.Id = 4;
             this.backUpButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.LargeGlyph")));
             this.backUpButton.Name = "backUpButton";
+            this.backUpButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.backUpButton_ItemClick);
             // 
             // buttonAdmissionList
             // 
@@ -130,6 +135,24 @@
             this.calculateButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("calculateButton.LargeGlyph")));
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.calculateButton_ItemClick);
+            // 
+            // btnAdmissionList
+            // 
+            this.btnAdmissionList.Caption = "DANH SÁCH TRÚNG TUYỂN";
+            this.btnAdmissionList.Glyph = ((System.Drawing.Image)(resources.GetObject("btnAdmissionList.Glyph")));
+            this.btnAdmissionList.Id = 11;
+            this.btnAdmissionList.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnAdmissionList.LargeGlyph")));
+            this.btnAdmissionList.Name = "btnAdmissionList";
+            this.btnAdmissionList.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnAdmissionList_ItemClick);
+            // 
+            // btnNonAdmissionList
+            // 
+            this.btnNonAdmissionList.Caption = "DANH SÁCH KHÔNG TRÚNG TUYỂN";
+            this.btnNonAdmissionList.Glyph = ((System.Drawing.Image)(resources.GetObject("btnNonAdmissionList.Glyph")));
+            this.btnNonAdmissionList.Id = 12;
+            this.btnNonAdmissionList.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnNonAdmissionList.LargeGlyph")));
+            this.btnNonAdmissionList.Name = "btnNonAdmissionList";
+            this.btnNonAdmissionList.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNonAdmissionList_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -154,8 +177,8 @@
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.m_btn_report);
-            this.ribbonPageGroup2.ItemLinks.Add(this.buttonAdmissionList);
-            this.ribbonPageGroup2.ItemLinks.Add(this.buttonNonAdmissionList);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnAdmissionList);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnNonAdmissionList);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             // 
             // administrativeTab
@@ -220,5 +243,7 @@
         private DevExpress.XtraBars.BarButtonItem buttonAdmissionList;
         private DevExpress.XtraBars.BarButtonItem buttonNonAdmissionList;
         private DevExpress.XtraBars.BarButtonItem calculateButton;
+        private DevExpress.XtraBars.BarButtonItem btnAdmissionList;
+        private DevExpress.XtraBars.BarButtonItem btnNonAdmissionList;
     }
 }

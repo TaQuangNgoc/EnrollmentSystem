@@ -15,7 +15,7 @@ namespace EnrollmentSystem.Algorithm
 
         public void StartAdmission()
         {
-            using (var entities = new EnrollmentSystemEntities())
+            using (var entities = new Entities())
             {
                 entities.Configuration.AutoDetectChangesEnabled = false;
 
@@ -37,7 +37,7 @@ namespace EnrollmentSystem.Algorithm
 
                     candidateList.Add(new EnrollingCandidate(candidate, options, scores));
                 }
-                this.candidates = candidates.ToArray();
+                this.candidates = candidateList.ToArray();
 
                 RunAlgorithm();
                 SaveResults();

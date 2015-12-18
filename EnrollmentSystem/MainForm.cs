@@ -109,8 +109,8 @@ namespace EnrollmentSystem
 
         private void backUpButton_ItemClick(object sender, ItemClickEventArgs e)
         {
- //           var backUpForm = new BackUpForm();
-   //         backUpForm.ShowDialog();
+          var backUpForm = new BackUpForm();
+            backUpForm.ShowDialog();
         }
 
         private void calculateButton_ItemClick(object sender, ItemClickEventArgs e)
@@ -118,5 +118,39 @@ namespace EnrollmentSystem
             var admission = new Admission();
             admission.StartAdmission();
         }
+
+        private void btnAdmissionList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (admissionListForm == null || !IsFormOpen(admissionListForm))
+            {
+                admissionListForm = new AdmissionList();
+                admissionListForm.MdiParent = this;
+                admissionListForm.Show();
+            }
+            else
+            {
+                admissionListForm.Focus();
+            }
+        }
+
+        private void btnNonAdmissionList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (nonAdmissionListForm == null || !IsFormOpen(nonAdmissionListForm))
+            {
+                nonAdmissionListForm = new NonAdmissionList();
+                nonAdmissionListForm.MdiParent = this;
+                nonAdmissionListForm.Show();
+            }
+            else
+            {
+                nonAdmissionListForm.Focus();
+            }
+
+        }
+
+      
+       
+
+        
     }
 }
