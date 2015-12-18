@@ -37,6 +37,7 @@ namespace EnrollmentSystem.Algorithm
 
                     candidateList.Add(new EnrollingCandidate(candidate, options, scores));
                 }
+                this.candidates = candidates.ToArray();
 
                 RunAlgorithm();
                 SaveResults();
@@ -57,14 +58,14 @@ namespace EnrollmentSystem.Algorithm
                 throw new ArgumentException("Candidate has no option.");
             }
 
-            var majors = new[] { option.MajorSubjectCombination.Major,
-                                 option.MajorSubjectCombination1.Major,
-                                 option.MajorSubjectCombination2.Major,
-                                 option.MajorSubjectCombination3.Major };
+            var combinations = new[] { option.MajorSubjectCombination,
+                                       option.MajorSubjectCombination1,
+                                       option.MajorSubjectCombination2,
+                                       option.MajorSubjectCombination3 };
 
-            foreach (var major in majors)
-                if (major != null)
-                    yield return major;
+            foreach (var combination in combinations)
+                if (combination != null)
+                    yield return combination.Major;
                 else
                     yield break;
         }
@@ -81,10 +82,10 @@ namespace EnrollmentSystem.Algorithm
                 throw new ArgumentException("Candidate has no option.");
             }
 
-            var combinations = new[] { option.MajorSubjectCombination.SubjectCombination,
-                                       option.MajorSubjectCombination1.SubjectCombination,
-                                       option.MajorSubjectCombination2.SubjectCombination,
-                                       option.MajorSubjectCombination3.SubjectCombination };
+            var combinations = new[] { option.MajorSubjectCombination,
+                                       option.MajorSubjectCombination1,
+                                       option.MajorSubjectCombination2,
+                                       option.MajorSubjectCombination3 };
 
             decimal bonus = 0;
             if (candidate.HasPrivilege)
@@ -94,7 +95,7 @@ namespace EnrollmentSystem.Algorithm
 
             foreach (var combination in combinations)
                 if (combination != null)
-                    yield return ScoreFromCombination(candidate, combination) + bonus;
+                    yield return ScoreFromCombination(candidate, combination.SubjectCombination) + bonus;
                 else
                     yield break;
         }
@@ -125,7 +126,7 @@ namespace EnrollmentSystem.Algorithm
         private void RunAlgorithm()
         {
             var queue = new Queue<EnrollingCandidate>(candidates);
-            
+
             while (queue.Count > 0)
             {
                 var candidate = queue.Dequeue();
@@ -143,7 +144,7 @@ namespace EnrollmentSystem.Algorithm
                 }
                 else
                     if (candidate.HasUnusedOptions)
-                        queue.Enqueue(candidate);
+                    queue.Enqueue(candidate);
             }
         }
 
