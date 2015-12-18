@@ -19,7 +19,7 @@ namespace EnrollmentSystem
 
         private void loadDataToGrid()
         {
-            using (var context = new EnrollmentSystemEntities())
+            using (var context = new Entities())
             {
                var res = from data in  context.ReportViews
                          where data.AdmittingMajorSubjectCombinationID != null

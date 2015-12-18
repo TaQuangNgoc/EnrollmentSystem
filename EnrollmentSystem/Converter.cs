@@ -20,7 +20,7 @@ namespace EnrollmentSystem
 
         public void ImportCSV(string candidatesFilePath, string optionsFilePath)
         {
-            using (var entities = new EnrollmentSystemEntities())
+            using (var entities = new Entities())
             {
                 entities.Database.ExecuteSqlCommand("TruncateEverything");
             }
@@ -77,7 +77,7 @@ namespace EnrollmentSystem
             ValidateSubjectNames(validSubjectNames);
 
 
-            var entities = new EnrollmentSystemEntities();
+            var entities = new Entities();
             entities.Configuration.AutoDetectChangesEnabled = false;
 
             int id = 0;
@@ -102,7 +102,7 @@ namespace EnrollmentSystem
                 {
                     entities.SaveChanges();
                     entities.Dispose();
-                    entities = new EnrollmentSystemEntities();
+                    entities = new Entities();
                     entities.Configuration.AutoDetectChangesEnabled = false;
                 }
             }
@@ -134,7 +134,7 @@ namespace EnrollmentSystem
 
         private void ValidateSubjectNames(string[] validSubjectNames)
         {
-            using (var entities = new EnrollmentSystemEntities())
+            using (var entities = new Entities())
             {
                 var subjectNames = from subject in entities.Subjects
                                    orderby subject.ID
@@ -190,7 +190,7 @@ namespace EnrollmentSystem
 
         private int RegionIDFromName(string regionName)
         {
-            using (var entities = new EnrollmentSystemEntities())
+            using (var entities = new Entities())
             {
                 var regionIDQuery = from region in entities.Regions
                                     where region.Name == regionName
@@ -202,7 +202,7 @@ namespace EnrollmentSystem
 
         private int BeneficiaryIDFromName(string beneficiaryName)
         {
-            using (var entities = new EnrollmentSystemEntities())
+            using (var entities = new Entities())
             {
                 var beneficiaryIDQuery = from beneficiary in entities.Beneficiaries
                                          where beneficiary.Name == beneficiaryName
@@ -266,7 +266,7 @@ namespace EnrollmentSystem
             ValidateColumnNames(columnNames, validColumnNames);
 
 
-            var entities = new EnrollmentSystemEntities();
+            var entities = new Entities();
             entities.Configuration.AutoDetectChangesEnabled = false;
 
             int id = 0;
@@ -280,7 +280,7 @@ namespace EnrollmentSystem
                 {
                     entities.SaveChanges();
                     entities.Dispose();
-                    entities = new EnrollmentSystemEntities();
+                    entities = new Entities();
                     entities.Configuration.AutoDetectChangesEnabled = false;
                 }
             }
@@ -331,7 +331,7 @@ namespace EnrollmentSystem
 
         private int GetCandidateID(string theOtherKindOfID)
         {
-            using (var entities = new EnrollmentSystemEntities())
+            using (var entities = new Entities())
             {
                 var query = from candidate in entities.Candidates
                             where candidate.CandidateID == theOtherKindOfID
@@ -346,7 +346,7 @@ namespace EnrollmentSystem
             if (majorName == "NA")
                 return null;
 
-            using (var entities = new EnrollmentSystemEntities())
+            using (var entities = new Entities())
             {
                 var query = from majorSubjectCombination in entities.MajorSubjectCombinations
                             where majorSubjectCombination.Major.Name == majorName

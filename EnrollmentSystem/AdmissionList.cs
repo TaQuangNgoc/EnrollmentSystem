@@ -19,7 +19,7 @@ namespace EnrollmentSystem
 
         private void AdmissionList_Load(object sender, EventArgs e)
         {
-            using (var context  = new EnrollmentSystemEntities())
+            using (var context  = new Entities())
             {
                 var res = from candidate in context.Candidates
                           join majorsubjectconbination in context.MajorSujectCombinationsViews

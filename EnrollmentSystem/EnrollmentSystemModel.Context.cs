@@ -15,10 +15,10 @@ namespace EnrollmentSystem
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class EnrollmentSystemEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public EnrollmentSystemEntities()
-            : base("name=EnrollmentSystemEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
