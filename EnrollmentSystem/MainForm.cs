@@ -2,6 +2,7 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraTab;
 using DevExpress.XtraBars.Ribbon;
+using EnrollmentSystem.Algorithm;
 
 namespace EnrollmentSystem
 {
@@ -110,6 +111,12 @@ namespace EnrollmentSystem
         {
  //           var backUpForm = new BackUpForm();
    //         backUpForm.ShowDialog();
+        }
+
+        private void calculateButton_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var admission = new Admission();
+            admission.StartAdmission();
         }
     }
 }

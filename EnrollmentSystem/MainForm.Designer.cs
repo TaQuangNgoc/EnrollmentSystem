@@ -34,12 +34,18 @@
             this.m_cmd_thong_tin = new DevExpress.XtraBars.BarButtonItem();
             this.m_cmd_nguyen_vong = new DevExpress.XtraBars.BarButtonItem();
             this.m_btn_report = new DevExpress.XtraBars.BarButtonItem();
+            this.backUpButton = new DevExpress.XtraBars.BarButtonItem();
+            this.buttonAdmissionList = new DevExpress.XtraBars.BarButtonItem();
+            this.buttonNonAdmissionList = new DevExpress.XtraBars.BarButtonItem();
+            this.calculateButton = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.backUpRestoreTab = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.backUpGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.administrativeTab = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.administrativeGroup = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
+            this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
             this.SuspendLayout();
@@ -54,14 +60,15 @@
             this.m_btn_report,
             this.backUpButton,
             this.buttonAdmissionList,
-            this.buttonNonAdmissionList});
+            this.buttonNonAdmissionList,
+            this.calculateButton});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 7;
+            this.ribbon.MaxItemId = 11;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
             this.ribbonPage2,
-            this.backUpRestoreTab});
+            this.administrativeTab});
             this.ribbon.Size = new System.Drawing.Size(993, 144);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
@@ -87,13 +94,42 @@
             // 
             // m_btn_report
             // 
-            this.m_btn_report.Caption = "Kết quả xét tuyển";
+            this.m_btn_report.Caption = "KẾT QUẢ";
             this.m_btn_report.Glyph = ((System.Drawing.Image)(resources.GetObject("m_btn_report.Glyph")));
             this.m_btn_report.Id = 3;
             this.m_btn_report.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("m_btn_report.LargeGlyph")));
             this.m_btn_report.LargeWidth = 100;
             this.m_btn_report.Name = "m_btn_report";
             this.m_btn_report.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.m_btn_report_ItemClick);
+            // 
+            // backUpButton
+            // 
+            this.backUpButton.Caption = "SAO LƯU";
+            this.backUpButton.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.backUpButton.Glyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.Glyph")));
+            this.backUpButton.Id = 4;
+            this.backUpButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.LargeGlyph")));
+            this.backUpButton.Name = "backUpButton";
+            // 
+            // buttonAdmissionList
+            // 
+            this.buttonAdmissionList.Id = 7;
+            this.buttonAdmissionList.Name = "buttonAdmissionList";
+            // 
+            // buttonNonAdmissionList
+            // 
+            this.buttonNonAdmissionList.Id = 8;
+            this.buttonNonAdmissionList.Name = "buttonNonAdmissionList";
+            // 
+            // calculateButton
+            // 
+            this.calculateButton.Caption = "CHẠY KẾT QUẢ";
+            this.calculateButton.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.calculateButton.Glyph = ((System.Drawing.Image)(resources.GetObject("calculateButton.Glyph")));
+            this.calculateButton.Id = 10;
+            this.calculateButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("calculateButton.LargeGlyph")));
+            this.calculateButton.Name = "calculateButton";
+            this.calculateButton.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.calculateButton_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -122,37 +158,18 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.buttonNonAdmissionList);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             // 
-            // ribbonStatusBar
+            // administrativeTab
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 418);
-            this.ribbonStatusBar.Name = "ribbonStatusBar";
-            this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(993, 31);
+            this.administrativeTab.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.administrativeGroup});
+            this.administrativeTab.Name = "administrativeTab";
+            this.administrativeTab.Text = "QUẢN TRỊ";
             // 
-            // xtraTabbedMdiManager1
+            // administrativeGroup
             // 
-            this.xtraTabbedMdiManager1.MdiParent = this;
-            // 
-            // backUpRestoreTab
-            // 
-            this.backUpRestoreTab.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.backUpGroup});
-            this.backUpRestoreTab.Name = "backUpRestoreTab";
-            this.backUpRestoreTab.Text = "SAO LƯU";
-            // 
-            // backUpButton
-            // 
-            this.backUpButton.Caption = "SAO LƯU";
-            this.backUpButton.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.backUpButton.Glyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.Glyph")));
-            this.backUpButton.Id = 4;
-            this.backUpButton.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("backUpButton.LargeGlyph")));
-            this.backUpButton.Name = "backUpButton";
-            // 
-            // backUpGroup
-            // 
-            this.backUpGroup.ItemLinks.Add(this.backUpButton);
-            this.backUpGroup.Name = "backUpGroup";
+            this.administrativeGroup.ItemLinks.Add(this.backUpButton);
+            this.administrativeGroup.ItemLinks.Add(this.calculateButton);
+            this.administrativeGroup.Name = "administrativeGroup";
             // 
             // ribbonStatusBar
             // 
@@ -198,9 +215,10 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem backUpButton;
-        private DevExpress.XtraBars.Ribbon.RibbonPage backUpRestoreTab;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup backUpGroup;
+        private DevExpress.XtraBars.Ribbon.RibbonPage administrativeTab;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup administrativeGroup;
         private DevExpress.XtraBars.BarButtonItem buttonAdmissionList;
         private DevExpress.XtraBars.BarButtonItem buttonNonAdmissionList;
+        private DevExpress.XtraBars.BarButtonItem calculateButton;
     }
 }

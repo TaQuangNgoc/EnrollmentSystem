@@ -235,6 +235,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Runtime.Serialization" />
@@ -253,7 +254,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AdmissionList.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>AdmissionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackUpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackUpForm.designer.cs">
+      <DependentUpon>BackUpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Beneficiary.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
@@ -301,6 +310,7 @@
     <Compile Include="Mark.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Algorithm\EnrollingMajor.cs" />
     <Compile Include="NonAdmissionList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,8 +358,13 @@
     <Compile Include="SubjectCombination.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Algorithm\EnrollingCandidate.cs" />
+    <Compile Include="Algorithm\Admission.cs" />
     <EmbeddedResource Include="AdmissionList.resx">
       <DependentUpon>AdmissionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackUpForm.resx">
+      <DependentUpon>BackUpForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CandidateForm.resx">
       <DependentUpon>CandidateForm.cs</DependentUpon>
