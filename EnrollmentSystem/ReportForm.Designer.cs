@@ -125,7 +125,6 @@
             this.pivotGridControl.Name = "pivotGridControl";
             this.pivotGridControl.Size = new System.Drawing.Size(753, 440);
             this.pivotGridControl.TabIndex = 0;
-            this.pivotGridControl.CellDoubleClick += new DevExpress.XtraPivotGrid.PivotCellEventHandler(this.pivotGridControl1_CellDoubleClick);
             // 
             // pivotGridField2
             // 

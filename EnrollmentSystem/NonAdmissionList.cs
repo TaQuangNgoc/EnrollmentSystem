@@ -22,7 +22,7 @@ namespace EnrollmentSystem
             using (var context = new EnrollmentSystemEntities())
             {
                 var res = from candidate in context.ReportViews
-                          where candidate.AdmittingMajorSubjectCombinationID != null
+                          where candidate.AdmittingMajorSubjectCombinationID == null
                           select candidate;
                 gridControl.DataSource = res.ToList();  
             }
