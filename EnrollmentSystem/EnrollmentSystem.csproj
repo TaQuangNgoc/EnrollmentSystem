@@ -253,7 +253,11 @@
     <Compile Include="AdmissionList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdmissionList.Designer.cs" />
+    <Compile Include="AdmissionList.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AdmissionList.cs</DependentUpon>
+    </Compile>
     <Compile Include="BackUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,11 +310,13 @@
     <Compile Include="Mark.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Algorithm\NhomNganh.cs" />
+    <Compile Include="Algorithm\EnrollingMajor.cs" />
     <Compile Include="NonAdmissionList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NonAdmissionList.Designer.cs" />
+    <Compile Include="NonAdmissionList.Designer.cs">
+      <DependentUpon>NonAdmissionList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Option.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
@@ -352,9 +358,11 @@
     <Compile Include="SubjectCombination.cs">
       <DependentUpon>EnrollmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Algorithm\ThiSinh.cs" />
-    <Compile Include="Algorithm\XetTuyen.cs" />
-    <EmbeddedResource Include="AdmissionList.resx" />
+    <Compile Include="Algorithm\EnrollingCandidate.cs" />
+    <Compile Include="Algorithm\Admission.cs" />
+    <EmbeddedResource Include="AdmissionList.resx">
+      <DependentUpon>AdmissionList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BackUpForm.resx">
       <DependentUpon>BackUpForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -364,7 +372,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NonAdmissionList.resx" />
+    <EmbeddedResource Include="NonAdmissionList.resx">
+      <DependentUpon>NonAdmissionList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PreferencesForm.resx">
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </EmbeddedResource>
